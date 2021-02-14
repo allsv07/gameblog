@@ -18,7 +18,7 @@ class MainController extends Controller
          * Последние новости
          */
         $arrLastNews = $news->getLastNews(5);
-        $arrLastNews['date'] = $this->newDate($this->editDate($arrLastNews['date']));
+        //$arrLastNews['date'] = $this->newDate($this->editDate($arrLastNews['date']));
 
         /**
          * Популятрные новости
