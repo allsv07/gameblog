@@ -1,0 +1,7 @@
+addDefaultCharset utf8
+
+#Включает модуль mod_rewrite
+RewriteEngine on
+
+#RewriteRule <regexp> <path> [flags]
+RewriteRule ^(.*)$ /public/$1 [QSA,L]
