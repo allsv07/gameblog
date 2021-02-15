@@ -62,24 +62,7 @@ abstract class Controller
 
         if ($newDate == date("j m Y")) return 'Сегодня';
         elseif ($newDate == date("j m Y", strtotime('-1 day'))) return 'Вчера';
-        else return $date_exp[0] .''. $month_name .''. $date_exp[2] ;
-    }
-
-    /**
-     * перезаписывает дату в массиве
-     * @param array $array
-     * @return array|bool
-     */
-    protected function newDate($array = [])
-    {
-        if (is_array($array)) {
-            if (!empty($array)) {
-                $newDate = $this->editDate($array['date']);
-                return $array['date'] = $newDate;
-            }
-        }
-
-        return false;
+        else return $date_exp[0] .' '. $month_name .' '. $date_exp[2] ;
     }
 
 

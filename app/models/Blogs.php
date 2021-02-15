@@ -3,11 +3,11 @@
 
 namespace app\models;
 
-
 use system\core\Model;
 
-class News extends Model
+class Blogs extends Model
 {
-    protected $table = 'news';
+    protected $table = 'blogs';
+
 
 }

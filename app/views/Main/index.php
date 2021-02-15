@@ -1,63 +1,27 @@
 <?php
-pr($lastNews);
+//pr($lastBlogs);
 ?>
 <div class="container">
     <div class="row span">
         <span>Главное сегодня</span>
     </div>
     <div class="row news-today">
+        <? foreach ($mainToday as $main): ?>
         <div class="article-today">
             <a href="#">
-                <div class="cat">
-                    <span>Статьи</span>
-                </div>
-                <img src="images/photo/control-6.jpg" class="article-img" alt="control-6">
+<!--                <div class="cat">-->
+<!--                    <span>Статьи</span>-->
+<!--                </div>-->
+                <img src="images/photo/control-6.jpg" class="article-img" alt="<?=$main['title']?>">
                 <div class="article-today__text">
                     <span class="article-today__name">
-                        Напарники Fallout 4 по знаку зодиака
+                        <?=$main['title']?>
                     </span>
                 </div>
             </a>
         </div>
-        <div class="article-today">
-            <a href="#">
-                <div class="cat">
-                    <span>Статьи</span>
-                </div>
-                <img src="images/photo/control-5.jpg" class="article-img" alt="control-5">
-                <div class="article-today__text">
-                    <span class="article-today__name">
-                        15 игр с самыми грустными историями
-                    </span>
-                </div>
-            </a>
-        </div>
-        <div class="article-today">
-            <a href="#">
-                <div class="cat">
-                    <span>Статьи</span>
-                </div>
-                <img src="images/photo/control-7.jpg" class="article-img" alt="control-7">
-                <div class="article-today__text">
-                    <span class="article-today__name">
-                        15 игр с самыми грустными историями
-                    </span>
-                </div>
-            </a>
-        </div>
-        <div class="article-today">
-            <a href="#">
-                <div class="cat">
-                    <span>Статьи</span>
-                </div>
-                <img src="images/photo/cyberpunk_2077-17.jpg" class="article-img" alt="control-">
-                <div class="article-today__text">
-                    <span class="article-today__name">
-                        15 игр с самыми грустными историями
-                    </span>
-                </div>
-            </a>
-        </div>
+        <? endforeach; ?>
+
         <!-- <div class="article-today article-today__5">
             <img src="images/photo/cyberpunk_2077-18.jpg" class="article-img" alt="control-6">
         </div> -->
@@ -121,62 +85,21 @@ pr($lastNews);
     <div class="row blogs-on-games">
         <div class="col-12 blogs-on-games__game">
             <div class="row">
+                <? foreach ($lastBlogs as $blog): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
                     <a href="#">
                         <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
-                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i>12</span></div>
+                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?=$blog['views']?></span></div>
                     </a>
                     <div class="blog-author">
-                        <div class="author"><span>Автор:</span><a href="#">Dotter</a></div>
-                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i>12</span></div>
+                        <div class="author"><span>Автор:</span><a href="#"><?=$blog['author']?></a></div>
+                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i><?=$blog['comments']?></span></div>
                     </div>
                     <div class="blog-desc">
-                        <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
+                        <a href="#"><?=$blog['title']?></a>
                     </div>
                 </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
-                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i>12</span></div>
-                    </a>
-                    <div class="blog-author">
-                        <div class="author"><span>Автор:</span><a href="#">Dotter</a></div>
-                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i>12</span></div>
-                    </div>
-                    <div class="blog-desc">
-                        <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
-                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i>12</span></div>
-                    </a>
-                    <div class="blog-author">
-                        <div class="author"><span>Автор:</span><a href="#">Dotter</a></div>
-                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i>12</span></div>
-                    </div>
-                    <div class="blog-desc">
-                        <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                    </div>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
-                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i>123</span></div>
-                    </a>
-                    <div class="blog-author">
-                        <div class="author"><span>Автор:</span><a href="#">Dotter</a></div>
-                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i>12</span></div>
-                    </div>
-                    <div class="blog-desc">
-                        <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                    </div>
-
-                </div>
+                <? endforeach; ?>
             </div>
         </div>
         <a href="#" class="more-blogs">Больше блогов</a>
@@ -189,53 +112,20 @@ pr($lastNews);
     <div class="row games-articles">
         <div class="col-12 games-articles__game">
             <div class="row">
+                <? foreach ($lastArticles as $article): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
                     <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="">
+                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="<?=$article['title']?>">
                         <div class="article-day">
-                            <div class="day"><span>Вчера</div>
+                            <div class="day"><span><?=$article['date']?></div>
                         </div>
                         <div class="article-desc">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
+                            <a href="#"><?=$article['title']?></a>
                         </div>
                     </a>
                 </div>
+                <? endforeach; ?>
 
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="">
-                        <div class="article-day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="article-desc">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="">
-                        <div class="article-day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="article-desc">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                    </a>
-                </div>
-
-                <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="">
-                        <div class="article-day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="article-desc">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                    </a>
-                </div>
             </div>
         </div>
         <a href="#" class="more-blogs">Больше статей</a>
@@ -313,9 +203,9 @@ pr($lastNews);
         <a href="#" class="more-gallery-item">Показать галерею</a>
     </div>
 
-    <!-- Последние посты -->
+    <!-- Прохождения игр, тактика и советы -->
     <div class="row span_light">
-        <span>Последние посты</span>
+        <span>Прохождения игр, тактика и советы</span>
     </div>
     <div class="row recent-posts">
         <div class="ol-xs-12 col-sm-12 col-md-8 col-lg-8 wrapper">
@@ -332,9 +222,9 @@ pr($lastNews);
                         <div class="resent-post__desc">
                             <p>История в деталях. Элитные формы Rainbow Six Siege</p>
                         </div>
-                        <div class="resent-post__cat">
-                            <span>Новости</span>
-                        </div>
+                        <!--<div class="resent-post__cat">
+                            <span>Лучшее</span>
+                        </div>-->
                     </a>
                 </div>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
@@ -348,9 +238,6 @@ pr($lastNews);
                         </div>
                         <div class="resent-post__desc">
                             <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
-                        <div class="resent-post__cat">
-                            <span>Блог</span>
                         </div>
                     </a>
                 </div>
@@ -366,8 +253,19 @@ pr($lastNews);
                         <div class="resent-post__desc">
                             <p>История в деталях. Элитные формы Rainbow Six Siege</p>
                         </div>
-                        <div class="resent-post__cat">
-                            <span>Лучшее</span>
+                    </a>
+                </div>
+                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
+                    <a href="#">
+                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
+                        <div class="resent-post__day">
+                            <div class="day"><span>Вчера</div>
+                        </div>
+                        <div class="resent-post__name">
+                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
+                        </div>
+                        <div class="resent-post__desc">
+                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
                         </div>
                     </a>
                 </div>
@@ -383,28 +281,9 @@ pr($lastNews);
                         <div class="resent-post__desc">
                             <p>История в деталях. Элитные формы Rainbow Six Siege</p>
                         </div>
-                        <div class="resent-post__cat">
-                            <span>Лучшее</span>
-                        </div>
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
-                        <div class="resent-post__day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="resent-post__name">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                        <div class="resent-post__desc">
-                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
-                        <div class="resent-post__cat">
-                            <span>Лучшее</span>
-                        </div>
-                    </a>
-                </div>
+                <a href="#" class="more-guides">Больше читов</a>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 last-comments">

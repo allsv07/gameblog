@@ -851,6 +851,37 @@
   color: #ffffff;
 }
 
+.recent-posts .wrapper .more-guides {
+  text-transform: uppercase;
+  position: relative;
+  color: #434343;
+  top: 25px;
+  left: 15px;
+  display: block;
+}
+
+.recent-posts .wrapper .more-guides:hover {
+  text-decoration: none;
+  color: #006495;
+}
+
+.recent-posts .wrapper .more-guides:hover::before {
+  opacity: 0;
+}
+
+.recent-posts .wrapper .more-guides::before {
+  content: "";
+  position: absolute;
+  height: 2px;
+  width: 100%;
+  bottom: 0;
+  margin-bottom: -2px;
+  background: #006495;
+  opacity: 1;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+}
+
 .last-comments {
   border: 1px solid #ececec;
 }
@@ -945,6 +976,7 @@
   -ms-flex-pack: distribute;
       justify-content: space-around;
   list-style-type: none;
+  padding-left: 0;
 }
 
 .footer-fluid .footer .bottom-menu ul li {
@@ -981,6 +1013,7 @@
   -webkit-box-pack: justify;
       -ms-flex-pack: justify;
           justify-content: space-between;
+  padding-left: 0;
 }
 
 .footer-fluid .footer .social ul li {

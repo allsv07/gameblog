@@ -58,11 +58,39 @@ abstract class Model
         return $this->db->query($sql, [':id' => $id]);
     }
 
+    /**
+     * выбирает из таблицы популярные записи ($pk - по какому столбцу сортировать)
+     * @param $pk
+     * @param $limit
+     * @return array
+     */
     public function popular($pk, $limit)
     {
         $sql = "SELECT * FROM {$this->table} ORDER BY " .$pk. " DESC LIMIT " . $limit;
         return $this->db->query($sql, [$pk]);
     }
+
+    /**
+     * выбирает и зьаблицы последние записи ($pk - по какому столбцу сортировать)
+     * @param string $pk
+     * @param $limit
+     * @return array
+     */
+    public function last($pk = '', $limit)
+    {
+        if ($pk == ''){
+            $pk = $this->pk;
+        }
+
+        $sql = "SELECT * FROM {$this->table} ORDER BY " .$pk. " DESC LIMIT " . $limit;
+        return $this->db->query($sql);
+    }
+
+    public function getMainToday($limit)
+    {
+        $sql = "SELECT NEWS.`title` AS news_title, ARTICLES.`title` AS artcle_title FROM `news` AS NEWS JOIN `articles` AS ARTICLES ON NEWS.`id` AND ARTICLES.`id` ";
+    }
+
 
 
 }
