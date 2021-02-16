@@ -6,9 +6,8 @@ namespace app\controllers;
 use app\models\Articles;
 use app\models\Blogs;
 use app\models\News;
-use system\core\Controller;
 
-class MainController extends Controller
+class MainController extends AppController
 {
 
     public function indexAction()
@@ -21,7 +20,7 @@ class MainController extends Controller
          * Последние новости
          */
         $arrLastNews = $news->last('id', 5);
-        $arrLastNews = $this->newDate($arrLastNews);
+        $arrLastNews = $this->editNewDate($arrLastNews);
 
         /**
          * Популятрные новости
@@ -37,7 +36,7 @@ class MainController extends Controller
          * Статьи
          */
         $arrLastArticles = $articles->last('id', 4);
-        $arrLastArticles = $this->newDate($arrLastArticles);
+        $arrLastArticles = $this->editNewDate($arrLastArticles);
 
         /**
          * Главное сегодня
@@ -54,25 +53,6 @@ class MainController extends Controller
             'lastBlogs' => $arrlastBlogs,
             'lastArticles' => $arrLastArticles
         ]);
-    }
-
-    /**
-     * перезаписывает дату во всем массиве
-     * @param $array
-     * @return string
-     */
-    private function newDate($array)
-    {
-        if (is_array($array)) {
-            if (!empty($array)) {
-                foreach ($array as $key => $new) {
-                    $new['date'] = $this->editDate($new['date']);
-                    $array[$key]['date'] = $new['date'];
-                }
-                return $array;
-
-            }
-        }
     }
 
 }

@@ -23,9 +23,13 @@ abstract class Model
     /**
      * все записи
      */
-    public function findAll() // выбрать все записи из таблицы
+    public function findAll($pk = '') // выбрать все записи из таблицы
     {
-        $sql = "SELECT * FROM {$this->table}";
+        if ($pk != ''){
+            $this->pk = $pk;
+        }
+
+        $sql = "SELECT * FROM {$this->table} ORDER BY {$this->pk} DESC";
         return $this->db->query($sql);
     }
 
@@ -86,10 +90,25 @@ abstract class Model
         return $this->db->query($sql);
     }
 
-    public function getMainToday($limit)
+//    public function getMainToday($limit)
+//    {
+//        $sql = "SELECT NEWS.`title` AS news_title, ARTICLES.`title` AS artcle_title FROM `news` AS NEWS JOIN `articles` AS ARTICLES ON NEWS.`id` AND ARTICLES.`id` ";
+//    }
+
+    public function getCategory($table)
     {
-        $sql = "SELECT NEWS.`title` AS news_title, ARTICLES.`title` AS artcle_title FROM `news` AS NEWS JOIN `articles` AS ARTICLES ON NEWS.`id` AND ARTICLES.`id` ";
+        $sql = "SELECT * FROM {$table}";
+        return $this->db->query($sql);
     }
+
+    public function getComments($id)
+    {
+        $sql = "SELECT C.author, C.date AS date, C.text FROM comments AS C JOIN {$this->table} AS N ON C.table_name = N.table_name AND C.table_row_id = N.id WHERE N.id = :id ORDER BY C.date DESC";
+        return $this->db->query($sql, [':id' => $id]);
+    }
+
+
+
 
 
 

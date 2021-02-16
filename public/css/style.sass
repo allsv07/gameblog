@@ -6,6 +6,7 @@ $font-rubik: 'Rubik', sans-serif
 $font-coda: 'Coda Caption', sans-serif
 $accent-color: #006495
 
+
 .blog_container 
     /*background-color: black; */
     background: #171717 url(../images/bg.jpg) repeat top center
@@ -16,12 +17,15 @@ $accent-color: #006495
     height: 60px
     display: flex
     align-items: center
+    
     z-index: 10
     .logo
-        h1
-            font-size: 22px
-            font-family: $font-coda
-            color: #fff
+        a
+            text-decoration: none
+            h1
+                font-size: 22px
+                font-family: $font-coda
+                color: #fff
 
     .main-nav
         margin-left: 20px
@@ -535,7 +539,7 @@ $accent-color: #006495
         color: #fff
         top: 25px
         left: 15px
-        display: block ruby;
+        display: block ruby
         &:hover
             text-decoration: none
             color: #fff
@@ -594,6 +598,29 @@ $accent-color: #006495
                     font-family: $font-roboto
                     font-size: 13px
                     color: #ffffff
+
+        .more-guides
+            text-transform: uppercase
+            position: relative
+            color: #434343
+            top: 25px
+            left: 15px
+            display: block
+            &:hover
+                text-decoration: none
+                color: $accent-color
+                &::before
+                    opacity: 0
+            &::before 
+                content: ""
+                position: absolute
+                height: 2px
+                width: 100%
+                bottom: 0
+                margin-bottom: -2px
+                background: $accent-color
+                opacity: 1
+                transition: 0.5s ease
 
 
 
@@ -665,6 +692,7 @@ $accent-color: #006495
                 display: flex
                 justify-content: space-around
                 list-style-type: none
+                padding-left: 0
                 li
                     padding-left: 10px
                     padding-right: 10px
@@ -684,6 +712,7 @@ $accent-color: #006495
                 list-style-type: none
                 display: flex
                 justify-content: space-between
+                padding-left: 0 
                 li
                     color: #ffffff
                     margin: 0 5px
@@ -745,21 +774,49 @@ $accent-color: #006495
 .sidebar-article
     background: #f6f6f6
 
+    .category-news
+        &-list
+            list-style: none
+            padding: 0
+            .category-news_item
+                padding-top: 5px
+                padding-bottom: 5px
+                a
+                    font-family: $font-roboto
+                    font-size: 15px 
+                    font-weight: 500
+                    color: #434343
+                    position: relative
+                    &:hover
+                        text-decoration: none
+                        color: $accent-color
+                        &::before
+                             opacity: 1
+                    &::before
+                        content: ""
+                        position: absolute
+                        height: 2px
+                        width: 100%
+                        background: $accent-color
+                        bottom: 0
+                        margin-bottom: -2px
+                        background: $accent-color
+                        opacity: 0
+                        transition: 0.5s ease
+
+
 .article-content
     background: #fff
 
     .block-breadcrumbs
         margin-top: 10px
         margin-bottom: 10px
-        ul
-            padding: 0
-            list-style: none
-            display: flex
-            li
-                a
-                    color: #3b3b3b
-                    &:hover
-                        color: $accent-color
+        .wrapper_p
+            font-size: 13px
+            a
+                color: #3b3b3b
+                &:hover
+                    color: $accent-color
 
     .article-header
         .article-title
@@ -874,9 +931,16 @@ $accent-color: #006495
     .article-form-comment
         margin-top: 20px
         .form
+            label
+                color: #c44d4d
+                font-size: 15px
+                font-family: $font-roboto
+                font-weight: 400
+                opacity: 0
             .text_comment
                 width: 100%
                 height: 80px
+                color: red
             .add_comment
                 margin-top: 5px
                 background: $accent-color
@@ -942,15 +1006,12 @@ $accent-color: #006495
     .block-breadcrumbs
         margin-top: 10px
         margin-bottom: 10px
-        ul
-            padding: 0
-            list-style: none
-            display: flex
-            li
-                a
-                    color: #3b3b3b
-                    &:hover
-                        color: $accent-color
+        .wrapper_p
+            font-size: 13px
+            a
+                color: #3b3b3b
+                &:hover
+                    color: $accent-color
     
     .article-news-title
         h1

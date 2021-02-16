@@ -75,7 +75,13 @@ class Router
                 $action = self::lStr(self::$rout['action']) . 'Action';
 
                 if(method_exists($obj, $action)){
-                    $obj->$action();
+                    if(isset(self::$rout['id'])){
+                        $obj->$action(self::$rout['id']);
+                    }
+                    else {
+                        $obj->$action();
+                    }
+
                     $obj->getView();
                 }
                 else {

@@ -9,9 +9,7 @@ use system\core\Router;
 
 $qStr = $_SERVER['QUERY_STRING'];
 
-/**
- * тоже самое что и ../
- */
+
 define("ROOT", dirname(__DIR__));
 define('LAYOUT', 'default');
 
@@ -21,13 +19,15 @@ spl_autoload_register(function ($className){
     if(file_exists($className)) include $className;
 });
 
-//Router::add(['^(?P<controller>[a-z0-9-]+)/(?P<action>[a-z0-9-]+)/(?P<alias>[a-z0-9-]+)$' => []]);
-
-Router::add(['^news/view/(?P<id>[0-9]+)/?$' => ['controller' => 'News', 'action' => 'view']]);
-//Router::add(['^(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)?/(?P<id>[0-9]+)/?$' => ['controller' => 'News', 'action' => 'view']]);
 
 /**
- * default admin
+ * rules
+ */
+Router::add(['^news/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'News', 'action' => 'detail']]);
+
+
+/**
+ * admin rules
  */
 Router::add(['^admin$' => ['controller' => 'Main', 'action' => 'index', 'prefix' => 'admin\\']]);
 Router::add(['^admin/(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)?$' => ['prefix' => 'admin\\']]);
@@ -42,4 +42,3 @@ Router::add(['^(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)?$' => []]);
 
 Router::dispatch($qStr);
 
-//pr(\system\core\DB::$queries);

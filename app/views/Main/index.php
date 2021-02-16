@@ -9,9 +9,9 @@
         <? foreach ($mainToday as $main): ?>
         <div class="article-today">
             <a href="#">
-<!--                <div class="cat">-->
-<!--                    <span>Статьи</span>-->
-<!--                </div>-->
+                <div class="cat">
+                    <span>Статьи</span>
+                </div>
                 <img src="images/photo/control-6.jpg" class="article-img" alt="<?=$main['title']?>">
                 <div class="article-today__text">
                     <span class="article-today__name">
@@ -37,14 +37,14 @@
             <div class="col-12 game-new">
                 <div class="row">
                     <div class="col-4">
-                        <a href="#">
+                        <a href="news/detail/<?=$main['id']?>">
                             <img src="images/photo/hitman_3-4.jpg" class="game-new__img" alt="<?=$new['title']?>">
                         </a>
                     </div>
                     <div class="col-8">
                         <div class="game__new">
                             <div class="game-new__name">
-                                <a href="#"><?=$new['title']?></a>
+                                <a href="news/detail/<?=$new['id']?>"><?=$new['title']?></a>
                             </div>
                             <div class="game-new__info">
                                 <span class="game-new__info--date"><?=$new['date']?></span>
@@ -56,7 +56,7 @@
             </div>
             <? endforeach; ?>
 
-            <a href="#" class="more-news">Больше новостей</a>
+            <a href="/news" class="more-news">Больше новостей</a>
         </div>
 
         <!-- Популярное (sidebar) -->
@@ -68,7 +68,7 @@
                     <img src="images/photo/cyberpunk_2077-19.jpg" class="popular-new__img" alt="<?=$popular['title']?>">
                     <div class="popular-new__desc">
                         <div class="popular-new__desc--name">
-                            <a href="#"><p><?=$popular['title']?></p></a>
+                            <a href="news/detail/<?=$popular['id']?>"><p><?=$popular['title']?></p></a>
                         </div>
                     </div>
                 </div>
