@@ -59,7 +59,8 @@ abstract class Model
         }
 
         $sql = "SELECT * FROM {$this->table} WHERE {$this->pk} = :id LIMIT 1";
-        return $this->db->query($sql, [':id' => $id]);
+        $res = $this->db->query($sql, [':id' => $id]);
+        return (!empty($res[0])) ? $res[0]: [];
     }
 
     /**
@@ -95,17 +96,13 @@ abstract class Model
 //        $sql = "SELECT NEWS.`title` AS news_title, ARTICLES.`title` AS artcle_title FROM `news` AS NEWS JOIN `articles` AS ARTICLES ON NEWS.`id` AND ARTICLES.`id` ";
 //    }
 
-    public function getCategory($table)
+    public function getCategory($table, $rowTableName)
     {
-        $sql = "SELECT * FROM {$table}";
+        $sql = "SELECT * FROM {$table} WHERE `table_name` = '{$rowTableName}'";
         return $this->db->query($sql);
     }
 
-    public function getComments($id)
-    {
-        $sql = "SELECT C.author, C.date AS date, C.text FROM comments AS C JOIN {$this->table} AS N ON C.table_name = N.table_name AND C.table_row_id = N.id WHERE N.id = :id ORDER BY C.date DESC";
-        return $this->db->query($sql, [':id' => $id]);
-    }
+
 
 
 

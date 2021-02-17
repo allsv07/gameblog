@@ -3,8 +3,9 @@
 
 namespace app\controllers;
 
-use app\models\Articles;
-use app\models\Blogs;
+use app\models\Article;
+use app\models\Blog;
+use app\models\Comment;
 use app\models\News;
 
 class MainController extends AppController
@@ -13,14 +14,22 @@ class MainController extends AppController
     public function indexAction()
     {
         $news = new News();
-        $articles = new Articles();
-        $blogs = new Blogs();
+        $articles = new Article();
+        $blogs = new Blog();
+        $comments = new Comment();
 
         /**
          * Последние новости
          */
         $arrLastNews = $news->last('id', 5);
-        $arrLastNews = $this->editNewDate($arrLastNews);
+        $arrLastNews = $this->editNewDateArray($arrLastNews);
+
+        if (count($arrLastNews) > 0) {
+            foreach ($arrLastNews as &$News) {
+                $News['comments'] = $comments->getCommentsCountByTable('news', $News['id']);
+            }
+        }
+
 
         /**
          * Популятрные новости
@@ -31,17 +40,28 @@ class MainController extends AppController
          * Блоги
          */
         $arrlastBlogs = $blogs->last('id', 5);
+        if (count($arrlastBlogs) > 0) {
+            foreach ($arrlastBlogs as &$News) {
+                $News['comments'] = $comments->getCommentsCountByTable('news', $News['id']);
+            }
+        }
 
         /**
          * Статьи
          */
         $arrLastArticles = $articles->last('id', 4);
-        $arrLastArticles = $this->editNewDate($arrLastArticles);
+        $arrLastArticles = $this->editNewDateArray($arrLastArticles);
 
         /**
          * Главное сегодня
          */
         $arrMainToday = $articles->last('id', 4); // выводит последние новости для блока - Главное сегодня
+
+        /**
+         * последние комментарии
+         */
+        $arrLastComments = $comments->lastComment('8');
+
 
         /**
          * Отправка массивов на главную страницу
@@ -51,7 +71,8 @@ class MainController extends AppController
             'lastNews' => $arrLastNews,
             'popularNews' => $arrPopularNews,
             'lastBlogs' => $arrlastBlogs,
-            'lastArticles' => $arrLastArticles
+            'lastArticles' => $arrLastArticles,
+            'lastComments' => $arrLastComments
         ]);
     }
 

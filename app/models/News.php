@@ -16,28 +16,35 @@ class News extends Model
 //        return $this->db->query($sql);
 //    }
 
-    public function actionAddComments()
+    public function getAllNews()
     {
-        $comment = '';
-
-        if (isset($_POST['text_comment'])) {
-            $comment = clearStr($_POST['text_comment']);
-
-            if ($this->checkComment($comment)) {
-                $this->addComments();
-            }
-        }
+        $sql = "SELECT N.id AS n_id, N.title, N.date, N.image, C.title AS cat_title FROM {$this->table} AS N JOIN category AS C ON C.id = N.cat_news WHERE C.table_name = 'news' ORDER BY N.id DESC";
+        return $this->db->query($sql);
     }
 
-    protected  function checkComment($comment)
+    /**
+     * получаем id категории новости
+     * @param $code
+     * @return array
+     */
+    public function getIDCategory($code)
     {
-        return (strlen($comment) >= 1) ? true : false;
+        $sql = "SELECT id FROM category WHERE code = :code";
+        $res = $this->db->query($sql, [':code' => $code]);
+        return (!empty($res)) ? $res : [];
     }
 
-    protected function addComments($id)
+    /**
+     * получаем новости по id категории
+     * @param $id
+     * @return array
+     */
+    public function getNewsThisCategory($id)
     {
-        $sql = "INSER INTO comments SET `text` = :text, `table_name` = :table_name, `table_row_id` = :table_row_id, `date` = CURDATE()";
-        return $this->db->query($sql, [':table_name' => $this->table, ':table_row_id' => $id]);
+        $sql = "SELECT N.id AS n_id, N.title, N.date, N.views, N.image, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE CAT.id = ? ORDER BY N.id DESC";
+        return $this->db->query($sql, [$id]);
     }
+
+
 
 }

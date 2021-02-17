@@ -29,12 +29,14 @@ class DB
         return self::$instance;
     }
 
-    public function exec($sql)
+    public function exec($sql, $param = [])
     {
         self::$queries[] = $sql;
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute();
+        return $stmt->execute($param);
     }
+
+
 
     /**
      * метод дял получения данных из таблицы \ возвращает массив

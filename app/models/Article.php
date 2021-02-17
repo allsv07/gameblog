@@ -6,7 +6,7 @@ namespace app\models;
 
 use system\core\Model;
 
-class Articles extends Model
+class Article extends Model
 {
     protected $table = 'articles';
 

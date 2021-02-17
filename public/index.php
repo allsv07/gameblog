@@ -23,7 +23,9 @@ spl_autoload_register(function ($className){
 /**
  * rules
  */
+Router::add(['^news/category/(?P<code>[a-z0-9]+)/?$' => ['controller' => 'News', 'action' => 'category']]);
 Router::add(['^news/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'News', 'action' => 'detail']]);
+
 
 
 /**

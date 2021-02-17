@@ -6,7 +6,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/news">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                        <li class="category-news_item"><a href="<?=$category['id']?>"><?=$category['title']?></a></li>
+                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>"><?=$category['title']?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>
@@ -26,7 +26,7 @@
                     <div class="image_author">
                         <img src="/images/photo/control-5.jpg" alt="author image">
                     </div>
-                    <span class="name-author"><a href="#">Author Name</a></span>
+                    <span class="name-author"><a href="#"><?=$detailNew['author']?></a></span>
                 </div>
                 <div class="article-info-date">
                     <span><?=$detailNew['date']?></span>
@@ -44,9 +44,9 @@
             </div>
 
             <div class="article-comments">
-                <? if (count($arrComments) > 0): ?>
-                <h3>Коментарии (<?=count($arrComments)?>)</h3>
-                 <? foreach ($arrComments as $comment): ?>
+                <? if (count($comments) > 0): ?>
+                <h3>Коментарии (<?=count($comments)?>)</h3>
+                 <? foreach ($comments as $comment): ?>
                  <div class="block-comment">
                     <div class="block-author">
                         <div class="block-author-image">

@@ -48,7 +48,7 @@
                             </div>
                             <div class="game-new__info">
                                 <span class="game-new__info--date"><?=$new['date']?></span>
-                                <span class="game-new__info--comment"><i class="fa fa-comment-o" aria-hidden="true"></i><?=$new['views']?></span>
+                                <span class="game-new__info--comment"><i class="fa fa-comment-o" aria-hidden="true"></i><?=$new['comments']?></span>
                             </div>
                         </div>
                     </div>
@@ -288,6 +288,8 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 last-comments">
             <span>Последние комментарии</span>
+            <? if (count($lastComments) > 0): ?>
+            <? foreach ($lastComments as $comment): ?>
             <a href="#">
                 <div class="col-12 last-comment">
                     <div class="last-comment__img">
@@ -295,63 +297,17 @@
                     </div>
                     <div class="last-comment__text">
                         <div class="last-comment__text--author">
-                            <a href="#">Dark Kaas</a>
+                            <a href="#"><?=$comment['author']?></a>
                         </div>
                         <div class="last-comment__text--text">
-                            <p>Это все ерунда,самое что сильно раздражает, наверное и многих,так это ужасная беспомощность Эшли,ну блин,возьми что под руку попадется,да и метни </p>
-                            <a href="#"><p>10 бессмысленных моментов в Resident Evil 4</p></a>
+                            <p><?=$comment['text']?></p>
+                            <a href="/news/detail/<?=$comment['n_id']?>"><p><?=$comment['title']?></p></a>
                         </div>
                     </div>
                 </div>
             </a>
-            <a href="#">
-                <div class="col-12 last-comment">
-                    <div class="last-comment__img">
-                        <img src="images/photo/control-5.jpg" class="last-comment__img--avatar" alt="">
-                    </div>
-                    <div class="last-comment__text">
-                        <div class="last-comment__text--author">
-                            <a href="#">Author</a>
-                        </div>
-                        <div class="last-comment__text--text">
-                            <p>Сдано 76 предметов в музей, Гюнтер не приходит...</p>
-                            <a href="#"><p>Лучший косплей монстров из Undertale</p></a>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="col-12 last-comment">
-                    <div class="last-comment__img">
-                        <img src="images/photo/control-7.jpg" class="last-comment__img--avatar" alt="">
-                    </div>
-                    <div class="last-comment__text">
-                        <div class="last-comment__text--author">
-                            <a href="#">Sergey Filippov</a>
-                        </div>
-                        <div class="last-comment__text--text">
-                            <p>у ск2 нет аналогов и конкурентов.</p>
-                            <a href="#"><p>10 лучших RTS-игр, похожих на Strarcraft</p></a>
-                        </div>
-                    </div>
-                </div>
-            </a>
-            <a href="#">
-                <div class="col-12 last-comment">
-                    <div class="last-comment__img">
-                        <img src="images/photo/hitman_3-3.jpg" class="last-comment__img--avatar" alt="">
-                    </div>
-                    <div class="last-comment__text">
-                        <div class="last-comment__text--author">
-                            <a href="#">Ghost</a>
-                        </div>
-                        <div class="last-comment__text--text">
-                            <p>типичный интрнет борцун с режимом. Только срёт в интернете.</p>
-                            <a href="#"><p>Stardew Valley — как попасть в канализацию?</p></a>
-                        </div>
-                    </div>
-                </div>
-            </a>
+            <? endforeach; ?>
+            <? endif; ?>
         </div>
     </div>
 </div>

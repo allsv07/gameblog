@@ -7,7 +7,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/news">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                    <li class="category-news_item"><a href="/news/<?=$category['id']?>"><?=$category['title']?></a></li>
+                    <li class="category-news_item"><a href="/news/category/<?=$category['code']?>"><?=$category['title']?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>
@@ -27,21 +27,21 @@
                 <div class="col-12 article-new">
                     <div class="row">
                         <div class="col-4">
-                            <a href="news/detail/<?=$new['id']?>">
+                            <a href="news/detail/<?=$new['n_id']?>">
                                 <img src="images/photo/hitman_3-4.jpg" class="article-new__img" alt="">
                             </a>
                         </div>
                         <div class="col-8">
                             <div class="article__new">
                                 <div class="article-new__name">
-                                    <a href="news/detail/<?=$new['id']?>"><?=$new['title']?></a>
+                                    <a href="news/detail/<?=$new['n_id']?>"><?=$new['title']?></a>
                                 </div>
                                 <div class="article-new__info">
                                     <span class="article-new__info--date"><?=$new['date']?></span>
                                     <span class="article-new__info--comment"><i class="fa fa-comment-o" aria-hidden="true"></i><?=$new['comments']?></span>
                                 </div>
                                 <div class="article-new__tags">
-                                    <span>PC</span>
+                                    <span><?=$new['cat_title']?></span>
                                 </div>
                             </div>
                         </div>

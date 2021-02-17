@@ -33,8 +33,9 @@ class Router
     public static function checkRoute($url)
     {
         $url = self::removeQueryString($url);
-
+        //pr(self::$routers);
         foreach (self::$routers as $key => $value){
+
             if (preg_match("#$key#i", $url, $matches)){
                 //pr(self::$routers[$key]);
                 $route = $value;

@@ -2,7 +2,6 @@ $(document).ready(function(){
     let text = $("#text_comment");
     let btn = $("#submit");
     let error = $(".error");
-    console.log(error);
 
     if (btn.click(function (e) {
         if (text.val() == '') {
@@ -13,6 +12,7 @@ $(document).ready(function(){
         }
 
         text.blur(function () {
+            error.css("opacity", "0");
             text.css("border", "1px solid #000");
         });
 

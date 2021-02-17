@@ -8,13 +8,21 @@ use system\core\Controller;
 
 class AppController extends Controller
 {
+    public function countArr($arr)
+    {
+        if(count($arr) > 0) {
+            return true;
+        }
+
+        return false;
+    }
 
     /**
      * редактиоует дату в формат (вчера, сегодня или 12 фмарта)
      * @param $date
      * @return string
      */
-    protected function setNewDate($date)
+    private function setNewDate($date)
     {
         $newDate = date("j m Y", strtotime($date));
         $date_exp = explode(" ", $newDate);
@@ -48,7 +56,8 @@ class AppController extends Controller
      * @param $array
      * @return string
      */
-    protected function editNewDate($array)
+
+    protected function editNewDateArray($array)
     {
         if (is_array($array)) {
             if (!empty($array)) {
@@ -56,9 +65,17 @@ class AppController extends Controller
                     $new['date'] = $this->setNewDate($new['date']);
                     $array[$key]['date'] = $new['date'];
                 }
-                return $array;
-
             }
         }
+        return $array;
+    }
+
+    protected function editNewDate($array)
+    {
+        if (is_array($array)) {
+            $array['date'] = $this->setNewDate($array['date']);
+        }
+
+        return $array;
     }
 }

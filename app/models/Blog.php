@@ -5,7 +5,7 @@ namespace app\models;
 
 use system\core\Model;
 
-class Blogs extends Model
+class Blog extends Model
 {
     protected $table = 'blogs';
 
