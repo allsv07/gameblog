@@ -10,7 +10,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/news">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>"><?=$category['title']?></a></li>
+                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>" class="active"><?=$category['title']?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>

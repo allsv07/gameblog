@@ -71,7 +71,7 @@ abstract class Model
      */
     public function popular($pk, $limit)
     {
-        $sql = "SELECT * FROM {$this->table} ORDER BY " .$pk. " DESC LIMIT " . $limit;
+        $sql = "SELECT N.id, N.title, N.image FROM {$this->table} AS N JOIN views AS V ON V.table_name = '{$this->table}' AND V.table_row_id = N.id ORDER BY V.c_views DESC";
         return $this->db->query($sql, [$pk]);
     }
 
@@ -100,6 +100,18 @@ abstract class Model
     {
         $sql = "SELECT * FROM {$table} WHERE `table_name` = '{$rowTableName}'";
         return $this->db->query($sql);
+    }
+
+    /**
+     * получаем id категории новости
+     * @param $code
+     * @return array
+     */
+    public function getIDCategory($code)
+    {
+        $sql = "SELECT id FROM category WHERE code = :code";
+        $res = $this->db->query($sql, [':code' => $code]);
+        return (!empty($res)) ? $res[0]['id'] : [];
     }
 
 

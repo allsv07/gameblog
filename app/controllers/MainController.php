@@ -7,6 +7,7 @@ use app\models\Article;
 use app\models\Blog;
 use app\models\Comment;
 use app\models\News;
+use app\models\View;
 
 class MainController extends AppController
 {
@@ -17,6 +18,7 @@ class MainController extends AppController
         $articles = new Article();
         $blogs = new Blog();
         $comments = new Comment();
+        $views = new View();
 
         /**
          * Последние новости
@@ -41,8 +43,9 @@ class MainController extends AppController
          */
         $arrlastBlogs = $blogs->last('id', 5);
         if (count($arrlastBlogs) > 0) {
-            foreach ($arrlastBlogs as &$News) {
-                $News['comments'] = $comments->getCommentsCountByTable('news', $News['id']);
+            foreach ($arrlastBlogs as &$Blogs) {
+                $Blogs['comments'] = $comments->getCommentsCountByTable('blogs', $Blogs['id']);
+                $Blogs['views'] = $views->getCountViewsByTable('blogs', $Blogs['id']);
             }
         }
 

@@ -23,25 +23,13 @@ class News extends Model
     }
 
     /**
-     * получаем id категории новости
-     * @param $code
-     * @return array
-     */
-    public function getIDCategory($code)
-    {
-        $sql = "SELECT id FROM category WHERE code = :code";
-        $res = $this->db->query($sql, [':code' => $code]);
-        return (!empty($res)) ? $res : [];
-    }
-
-    /**
      * получаем новости по id категории
      * @param $id
      * @return array
      */
     public function getNewsThisCategory($id)
     {
-        $sql = "SELECT N.id AS n_id, N.title, N.date, N.views, N.image, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE CAT.id = ? ORDER BY N.id DESC";
+        $sql = "SELECT N.id AS n_id, N.title, N.date, N.image, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE CAT.id = ? ORDER BY N.id DESC";
         return $this->db->query($sql, [$id]);
     }
 

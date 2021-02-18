@@ -10,9 +10,9 @@ class Comment extends Model
 {
     protected $table = 'comments';
 
-    public function getCommentsNews($id)
+    public function getComments($id, $table)
     {
-        $sql = "SELECT C.author, C.date AS date, C.text FROM comments AS C JOIN news AS N ON C.table_name = 'news' AND C.table_row_id = N.id WHERE N.id = :id ORDER BY C.id DESC";
+        $sql = "SELECT C.author, C.date AS date, C.text FROM comments AS C JOIN {$table} AS N ON C.table_name = '{$table}' AND C.table_row_id = N.id WHERE N.id = :id ORDER BY C.id DESC";
         return $this->db->query($sql, [':id' => $id]);
     }
 

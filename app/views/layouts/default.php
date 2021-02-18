@@ -27,7 +27,7 @@
             <nav class="main-nav">
                 <a class="item" href="#"><span>Игры</span></a>
                 <a class="item" href="/news"><span>Новости</span></a>
-                <a class="item" href="#"><span>Статьи</span></a>
+                <a class="item" href="/articles"><span>Статьи</span></a>
                 <a class="item" href="#"><span>Блоги</span></a>
                 <a class="item" href="#"><span>Галерея</span></a>
                 <a class="item" href="#"><span>Помощь</span></a>
