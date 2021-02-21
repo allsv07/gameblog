@@ -29,6 +29,9 @@ Router::add(['^news/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'News', 'actio
 Router::add(['^articles/category/(?P<code>[a-z0-9]+)/?$' => ['controller' => 'Articles', 'action' => 'category']]);
 Router::add(['^articles/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Articles', 'action' => 'detail']]);
 
+Router::add(['^cheats/category/(?P<code>[a-z0-9]+)/?$' => ['controller' => 'Cheats', 'action' => 'category']]);
+Router::add(['^cheats/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Cheats', 'action' => 'detail']]);
+
 
 
 /**
@@ -36,6 +39,9 @@ Router::add(['^articles/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Articles'
  */
 Router::add(['^admin$' => ['controller' => 'Main', 'action' => 'index', 'prefix' => 'admin\\']]);
 Router::add(['^admin/(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)?$' => ['prefix' => 'admin\\']]);
+
+Router::add(['^admin/(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)/(?P<id>[0-9]+)?$' => ['prefix' => 'admin\\']]);
+
 
 
 /**

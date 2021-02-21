@@ -18,7 +18,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 article-news-content">
             <div class="block-breadcrumbs">
-                <p class="wrapper_p"><a href="/">Главная</a> / Новости</p>
+                <p class="wrapper_p"><a href="/">Главная</a> / <a href="/news">Новости</a> / <?=$breadcrumb;?></p>
             </div>
 
             <div class="article-news-title">

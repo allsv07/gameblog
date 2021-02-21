@@ -1,3 +1,9 @@
+$font-roboto: 'Roboto', sans-serif
+$font-rubik: 'Rubik', sans-serif
+$font-coda: 'Coda Caption', sans-serif
+$accent-color: #006495
+$color: #434343
+    
 @media (max-width: 600px)
     .header
         height: 100%
@@ -44,6 +50,24 @@
                             font-size: 20px
 
 @media (max-width: 800px)
+    .carousel
+        display: block
+        .carousel-inner
+            .carousel-item
+                .cat
+                    top: 10px
+                    left: 10px
+                    background: $accent-color
+                    padding: 5px 8px
+                    opacity: 0.8
+                    span
+                        font-size: 14px
+                        font-family: $font-roboto
+                        color: #ffffff
+                        display: block
+                        text-align: center
+
+
     .header
         height: 100%
         display: flex
@@ -68,6 +92,11 @@
             align-items: center
             margin-top: 10px
 
+
+    .news-today
+        display: none !important
+
+
     .footer-fluid
         .footer
             .block-left
@@ -90,3 +119,13 @@
         .main-nav
             .item
                 font-size: 15px
+
+
+
+
+@media (min-width: 800px)
+    .carousel
+        display: none
+
+    .news-today
+        display: block

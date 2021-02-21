@@ -4,7 +4,7 @@
 <div class="container">
     <div class="row main-content-news">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar">
-            <span class="sidebar-title">Новости</span>
+            <span class="sidebar-title">Статьи</span>
 
             <div class="category-news">
                 <ul class="category-news-list">
@@ -18,11 +18,11 @@
 
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 article-news-content">
             <div class="block-breadcrumbs">
-                <p class="wrapper_p"><a href="/">Главная</a> / Статьи</p>
+                <p class="wrapper_p"><a href="/">Главная</a> / <a href="/articles">Статьи</a> / <?=$breadcrumb;?></p>
             </div>
 
             <div class="article-news-title">
-                <h1>Игровые новости</h1>
+                <h1>Игровые статьи</h1>
             </div>
 
             <div class="article-news">

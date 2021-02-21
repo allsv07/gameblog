@@ -30,7 +30,7 @@
                 <a class="item" href="/articles"><span>Статьи</span></a>
                 <a class="item" href="#"><span>Блоги</span></a>
                 <a class="item" href="#"><span>Галерея</span></a>
-                <a class="item" href="#"><span>Помощь</span></a>
+                <a class="item" href="/cheats"><span>Читы</span></a>
             </nav>
         </div>
         <div class="col-md-2 col-sm-12 col-12 auth">

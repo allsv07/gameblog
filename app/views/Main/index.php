@@ -1,38 +1,57 @@
 <?php
-//pr($lastBlogs);
+//pr($mainToday);
 ?>
 <div class="container">
     <div class="row span">
-        <span></span>
+        <span>Главное сегодня</span>
     </div>
+    <!-- Блок in-width: 800px -->
+    <div class="row news-today">
+        <? if (!empty($mainToday)): ?>
+        <? foreach ($mainToday as $today): ?>
+        <div class="article-today">
+            <a href="<?=$today['url'].$today['id']?>">
+                <div class="cat">
+                    <span><?=$today['category']?></span>
+                </div>
+                <img src="images/photo/control-6.jpg" class="article-img" alt="control-6">
+                <div class="article-today__text">
+                    <span class="article-today__name"><?=$today['title']?></span>
+                </div>
+            </a>
+        </div>
+        <? endforeach; ?>
+        <? endif; ?>
+        <!-- <div class="article-today article-today__5">
+            <img src="images/photo/cyberpunk_2077-18.jpg" class="article-img" alt="control-6">
+        </div> -->
+    </div>
+
+    <!-- Слайдер max-width: 800px -->
     <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
         <ol class="carousel-indicators">
-            <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
-            <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            <? if (!empty($mainToday)): ?>
+            <? foreach ($mainToday as $key => $today): ?>
+            <li data-target="#carouselExampleCaptions" data-slide-to="<?=$key?>>"<? if ($key == 0): ?> class="active"><?endif;?></li>
+            <? endforeach; ?>
+            <? endif; ?>
         </ol>
         <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="/images/photo/control-5.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>First slide label</h5>
-                    <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+            <? if (!empty($mainToday)): ?>
+            <? foreach ($mainToday as $key => $today): ?>
+            <div class="carousel-item<? if ($key == 0): ?> active<?endif;?>" style="position: relative;">
+                <div class="cat" style="position: absolute;">
+                    <span><?=$today['category']?></span>
                 </div>
+                <a href="<?=$today['url'].$today['id']?>">
+                    <img src="/images/photo/control-6.jpg" class="d-block w-100" alt="...">
+                    <div class="carousel-caption d-block d-md-block" style="background: #0e1417; opacity: 0.8">
+                        <h5><?=$today['title']?></h5>
+                    </div>
+                </a>
             </div>
-            <div class="carousel-item">
-                <img src="/images/photo/control-6.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Second slide label</h5>
-                    <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-                </div>
-            </div>
-            <div class="carousel-item">
-                <img src="/images/photo/control-7.jpg" class="d-block w-100" alt="...">
-                <div class="carousel-caption d-none d-md-block">
-                    <h5>Third slide label</h5>
-                    <p>Praesent commodo cursus magna, vel scelerisque nisl consectetur.</p>
-                </div>
-            </div>
+            <? endforeach; ?>
+            <? endif; ?>
         </div>
         <a class="carousel-control-prev" href="#carouselExampleCaptions" role="button" data-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -43,12 +62,10 @@
             <span class="sr-only">Next</span>
         </a>
     </div>
-    <div class="row span">
-        <span></span>
-    </div>
+
 
     <!-- Новости -->
-    <div class="row span_light">
+    <div class="row span_light" style="margin-top: 20px;">
         <span>Игровые новости</span>
     </div>
     <div class="row game-news">
@@ -57,18 +74,18 @@
             <div class="col-12 game-new">
                 <div class="row">
                     <div class="col-4">
-                        <a href="news/detail/<?=$main['id']?>">
-                            <img src="images/photo/hitman_3-4.jpg" class="game-new__img" alt="<?=$new['title']?>">
+                        <a href="news/detail/<?=$new['id']?>">
+                            <img src="images/photo/hitman_3-4.jpg" class="game-new__img" alt="<?= $new['title'] ?>">
                         </a>
                     </div>
                     <div class="col-8">
                         <div class="game__new">
                             <div class="game-new__name">
-                                <a href="news/detail/<?=$new['id']?>"><?=$new['title']?></a>
+                                <a href="news/detail/<?= $new['id'] ?>"><?= $new['title'] ?></a>
                             </div>
                             <div class="game-new__info">
-                                <span class="game-new__info--date"><?=$new['date']?></span>
-                                <span class="game-new__info--comment"><i class="fa fa-comment-o" aria-hidden="true"></i><?=$new['comments']?></span>
+                                <span class="game-new__info--date"><?= $new['date'] ?></span>
+                                <span class="game-new__info--comment"><i class="fa fa-comment-o" aria-hidden="true"></i><?= $new['comments'] ?></span>
                             </div>
                         </div>
                     </div>
@@ -85,10 +102,12 @@
             <? foreach ($popularNews as $popular): ?>
             <a href="#">
                 <div class="col-12 popular-new">
-                    <img src="images/photo/cyberpunk_2077-19.jpg" class="popular-new__img" alt="<?=$popular['title']?>">
+                    <img src="images/photo/cyberpunk_2077-19.jpg" class="popular-new__img" alt="<?= $popular['title'] ?>">
                     <div class="popular-new__desc">
                         <div class="popular-new__desc--name">
-                            <a href="news/detail/<?=$popular['id']?>"><p><?=$popular['title']?></p></a>
+                            <a href="news/detail/<?= $popular['id'] ?>">
+                                <p><?= $popular['title'] ?></p>
+                            </a>
                         </div>
                     </div>
                 </div>
@@ -109,20 +128,20 @@
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
                     <a href="#">
                         <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
-                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?=$blog['views']?></span></div>
+                        <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?= $blog['views'] ?></span></div>
                     </a>
                     <div class="blog-author">
-                        <div class="author"><span>Автор:</span><a href="#"><?=$blog['author']?></a></div>
-                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i><?=$blog['comments']?></span></div>
+                        <div class="author"><span>Автор:</span><a href="#"><?= $blog['author'] ?></a></div>
+                        <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i><?= $blog['comments'] ?></span></div>
                     </div>
                     <div class="blog-desc">
-                        <a href="#"><?=$blog['title']?></a>
+                        <a href="/blogs/detail/<?=$blog['id']?>"><?= $blog['title'] ?></a>
                     </div>
                 </div>
                 <? endforeach; ?>
             </div>
         </div>
-        <a href="#" class="more-blogs">Больше блогов</a>
+        <a href="/blogs" class="more-blogs">Больше блогов</a>
     </div>
 
     <!-- Игровые статьи -->
@@ -135,12 +154,12 @@
                 <? foreach ($lastArticles as $article): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
                     <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="<?=$article['title']?>">
+                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="<?= $article['title'] ?>">
                         <div class="article-day">
-                            <div class="day"><span><?=$article['date']?></div>
+                            <div class="day"><span><?= $article['date'] ?></div>
                         </div>
                         <div class="article-desc">
-                            <a href="#"><?=$article['title']?></a>
+                            <a href="/articles/detail/<?=$article['id']?>"><?= $article['title'] ?></a>
                         </div>
                     </a>
                 </div>
@@ -148,7 +167,7 @@
 
             </div>
         </div>
-        <a href="#" class="more-blogs">Больше статей</a>
+        <a href="/articles" class="more-blogs">Больше статей</a>
     </div>
 
     <!-- Галерея -->
@@ -228,82 +247,25 @@
         <span>Прохождения игр, тактика и советы</span>
     </div>
     <div class="row recent-posts">
-        <div class="ol-xs-12 col-sm-12 col-md-8 col-lg-8 wrapper">
+        <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 wrapper">
             <div class="row">
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6  resent-post">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
-                        <div class="resent-post__day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="resent-post__name">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                        <div class="resent-post__desc">
-                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
-                        <!--<div class="resent-post__cat">
-                            <span>Лучшее</span>
-                        </div>-->
-                    </a>
-                </div>
+                <? if (!empty($lastChits)): ?>
+                <? foreach ($lastChits as $chit): ?>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
-                    <a href="#">
+                    <a href="/cheats/detail/<?=$chit['id']?>">
                         <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
                         <div class="resent-post__day">
-                            <div class="day"><span>Вчера</div>
+                            <div class="day"><span><?=$chit['date']?></div>
                         </div>
                         <div class="resent-post__name">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
+                            <a href="/cheats/detail/<?=$chit['id']?>"><?=$chit['title']?></a>
                         </div>
-                        <div class="resent-post__desc">
-                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
+
                     </a>
                 </div>
-                <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 resent-post">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
-                        <div class="resent-post__day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="resent-post__name">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                        <div class="resent-post__desc">
-                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
-                        <div class="resent-post__day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="resent-post__name">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                        <div class="resent-post__desc">
-                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
-                    </a>
-                </div>
-                <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
-                        <div class="resent-post__day">
-                            <div class="day"><span>Вчера</div>
-                        </div>
-                        <div class="resent-post__name">
-                            <a href="#">История в деталях. Элитные формы Rainbow Six Siege</a>
-                        </div>
-                        <div class="resent-post__desc">
-                            <p>История в деталях. Элитные формы Rainbow Six Siege</p>
-                        </div>
-                    </a>
-                </div>
-                <a href="#" class="more-guides">Больше читов</a>
+                <? endforeach; ?>
+                <? endif; ?>
+                <a href="/cheats" class="more-guides">Больше читов</a>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 last-comments">
@@ -317,11 +279,13 @@
                     </div>
                     <div class="last-comment__text">
                         <div class="last-comment__text--author">
-                            <a href="#"><?=$comment['author']?></a>
+                            <a href="#"><?= $comment['author'] ?></a>
                         </div>
                         <div class="last-comment__text--text">
-                            <p><?=$comment['text']?></p>
-                            <a href="/news/detail/<?=$comment['n_id']?>"><p><?=$comment['title']?></p></a>
+                            <p><?= $comment['text'] ?></p>
+                            <a href="/news/detail/<?= $comment['n_id'] ?>">
+                                <p><?= $comment['title'] ?></p>
+                            </a>
                         </div>
                     </div>
                 </div>

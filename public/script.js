@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    //start validate commentaries
     let text = $("#text_comment");
     let btn = $("#submit");
     let error = $(".error");
@@ -17,4 +18,5 @@ $(document).ready(function(){
         });
 
     }));
+
 });

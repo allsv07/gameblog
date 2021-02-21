@@ -70,7 +70,7 @@ class Router
     {
         if (self::checkRoute($path)){
             $controller = 'app\controllers\\' . self::$rout['prefix'] . self::$rout['controller'] . 'Controller';
-
+            //pr(self::$rout);
             if(class_exists($controller)){
                 $obj = new $controller(self::$rout);
                 $action = self::lStr(self::$rout['action']) . 'Action';
@@ -86,10 +86,14 @@ class Router
                     $obj->getView();
                 }
                 else {
+//                http_response_code(404);
+//                include '404.html';
                     echo 'Метод ' .$action. ' не найден';
                 }
             }
             else {
+//                http_response_code(404);
+//                include '404.html';
                 echo 'Контроллер ' .$controller. ' не найден';
             }
         }

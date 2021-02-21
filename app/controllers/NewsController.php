@@ -75,7 +75,7 @@ class NewsController extends AppController
         //добавляем к массиву записи количество комментариев и количество просмотров
         if(count($detailNew) > 0) {
             $detailNew['comments'] = $comments->getCommentsCountByTable('news', $detailNew['id']);
-            $detailNew['views'] = $views->getCountViewsByTable('news', $detailNew['id']);
+            $detailNew['views'] = $views->getSumViewsByTable('news', $detailNew['id']);
         }
 
         //добавление комментариев
@@ -110,6 +110,7 @@ class NewsController extends AppController
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $breadcrumbs = $news->getBreadcrumbs($this->route['code']);
             $id = $news->getIDCategory(clearStr($this->route['code']));
             if (!empty($id)) {
                 $arNewsCat = $news->getNewsThisCategory($id);
@@ -132,7 +133,7 @@ class NewsController extends AppController
 
         $categoryNews = $news->getCategory('category', 'news');
 
-        $this->setVars(['news' => $arNewsCat, 'arrCategory' => $categoryNews]);
+        $this->setVars(['news' => $arNewsCat, 'arrCategory' => $categoryNews, 'breadcrumb' => $breadcrumbs]);
     }
 
 }

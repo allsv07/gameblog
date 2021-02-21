@@ -18,7 +18,7 @@ class News extends Model
 
     public function getAllNews()
     {
-        $sql = "SELECT N.id AS n_id, N.title, N.date, N.image, C.title AS cat_title FROM {$this->table} AS N JOIN category AS C ON C.id = N.cat_news WHERE C.table_name = 'news' ORDER BY N.id DESC";
+        $sql = "SELECT N.id AS n_id, N.title, N.description, N.author, N.date, N.image, C.title AS cat_title FROM {$this->table} AS N JOIN category AS C ON C.id = N.cat_news WHERE C.table_name = 'news' ORDER BY N.id DESC";
         return $this->db->query($sql);
     }
 
@@ -32,7 +32,6 @@ class News extends Model
         $sql = "SELECT N.id AS n_id, N.title, N.date, N.image, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE CAT.id = ? ORDER BY N.id DESC";
         return $this->db->query($sql, [$id]);
     }
-
 
 
 }

@@ -64,7 +64,7 @@ class ArticlesController extends AppController
         //добавляем к массиву записи количество комментариев и просмотров
         if(count($detailArticle) > 0) {
             $detailArticle['comments'] = $comments->getCommentsCountByTable('articles', $detailArticle['id']);
-            $detailArticle['views'] = $views->getCountViewsByTable('articles', $detailArticle['id']);
+            $detailArticle['views'] = $views->getSumViewsByTable('articles', $detailArticle['id']);
         }
 
         //добавление комментариев
@@ -99,6 +99,7 @@ class ArticlesController extends AppController
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $breadcrumbs = $articles->getBreadcrumbs($this->route['code']);
             $id = $articles->getIDCategory(clearStr($this->route['code']));
             if (!empty($id)) {
                 $arArticlesCat = $articles->getArticlesThisCategory($id);
@@ -121,6 +122,6 @@ class ArticlesController extends AppController
 
         $categoryArticles = $articles->getCategory('category', 'articles');
 
-        $this->setVars(['articles' => $arArticlesCat, 'arrCategory' => $categoryArticles]);
+        $this->setVars(['articles' => $arArticlesCat, 'arrCategory' => $categoryArticles, 'breadcrumb' => $breadcrumbs]);
     }
 }

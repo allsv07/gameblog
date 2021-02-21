@@ -5,6 +5,7 @@ namespace app\controllers;
 
 use app\models\Article;
 use app\models\Blog;
+use app\models\Cheat;
 use app\models\Comment;
 use app\models\News;
 use app\models\View;
@@ -19,6 +20,26 @@ class MainController extends AppController
         $blogs = new Blog();
         $comments = new Comment();
         $views = new View();
+        $cheats = new Cheat();
+
+        /**
+         * Главное сегодня
+         */
+        $arrMainToday = $news->getMainToday();
+
+        if (!empty($arrMainToday)) {
+            foreach ($arrMainToday as &$MainToday) {
+                if ($MainToday['tbl'] == 'news') {
+                    $MainToday['url'] = '/news/detail/';
+                }
+
+                if ($MainToday['tbl'] == 'articles') {
+                    $MainToday['url'] = '/articles/detail/';
+                }
+            }
+        }
+
+
 
         /**
          * Последние новости
@@ -36,7 +57,7 @@ class MainController extends AppController
         /**
          * Популятрные новости
          */
-        $arrPopularNews = $news->popular('views', 3);
+        $arrPopularNews = $news->popular('c_views', 3);
 
         /**
          * Блоги
@@ -56,14 +77,15 @@ class MainController extends AppController
         $arrLastArticles = $this->editNewDateArray($arrLastArticles);
 
         /**
-         * Главное сегодня
+         * Читы
          */
-        $arrMainToday = $articles->last('id', 4); // выводит последние новости для блока - Главное сегодня
+        $arrLastChit = $cheats->last('id', 8);
+        $arrLastChit = $this->editNewDateArray($arrLastChit);
 
         /**
          * последние комментарии
          */
-        $arrLastComments = $comments->lastComment('8');
+        $arrLastComments = $comments->lastComment('5');
 
 
         /**
@@ -75,6 +97,7 @@ class MainController extends AppController
             'popularNews' => $arrPopularNews,
             'lastBlogs' => $arrlastBlogs,
             'lastArticles' => $arrLastArticles,
+            'lastChits' => $arrLastChit,
             'lastComments' => $arrLastComments
         ]);
     }

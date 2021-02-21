@@ -16,6 +16,12 @@ class View extends Model
         return $this->db->query($sql, [':t_name' => $table, ':id' => $id])[0]['count'];
     }
 
+    public function getSumViewsByTable($table, $id)
+    {
+        $sql = "SELECT SUM(`c_views`) AS view FROM {$this->table} WHERE `table_name` = :t_name AND `table_row_id` = :id";
+        return $this->db->query($sql, [':t_name' => $table, ':id' => $id])[0]['view'];
+    }
+
     public function checkIP($ip, $table, $id)
     {
         $sql = "SELECT `ip` FROM `views` WHERE `ip` = :ip AND `table_name` = :t_name AND `table_row_id` = :id";

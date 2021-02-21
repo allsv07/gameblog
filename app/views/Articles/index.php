@@ -2,7 +2,7 @@
 <div class="container">
     <div class="row main-content-news">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar">
-            <span class="sidebar-title">Новости</span>
+            <span class="sidebar-title">Статьи</span>
 
             <div class="category-news">
                 <ul class="category-news-list">

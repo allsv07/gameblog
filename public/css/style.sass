@@ -5,6 +5,7 @@ $font-roboto: 'Roboto', sans-serif
 $font-rubik: 'Rubik', sans-serif
 $font-coda: 'Coda Caption', sans-serif
 $accent-color: #006495
+$color: #434343
 
 
 .blog_container 
@@ -17,7 +18,6 @@ $accent-color: #006495
     display: flex
     align-items: center
     margin-bottom: 20px
-    
     z-index: 10
     .logo
         a
@@ -58,16 +58,96 @@ $accent-color: #006495
 
 .span
     background: #1c1c1c
-    margin-top: 60px
+    margin-top: 10px
     span
         color: #b1b1b1
         font-size: 22px
         font-family: $font-rubik
         padding: 5px 20px
 
-.carousel
-    height: 400px
 
+
+.news-today
+    background: #1c1c1c
+    display: grid !important
+    grid-template-columns: repeat(8, 1fr)
+    grid-template-rows: repeat(4, 1fr)
+    grid-gap: 5px
+    height: 500px
+
+    .article-today
+        position: relative
+        overflow: hidden
+        .cat
+            padding: 5px 8px
+            position: absolute
+            background-color: $accent-color
+            top: -100px
+            opacity: 0
+            transition: 0.5s ease
+            span
+                font-size: 15px
+                font-family: $font-roboto
+                color: #ffffff
+                display: block
+                text-align: center
+        &:nth-child(1)
+            grid-column-start: 1
+            grid-column-end: 6
+            grid-row-start: 1
+            grid-row-end: 3
+        &:nth-child(2)
+            grid-column-start: 6
+            grid-column-end: 9
+            grid-row-start: 1
+            grid-row-end: 3
+        &:nth-child(3)
+            grid-column-start: 1
+            grid-column-end: 5
+            grid-row-start: 3
+            grid-row-end: 5
+        &:nth-child(4)
+            grid-column-start: 5
+            grid-column-end: 9
+            grid-row-start: 3
+            grid-row-end: 5
+        &:hover
+            .article-today__text
+                top: 60%
+            .cat
+                opacity: 0.7
+                top: 20px
+
+        .article-today__text
+            position: absolute
+            top: 70%
+            width: 100%
+            height: 100%
+            z-index: 10
+            background: #000000
+            opacity: 0.6
+            z-index: 1
+            transition: 0.5s ease
+            
+            .article-today__name
+                z-index: 10
+                color: #ffffff
+                margin-top: 20px
+                margin-left: 20px
+                margin-right: 20px
+                font-size: 20px
+                z-index: 5
+                text-align: center
+                display: block
+        &:hover
+            .article-img
+                
+
+        .article-img
+            width: 100%
+            height: 100%
+            object-fit: cover
+            transition: all 0.5s ease 0s
 
 
 .span_light
@@ -100,7 +180,7 @@ $accent-color: #006495
                 margin-bottom: 5px
                 padding-left: 20px
                 a
-                    color: #434343
+                    color: $color
                     font-family: $font-rubik
                     font-size: 18px
                     line-height: 1.4
@@ -111,14 +191,14 @@ $accent-color: #006495
             &__info
                 padding-left: 20px
                 &--date
-                    color: #434343
+                    color: $color
                     font-size: 13px
                     font-family: $font-roboto
                     font-weight: 400
                     font-style: italic
                 &--comment
                     margin-left: 10px
-                    color: #434343
+                    color: $color
                     font-size: 13px
                     font-family: $font-roboto
                     font-weight: 400
@@ -130,7 +210,7 @@ $accent-color: #006495
         .more-news
             text-transform: uppercase
             position: relative
-            color: #434343
+            color: $color
             top: 25px
             &:hover
                 text-decoration: none
@@ -170,7 +250,7 @@ $accent-color: #006495
                 &--name
                     a
                         font-family: $font-roboto
-                        //color: #434343
+                        //color: $color
                         color: #ffffff
                         font-size: 15px
                         p
@@ -223,7 +303,7 @@ $accent-color: #006495
                         font-weight: 400
                         font-style: italic
                         font-size: 14px
-                        color: #434343
+                        color: $color
                     a
                         font-family: $font-roboto
                         font-weight: 600
@@ -239,7 +319,7 @@ $accent-color: #006495
                         font-weight: 500
                         font-style: italic
                         font-size: 13px
-                        color: #434343
+                        color: $color
                         .fa-comment-o
                             font-size: 14px
                             margin-right: 5px
@@ -247,7 +327,7 @@ $accent-color: #006495
             &-desc
                 padding-top: 10px
                 a
-                    color: #434343
+                    color: $color
                     font-family: $font-rubik
                     font-size: 18px
                     line-height: 1.4
@@ -258,7 +338,7 @@ $accent-color: #006495
     .more-blogs
         text-transform: uppercase
         position: relative
-        color: #434343
+        color: $color
         top: 25px
         left: 15px
         &:hover
@@ -303,11 +383,11 @@ $accent-color: #006495
                         font-weight: 400
                         font-style: italic
                         font-size: 14px
-                        color: #434343
+                        color: $color
             &-desc
                 padding-top: 10px
                 a
-                    color: #434343
+                    color: $color
                     font-family: $font-rubik
                     font-size: 18px
                     line-height: 1.4
@@ -318,7 +398,7 @@ $accent-color: #006495
     .more-blogs
         text-transform: uppercase
         position: relative
-        color: #434343
+        color: $color
         top: 25px
         left: 15px
         &:hover
@@ -496,10 +576,10 @@ $accent-color: #006495
                         font-weight: 400
                         font-style: italic
                         font-size: 14px
-                        color: #434343 
+                        color: $color
             &__name
                 a
-                    color: #434343
+                    color: $color
                     font-family: "Rubik", sans-serif
                     font-size: 18px
                     line-height: 1.4
@@ -522,7 +602,7 @@ $accent-color: #006495
         .more-guides
             text-transform: uppercase
             position: relative
-            color: #434343
+            color: $color
             top: 25px
             left: 15px
             display: block
@@ -705,7 +785,7 @@ $accent-color: #006495
                     font-family: $font-roboto
                     font-size: 15px 
                     font-weight: 500
-                    color: #434343
+                    color: $color
                     position: relative
                     &:hover
                         text-decoration: none
@@ -743,7 +823,7 @@ $accent-color: #006495
             font-size: 25px
             text-transform: uppercase
             font-family: $font-rubik
-            color: #434343
+            color: $color
             padding-bottom: 10px
 
     .article-info
@@ -841,7 +921,7 @@ $accent-color: #006495
             .block-text-comment
                 padding: 10px
                 margin-top: 5px
-                color: #434343
+                color: $color
                 font-family: $font-roboto
                 font-size: 14px
                 font-weight: 400
@@ -887,7 +967,7 @@ $accent-color: #006495
         font-family: $font-rubik
         font-size: 25px
         font-weight: 400
-        color: #434343
+        color: $color
 
     .category-news
         &-list
@@ -900,7 +980,7 @@ $accent-color: #006495
                     font-family: $font-roboto
                     font-size: 15px 
                     font-weight: 500
-                    color: #434343
+                    color: $color
                     position: relative
                     &:hover
                         text-decoration: none
@@ -936,13 +1016,56 @@ $accent-color: #006495
         h1
             font-size: 25px
             font-family: $font-rubik
-            color: #434343
+            color: $color
 
     .article-news
+        padding-bottom: 30px
+        .chit-post
+            margin-top: 20px
+            &__img
+                width: 100%
+                border-radius: 5px
+            &__name
+                margin-top: 10px
+                a
+                    font-family: $font-rubik
+                    font-size: 18px
+                    color: $color
+                    font-weight: 500
+                    &:hover
+                        color: $accent-color
+            &__info
+                display: flex
+                .tags
+                    margin-right: 10px
+                    span
+                        font-size: 14px
+                        color: $accent-color
+                        font-style: italic
+                .day
+                    margin-left: 10px
+                    margin-right: 10px
+                    span
+                        font-size: 14px
+                        color: $color
+                        font-style: italic
+                .comments
+                    margin-left: 10px
+                    span
+                        font-size: 14px
+                        color: $color
+                        font-style: italic
+                        .fa-comment-o
+                            margin-right: 5px
+
+
+
+
+
         .article-new
             padding-bottom: 10px
             margin-top: 10px
-            border-bottom: 1px solid #c2c2c2 
+            // border-bottom: 1px solid #c2c2c2 
             &:nth-child(5)
                 border-bottom: none
             &__img
@@ -953,7 +1076,7 @@ $accent-color: #006495
                 margin-bottom: 5px
                 padding-left: 20px
                 a
-                    color: #434343
+                    color: $color
                     font-family: $font-rubik
                     font-size: 18px
                     line-height: 1.4
@@ -964,14 +1087,14 @@ $accent-color: #006495
             &__info
                 padding-left: 20px
                 &--date
-                    color: #434343
+                    color: $color
                     font-size: 13px
                     font-family: $font-roboto
                     font-weight: 400
                     font-style: italic
                 &--comment
                     margin-left: 10px
-                    color: #434343
+                    color: $color
                     font-size: 13px
                     font-family: $font-roboto
                     font-weight: 400
@@ -988,5 +1111,5 @@ $accent-color: #006495
                     font-family: $font-roboto
                     font-weight: 400
                     font-style: italic
-                    color: #434343
+                    color: $color
                     border-bottom: 1px dashed
