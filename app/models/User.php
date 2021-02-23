@@ -29,6 +29,7 @@ class User extends Model
 
         if (!empty($res)) {
             $_SESSION['user']['login'] = $res['login'];
+            $_SESSION['user']['id'] = $res['id'];
 
             if ($res['role'] == 'admin') {
                 $_SESSION['is_user'] = 'admin';

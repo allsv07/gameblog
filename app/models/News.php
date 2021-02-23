@@ -40,5 +40,31 @@ class News extends Model
         return (!empty($res[0])) ? $res[0]: [];
     }
 
+    /**
+     * добавление новости
+     * @param $arr
+     */
+    public function add($arr)
+    {
+        $sql = "INSERT INTO `news` 
+                SET `cat_news` = ?,
+                `title` = ?,
+                `description` = ?,
+                `author` = ?,
+                `date` = CURRENT_DATE(),
+                `image` = ?,
+                `meta_desc` = ?,
+                `meta_keywords` = ?,
+                `showSlider` = ?
+                ";
+        return $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $_SESSION['user']['id'], $arr['image'], $arr['m_desc'], $arr['m_keywords'], $arr['show']]);
+    }
+
+    public function delete($id)
+    {
+        $sql = "DELETE FROM `news` WHERE `id` = ?";
+        $this->db->exec($sql, [$id]);
+    }
+
 
 }

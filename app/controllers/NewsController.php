@@ -101,6 +101,7 @@ class NewsController extends AppController
         }
         else {
             header('Location: 404.html');
+            die();
         }
 
 
@@ -131,10 +132,12 @@ class NewsController extends AppController
             }
             else {
                 header("Location:404.html");
+                die();
             }
         }
         else {
             header('Location:/news');
+            die();
         }
 
         $categoryNews = $news->getCategory('category', 'news');

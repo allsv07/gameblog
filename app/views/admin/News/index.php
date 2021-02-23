@@ -31,7 +31,7 @@
                 <td><?=$new['comments']?></td>
                 <td>
                     <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href="/admin" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    <a href="/admin/news/delete" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>
             <? endforeach; ?>

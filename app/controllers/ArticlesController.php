@@ -93,6 +93,7 @@ class ArticlesController extends AppController
         }
         else {
             header("Location:404.html");
+            die();
         }
 
 

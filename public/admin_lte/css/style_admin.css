@@ -3,6 +3,14 @@
           box-sizing: border-box;
 }
 
+.error_input {
+  border: 1px solid red;
+}
+
+.error {
+  color: red;
+}
+
 .header {
   display: -webkit-box;
   display: -ms-flexbox;
@@ -269,6 +277,11 @@
 
 .block-content .admin-content .form_add label {
   margin-top: 10px;
+}
+
+.block-content .admin-content .form_add .btn_add {
+  width: 30%;
+  margin-top: 15px;
 }
 
 .block-autorization {

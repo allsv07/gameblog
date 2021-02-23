@@ -38,5 +38,39 @@ class AppController extends Controller
         session_destroy();
     }
 
+    /**
+     * производит все проверки файла: возвращает true либо строку с сообщением об ошибке
+     * @param $file
+     */
+    protected function canUploadFile($file)
+    {
+        $types = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
+
+        if ($file['name'] == '') return 'Вы не выбрали файл';
+        if ($file['size'] >= 5000000) return 'Файл слишком большой';
+
+        // разбиваем имя файла по точке и получаем массив
+        $getTypeFile = explode('.', $file['name']);
+        // получаем - расширение файла
+        $typeFile = strtolower(end($getTypeFile));
+
+        if (!in_array($typeFile, $types)) return 'Недопустимый тип файла';
+
+        return true;
+    }
+
+    /**
+     * загрузка файла на сервер
+     * @param $file
+     */
+    protected function uploadFile($file)
+    {
+        $directory = $_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file';
+        $tmp_name = $file['tmp_name'];
+        $name = time() . $file['name'];
+        move_uploaded_file($tmp_name, "$directory/$name");
+        return $name;
+    }
+
 
 }

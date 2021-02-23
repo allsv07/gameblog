@@ -48,58 +48,56 @@ class CheatsController extends AppController
         $views = new View();
         $cheats = new Cheat();
 
-        /**
-         * добавление ip в таблицу просмотров и счетчик просмотров записи
-         */
-        $ip = clearStr($_SERVER['REMOTE_ADDR']);
+        if (!empty($detailCheat)) {
 
-        if (empty($views->checkIP($ip, 'cheats', $id))) {
-            $views->addViews($ip, 'cheats', $id);
-        }
-        else {
-            $views->updateView('cheats', $id);
-        }
-
-
-        /**
-         * выбираем конкретную новость для детального просмотра
-         */
-        $detailCheat = $cheats->findOne($id);
-        if (count($detailCheat) > 0) {
+            /**
+             * выбираем конкретную новость для детального просмотра
+             */
+            $detailCheat = $cheats->findOne($id);
             $detailCheat = $this->editNewDate($detailCheat);
 
+            /**
+             * добавление ip в таблицу просмотров и счетчик просмотров записи
+             */
+            $ip = clearStr($_SERVER['REMOTE_ADDR']);
+
+            if (empty($views->checkIP($ip, 'cheats', $id))) {
+                $views->addViews($ip, 'cheats', $id);
+            } else {
+                $views->updateView('cheats', $id);
+            }
+
+
+            //добавляем к массиву записи количество комментариев и количество просмотров
+            if (count($detailCheat) > 0) {
+                $detailCheat['comments'] = $comments->getCommentsCountByTable('cheats', $detailCheat['id']);
+                $detailCheat['views'] = $views->getSumViewsByTable('cheats', $detailCheat['id']);
+            }
+
+            //комментарии для конкретной новости
+            $arrComments = $comments->getComments($id, 'cheats');
+            $arrComments = $this->editNewDateArray($arrComments);
+
+            //добавление комментариев
+            if (isset($_POST['add_comment'])) {
+                $comment = clearStr($_POST['text_comment']);
+                $comments->addComment($comment, 'cheats', $id);
+                header('Location:/cheats/detail/' . $id);
+            }
+
+
+            /**
+             * категории новостей
+             */
+            $categoryCheats = $cheats->getCategory('category', 'cheats');
+
+
+            $this->setVars(['arrCategory' => $categoryCheats, 'detailCheat' => $detailCheat, 'comments' => $arrComments]);
         }
         else {
             header('Location:404.html');
+            die();
         }
-
-
-        //добавляем к массиву записи количество комментариев и количество просмотров
-        if(count($detailCheat) > 0) {
-            $detailCheat['comments'] = $comments->getCommentsCountByTable('cheats', $detailCheat['id']);
-            $detailCheat['views'] = $views->getSumViewsByTable('cheats', $detailCheat['id']);
-        }
-
-        //добавление комментариев
-        if (isset($_POST['add_comment'])){
-            $comment = clearStr($_POST['text_comment']);
-            $comments->addComment($comment, 'cheats', $id);
-            header('Location:/cheats/detail/'.$id);
-        }
-
-
-        //комментарии для конкретной новости
-        $arrComments = $comments->getComments($id, 'cheats');
-        $arrComments = $this->editNewDateArray($arrComments);
-
-
-        /**
-         * категории новостей
-         */
-        $categoryCheats = $cheats->getCategory('category', 'cheats');
-
-
-        $this->setVars(['arrCategory' => $categoryCheats, 'detailCheat' => $detailCheat, 'comments' => $arrComments]);
     }
 
     public function categoryAction()
