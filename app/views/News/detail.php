@@ -1,4 +1,6 @@
-
+<?php
+//pr($detailNew);
+?>
 <div class="container">
     <div class="row main-content">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar-article sidebar">
@@ -25,9 +27,9 @@
             <div class="article-info">
                 <div class="article-info-author">
                     <div class="image_author">
-                        <img src="/images/photo/control-5.jpg" alt="author image">
+                        <img src="/images/user/<?=$detailNew['u_img']?>" alt="<?=$detailNew['login']?>">
                     </div>
-                    <span class="name-author"><a href="#"><?=$detailNew['author']?></a></span>
+                    <span class="name-author"><a href="#"><?=$detailNew['name']?></a></span>
                 </div>
                 <div class="article-info-date">
                     <span><?=$detailNew['date']?></span>

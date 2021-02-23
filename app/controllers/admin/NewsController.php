@@ -18,14 +18,15 @@ class NewsController extends AppController
 
         $arrNew = $news->getAllNews();
 
+        /**
+         * добавляем в массив поля кол-во просмотров и комментариев
+         */
         if (!empty($arrNew)) {
             foreach ($arrNew as &$News){
-                $News['comments'] = $views->getCountViewsByTable('news', $News['n_id']);
-                $News['views'] = $comments->getCommentsCountByTable('news', $News['n_id']);
+                $News['views'] = $views->getSumViewsByTable('news', $News['n_id']);
+                $News['comments'] = $comments->getCommentsCountByTable('news', $News['n_id']);
             }
         }
-
-
 
 
         $this->setVars(['news' => $arrNew]);

@@ -52,6 +52,9 @@ class MainController extends AppController
         $cheats = new Cheat();
 
 
+        /**
+         * получаем количество всех блоков (новости, статьи и т.д) на сайте
+         */
         $countNews = $news->count();
         $countArticles= $articles->count();
         $countBlogs= $blogs->count();

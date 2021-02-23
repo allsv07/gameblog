@@ -25,9 +25,9 @@
             <div class="article-info">
                 <div class="article-info-author">
                     <div class="image_author">
-                        <img src="/images/photo/control-5.jpg" alt="author image">
+                        <img src="/images/user/<?=$detailArticle['u_img']?>" alt="<?=$detailArticle['name']?>">
                     </div>
-                    <span class="name-author"><a href="#"><?=$detailArticle['author']?></a></span>
+                    <span class="name-author"><a href="#"><?=$detailArticle['name']?></a></span>
                 </div>
                 <div class="article-info-date">
                     <span><?=$detailArticle['date']?></span>

@@ -39,54 +39,63 @@ class ArticlesController extends AppController
         $views = new View();
 
         /**
-         * добавление ip в таблицу просмотров и счетчик просмотров записи
+         * выбираем конкретную статью для детального просмотра
          */
-        $ip = clearStr($_SERVER['REMOTE_ADDR']);
-
-        if (empty($views->checkIP($ip, 'articles', $id))) {
-            $views->addViews($ip, 'articles', $id);
-        }
-        else {
-            $views->updateView('articles', $id);
-        }
+        $detailArticle = $articles->findOneArticleByTable($id);
 
         /**
-         * выбираем конкретную новость для детального просмотра
+         * проверяем массив на пустоту, если пустой то перенаправляем на 404
          */
-        $detailArticle = $articles->findOne($id);
-        if (count($detailArticle) > 0) {
+        if (!empty($detailArticle)) {
+            $ip = clearStr($_SERVER['REMOTE_ADDR']);
+
+            /**
+             * добавление ip в таблицу просмотров и счетчик просмотров записи
+             */
+            if (empty($views->checkIP($ip, 'articles', $id))) {
+                $views->addViews($ip, 'articles', $id);
+            }
+            else {
+                $views->updateView('articles', $id);
+            }
+
+            /**
+             * редактируем дату в массиве новости в формат (12 марта 2021)
+             */
             $detailArticle = $this->editNewDate($detailArticle);
+
+            //добавляем к массиву записи количество комментариев и просмотров
+            if(!empty($detailArticle)) {
+                $detailArticle['comments'] = $comments->getCommentsCountByTable('articles', $detailArticle['id']);
+                $detailArticle['views'] = $views->getSumViewsByTable('articles', $detailArticle['id']);
+            }
+
+            //добавление комментариев
+            if (isset($_POST['add_comment'])){
+                $comment = clearStr($_POST['text_comment']);
+                $comments->addComment($comment, 'articles', $id);
+                header('Location:/articles/detail/'.$id);
+            }
+
+
+            //комментарии для конкретной новости
+            $arrComments = $comments->getComments($id, 'articles');
+            $arrComments = $this->editNewDateArray($arrComments);
+
+
+            /**
+             * категории новостей
+             */
+            $categoryArticles = $articles->getCategory('category', 'articles');
+
+
+            $this->setVars(['arrCategory' => $categoryArticles, 'detailArticle' => $detailArticle, 'comments' => $arrComments]);
         }
         else {
             header("Location:404.html");
         }
 
-        //добавляем к массиву записи количество комментариев и просмотров
-        if(count($detailArticle) > 0) {
-            $detailArticle['comments'] = $comments->getCommentsCountByTable('articles', $detailArticle['id']);
-            $detailArticle['views'] = $views->getSumViewsByTable('articles', $detailArticle['id']);
-        }
 
-        //добавление комментариев
-        if (isset($_POST['add_comment'])){
-            $comment = clearStr($_POST['text_comment']);
-            $comments->addComment($comment, 'articles', $id);
-            header('Location:/articles/detail/'.$id);
-        }
-
-
-        //комментарии для конкретной новости
-        $arrComments = $comments->getComments($id, 'articles');
-        $arrComments = $this->editNewDateArray($arrComments);
-
-
-        /**
-         * категории новостей
-         */
-        $categoryArticles = $articles->getCategory('category', 'articles');
-
-
-        $this->setVars(['arrCategory' => $categoryArticles, 'detailArticle' => $detailArticle, 'comments' => $arrComments]);
     }
 
     public function categoryAction()

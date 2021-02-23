@@ -25,7 +25,7 @@
             <tr style="height: 50px">
                 <td><?=$new['title']?></td>
                 <td><?=$new['image']?></td>
-                <td><?=$new['author']?></td>
+                <td><?=$new['name']?></td>
                 <td><?=$new['date']?></td>
                 <td><?=$new['views']?></td>
                 <td><?=$new['comments']?></td>

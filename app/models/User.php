@@ -31,7 +31,11 @@ class User extends Model
             $_SESSION['user']['login'] = $res['login'];
 
             if ($res['role'] == 'admin') {
-                $_SESSION['is_admin'] = 1;
+                $_SESSION['is_user'] = 'admin';
+            }
+
+            if ($res['role'] == 'moderator') {
+                $_SESSION['is_user'] = 'moderator';
             }
         }
     }
@@ -46,6 +50,12 @@ class User extends Model
         }
 
         return [];
+    }
+
+
+    public function getUserByDetailPage()
+    {
+
     }
 
 }

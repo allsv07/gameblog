@@ -19,8 +19,8 @@ class Comment extends Model
 
     public function getCommentsCountByTable($table, $id)
     {
-        $sql = "SELECT COUNT(*) AS count FROM {$this->table} WHERE `table_name` = :table AND `table_row_id` = :id AND `active` = '1'";
-        return $this->db->query($sql, [':table' => $table, ':id' => $id])[0]['count'];
+        $sql = "SELECT COUNT(*) AS count FROM {$this->table} WHERE `table_name` = :t_name AND `table_row_id` = :id AND `active` = '1'";
+        return $this->db->query($sql, [':t_name' => $table, ':id' => $id])[0]['count'];
     }
 
 

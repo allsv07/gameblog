@@ -14,11 +14,12 @@ class AppController extends Controller
     {
         parent::__construct($route, $view);
 
-        if (!isset($_SESSION['is_admin']) && ($this->route['action'] != 'login')) {
+        if (!isset($_SESSION['is_user']) && ($this->route['action'] != 'login')) {
             header('Location: /admin/main/login');
             die();
         }
 
+            // выход из админ панели
             if (isset($_GET['logout']) && $_GET['logout'] == 'exit') {
                 $this->out();
                 header('Location: /admin/main/login');
@@ -30,8 +31,8 @@ class AppController extends Controller
 
     public function out()
     {
-        if (isset($_SESSION['is_admin'])) {
-            unset($_SESSION['is_admin']);
+        if (isset($_SESSION['is_user'])) {
+            unset($_SESSION['is_user']);
         }
 
         session_destroy();
