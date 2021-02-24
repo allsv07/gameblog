@@ -28,17 +28,26 @@ class User extends Model
         $res = $this->findOne($id);
 
         if (!empty($res)) {
-            $_SESSION['user']['login'] = $res['login'];
-            $_SESSION['user']['id'] = $res['id'];
 
             if ($res['role'] == 'admin') {
                 $_SESSION['is_user'] = 'admin';
+                $_SESSION['admin']['login'] = $res['login'];
+                $_SESSION['admin']['id'] = $res['id'];
             }
 
             if ($res['role'] == 'moderator') {
                 $_SESSION['is_user'] = 'moderator';
+                $_SESSION['admin']['login'] = $res['login'];
+                $_SESSION['admin']['id'] = $res['id'];
+            }
+
+            if ($res['role'] == 'user') {
+                $_SESSION['is_user'] = 'user';
+                $_SESSION['user']['login'] = $res['login'];
+                $_SESSION['user']['id'] = $res['id'];
             }
         }
+
     }
 
 

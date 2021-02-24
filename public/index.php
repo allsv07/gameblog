@@ -41,6 +41,7 @@ Router::add(['^admin$' => ['controller' => 'Main', 'action' => 'index', 'prefix'
 Router::add(['^admin/(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)?$' => ['prefix' => 'admin\\']]);
 
 Router::add(['^admin/(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)/(?P<id>[0-9]+)?$' => ['prefix' => 'admin\\']]);
+//Router::add(['^admin/news/delete/id(?P<controller>[a-z0-9-]+)/?(?P<action>[a-z0-9-]+)/(?P<id>[0-9]+)?$' => ['prefix' => 'admin\\']]);
 
 
 

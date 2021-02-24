@@ -8,6 +8,19 @@ use system\core\Controller;
 
 class AppController extends Controller
 {
+
+    public function __construct($route, $view = '')
+    {
+        parent::__construct($route, $view);
+
+        // выход из панели пользователя
+        if (isset($_GET['logout']) && $_GET['logout'] == 'exit') {
+            $this->outUser();
+            header("Location: /");
+            die();
+        }
+    }
+
     public function countArr($arr)
     {
         if(count($arr) > 0) {
@@ -77,5 +90,14 @@ class AppController extends Controller
         }
 
         return $array;
+    }
+
+    public function outUser()
+    {
+        if (isset($_SESSION['is_user'])) {
+            unset($_SESSION['is_user']);
+        }
+
+        session_destroy();
     }
 }

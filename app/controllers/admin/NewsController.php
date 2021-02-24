@@ -68,7 +68,6 @@ class NewsController extends AppController
                 //проверка и загрузка файла на сервер
                 $check = $this->canUploadFile($file);
                 if ($check === true) {
-                    $this->uploadFile($file);
                     $file_name = $this->uploadFile($file);
                 }
                 else {
@@ -82,17 +81,64 @@ class NewsController extends AppController
                 header('Location:/admin/news');
             }
         }
-        $id = $this->route['id'];
-        pr($id);
 
         $this->setVars(['categories' => $category]);
     }
 
+    /**
+     * удаление новости
+     */
     public function deleteAction()
     {
         $news = new News();
 
         $id = $this->route['id'];
-        pr($id);
+
+        $news->delete('news', $id);
+        header('Location: /admin/news');
+        die();
+    }
+
+    /**
+     * редактирование новости
+     */
+    public function editAction()
+    {
+        $news = new News();
+        $id = $this->route['id'];
+
+        $editNew = $news->getDetailNewsByEdit($id);
+        $category = $news->getCategory('category', 'news');
+
+        if (empty($editNew)) {
+            header('Location: /admin/news');
+        }
+
+        //редактирование
+        if (isset($_POST['btn_edit'])) {
+            $title = clearStr($_POST['title']);
+            $category = $_POST['category'];
+            $desc = clearStr($_POST['desc']);
+            $m_desc = clearStr($_POST['meta_desc']);
+            $m_keywords = clearStr($_POST['meta_keywords']);
+            $showSlider = $_POST['show_slider'];
+
+
+            if ($title == '') $_SESSION['error']['title'] = 'Введите название новости';
+            if ($category == '0') $_SESSION['error']['category'] = 'Выберите категорию';
+            if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст новости';
+            if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
+            if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
+
+            if ($title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
+
+                //редактирование новости в БД
+                $news->edit('news', $id, ['category' => $category, 'title' => $title, 'desc' => $desc,
+                    'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => $showSlider]);
+                header('Location:/admin/news');
+            }
+        }
+
+        $this->setVars(['editNew' => $editNew, 'categories' => $category]);
     }
 }

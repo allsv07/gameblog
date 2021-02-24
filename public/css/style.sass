@@ -1113,3 +1113,37 @@ $color: #434343
                     font-style: italic
                     color: $color
                     border-bottom: 1px dashed
+
+
+/*** Модальное окно входа пользователя ***/
+.bloc_auth-user
+    display: flex
+    flex-direction: column
+    .login, .pass
+        margin-top: 7px
+        margin-bottom: 7px
+        outline: none
+        width: 100%
+        height: 30px
+        border: 1px solid #C2C2C2
+        padding: 7px 10px 7px 10px
+        font-family: $font-rubik
+        font-size: 14px
+    .btn_auth
+        margin-top: 10px
+        border: 1px solid $accent-color
+        background: #fff
+        width: 30%
+        border-radius: 5px
+        text-transform: uppercase
+        font-family: $font-roboto
+        font-size: 14px
+        font-weight: 400
+        color: $accent-color
+        padding: 8px 0
+        &:hover
+            background: $accent-color
+            color: #fff
+            font-weight: 500
+            
+            

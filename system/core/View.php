@@ -24,15 +24,21 @@ class View
         $this->view = $view;
     }
 
+
     public function render($vars)
     {
         if (is_array($vars)){
             extract($vars);
         }
+
+        if(!isset($title)) {
+            $title = 'Game Blog';
+        }
         // app/view/Main/index
         ob_start();
 
         $path_view = ROOT . '/app/views/' . $this->route['prefix'] . $this->route['controller'] . '/' . $this->view . '.php';
+
 
         if (file_exists($path_view)){
             require_once $path_view;

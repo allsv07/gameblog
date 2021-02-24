@@ -109,6 +109,13 @@ abstract class Model
         return (!empty($res)) ? $res[0]['id'] : [];
     }
 
+    public function getCategoryByCode($code)
+    {
+        $sql = "SELECT * FROM category WHERE code = :code";
+        $res = $this->db->query($sql, [':code' => $code]);
+        return (!empty($res)) ? $res[0] : [];
+    }
+
     public function getBreadcrumbs($code)
     {
         $sql = "SELECT `title` FROM `category` WHERE `code` = :c";
@@ -121,6 +128,21 @@ abstract class Model
         return $this->db->query($sql);
     }
 
+    /**
+     * удаление записи из бд
+     * @param $id
+     */
+    public function delete($table, $id)
+    {
+        $del_views = "DELETE FROM `views` WHERE `table_name` = ? AND `table_row_id` = ?";
+        $this->db->exec($del_views, [$table, $id]);
+
+        $del_comments = "DELETE FROM `comments` WHERE `table_name` = ? AND `table_row_id` = ?";
+        $this->db->exec($del_comments, [$table, $id]);
+
+        $sql = "DELETE FROM {$table} WHERE `id` = ?";
+        $this->db->exec($sql, [$id]);
+    }
 
 
 

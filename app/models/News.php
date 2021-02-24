@@ -10,11 +10,12 @@ class News extends Model
 {
     protected $table = 'news';
 
-//    public function getDetailNews($id)
-//    {
-//        $sql = "SELECT N.title, N.description, N.author as n_author, N.date as n_date, N.comments as n_comments, N.views AS n_views, C.author AS c_author, C.date AS c_date, C.text AS c_text FROM {$this->table} AS N JOIN comments AS C ON N.table_name = C.table_name AND N.id = C.table_row_id AND C.active = 1";
-//        return $this->db->query($sql);
-//    }
+    public function getDetailNewsByEdit($id)
+    {
+        $sql = "SELECT N.id AS n_id, N.cat_news, N.title, N.description, N.meta_desc, N.meta_keywords, N.showSlider, N.date, N.image, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE N.id = ?";
+        $res = $this->db->query($sql, [$id]);
+        return (!empty($res[0])) ? $res[0]: [];
+    }
 
     public function getAllNews()
     {
@@ -57,14 +58,27 @@ class News extends Model
                 `meta_keywords` = ?,
                 `showSlider` = ?
                 ";
-        return $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $_SESSION['user']['id'], $arr['image'], $arr['m_desc'], $arr['m_keywords'], $arr['show']]);
+        return $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $_SESSION['admin']['id'], $arr['image'], $arr['m_desc'], $arr['m_keywords'], $arr['show']]);
     }
 
-    public function delete($id)
+    /**
+     * редактировани записи в БД
+     */
+    public function edit($table, $id, $arr)
     {
-        $sql = "DELETE FROM `news` WHERE `id` = ?";
-        $this->db->exec($sql, [$id]);
+        $sql = "UPDATE `news` SET  
+                            `cat_news` = ?,
+                            `title` = ?,
+                            `description` = ?,
+                            `meta_desc` = ?,
+                            `meta_keywords` = ?,
+                            `showSlider` = ?
+                            WHERE `id` = ?
+                            ";
+        $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $arr['m_desc'], $arr['m_keywords'], $arr['show'], $id]);
     }
+
+
 
 
 }

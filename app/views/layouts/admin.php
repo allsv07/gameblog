@@ -23,7 +23,7 @@
     </div>
     <div class="menu">
         <ul>
-            <li>Добро пожаловать: <a href="#"><strong><?=$_SESSION['user']['login']?></strong></a></li>
+            <li>Добро пожаловать: <a href="#"><strong><?=$_SESSION['admin']['login']?></strong></a></li>
             <li><a href="?logout=exit" title="Выйти">Выйти<i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
         </ul>
     </div>

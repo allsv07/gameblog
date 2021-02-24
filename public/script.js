@@ -19,4 +19,24 @@ $(document).ready(function(){
 
     }));
 
+
+    $("#btn-auth").click(function () {
+        $(".auth-error").remove();
+        $.ajax({
+            type: 'post',
+            url: '/auth',
+            data: $("#ajax-form").serialize(),
+            dataType: 'json',
+            success: function (data) {
+                if (data.message != 'ok') {
+                    $("#ajax-form").before("<span class='auth-error'>"+ data.message +"</span>");
+                }
+                else {
+                    $("#authModal").hide();
+                    window.location.reload();
+                }
+            }
+        });
+    });
+
 });

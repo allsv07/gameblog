@@ -3,14 +3,6 @@
           box-sizing: border-box;
 }
 
-.error_input {
-  border: 1px solid red;
-}
-
-.error {
-  color: red;
-}
-
 .header {
   display: -webkit-box;
   display: -ms-flexbox;

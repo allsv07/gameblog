@@ -19,12 +19,12 @@ class AppController extends Controller
             die();
         }
 
-            // выход из админ панели
-            if (isset($_GET['logout']) && $_GET['logout'] == 'exit') {
-                $this->out();
-                header('Location: /admin/main/login');
-                die();
-            }
+        // выход из админ панели
+        if (isset($_GET['logout']) && $_GET['logout'] == 'exit') {
+            $this->out();
+            header('Location: /admin/main/login');
+            die();
+        }
 
 
     }
@@ -47,7 +47,7 @@ class AppController extends Controller
         $types = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
 
         if ($file['name'] == '') return 'Вы не выбрали файл';
-        if ($file['size'] >= 5000000) return 'Файл слишком большой';
+        if ($file['size'] >= 1000000) return 'Файл слишком большой';
 
         // разбиваем имя файла по точке и получаем массив
         $getTypeFile = explode('.', $file['name']);

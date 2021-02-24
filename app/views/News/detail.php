@@ -72,6 +72,11 @@
             <div class="article-form-comment">
                 <form action="" class="form" method="post">
                     <label class="error">Заполните поле</label>
+                    <? if (!isset($_SESSION['user']['login'])): ?>
+                        <label class="qw" for="text_comment">Введите имя</label>
+                        <input type="text" id="author_comment class="author_comment name="uthor_comment">
+                    <? endif; ?>
+                    <label class="qw" for="text_comment">Введите текст комментария</label>
                     <textarea name="text_comment" id="text_comment" class="text_comment"></textarea>
                     <input type="submit" name="add_comment" class="add_comment" id="submit" value="Опубликовать">
                 </form>

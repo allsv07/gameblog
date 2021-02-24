@@ -10,11 +10,15 @@
         <? if (!empty($mainToday)): ?>
         <? foreach ($mainToday as $today): ?>
         <div class="article-today">
-            <a href="<?=$today['url'].$today['id']?>">
+            <a href="<?=$today['tbl'].'/detail/'.$today['id']?>">
                 <div class="cat">
                     <span><?=$today['category']?></span>
                 </div>
-                <img src="images/photo/control-6.jpg" class="article-img" alt="control-6">
+                <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$today['image'])): ?>
+                    <img src="/public/images/upload_file/<?=$today['image']?>" class="article-img" alt="<?=$today['image']?>">
+                <? else: ?>
+                    <img src="/public/images/photo/no-image.jpg" class="article-img" alt="<?=$today['image']?>">
+                <? endif; ?>
                 <div class="article-today__text">
                     <span class="article-today__name"><?=$today['title']?></span>
                 </div>
@@ -43,8 +47,13 @@
                 <div class="cat" style="position: absolute;">
                     <span><?=$today['category']?></span>
                 </div>
-                <a href="<?=$today['url'].$today['id']?>">
-                    <img src="/images/photo/control-6.jpg" class="d-block w-100" alt="...">
+                <a href="<?=$today['tbl'].'/detail/'.$today['id']?>">
+                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$today['image'])): ?>
+                        <img src="/public/images/upload_file/<?=$today['image']?>" class="d-block w-100" alt="<?=$today['image']?>">
+                    <? else: ?>
+                        <img src="/public/images/photo/no-image.jpg" class="d-block w-100" alt="<?=$today['image']?>">
+                    <? endif; ?>
+
                     <div class="carousel-caption d-block d-md-block" style="background: #0e1417; opacity: 0.8">
                         <h5><?=$today['title']?></h5>
                     </div>
@@ -75,7 +84,11 @@
                 <div class="row">
                     <div class="col-4">
                         <a href="news/detail/<?=$new['id']?>">
-                            <img src="images/photo/hitman_3-4.jpg" class="game-new__img" alt="<?= $new['title'] ?>">
+                            <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$new['image'])): ?>
+                                <img src="/public/images/upload_file/<?=$new['image']?>" class="game-new__img" alt="<?=$new['image']?>">
+                            <? else: ?>
+                                <img src="/public/images/photo/no-image.jpg" class="game-new__img" alt="<?=$new['image']?>">
+                            <? endif; ?>
                         </a>
                     </div>
                     <div class="col-8">
@@ -102,7 +115,11 @@
             <? foreach ($popularNews as $popular): ?>
             <a href="#">
                 <div class="col-12 popular-new">
-                    <img src="images/photo/cyberpunk_2077-19.jpg" class="popular-new__img" alt="<?= $popular['title'] ?>">
+                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$popular['image'])): ?>
+                        <img src="/public/images/upload_file/<?=$popular['image']?>" class="popular-new__img" alt="<?=$popular['image']?>">
+                    <? else: ?>
+                        <img src="/public/images/photo/no-image.jpg" class="popular-new__img" alt="<?=$popular['image']?>">
+                    <? endif; ?>
                     <div class="popular-new__desc">
                         <div class="popular-new__desc--name">
                             <a href="news/detail/<?= $popular['id'] ?>">
@@ -153,8 +170,12 @@
             <div class="row">
                 <? foreach ($lastArticles as $article): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
-                    <a href="#">
-                        <img src="images/photo/NFSR3.jpg" class="article__img" alt="<?= $article['title'] ?>">
+                    <a href="/articles/detail/<?=$article['id']?>">
+                        <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$article['image'])): ?>
+                            <img src="/public/images/upload_file/<?=$article['image']?>" class="article__img" alt="<?=$article['image']?>">
+                        <? else: ?>
+                            <img src="/public/images/photo/no-image.jpg" class="article__img" alt="<?=$article['image']?>">
+                        <? endif; ?>
                         <div class="article-day">
                             <div class="day"><span><?= $article['date'] ?></div>
                         </div>

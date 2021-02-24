@@ -30,8 +30,8 @@
                 <td><?=$new['views']?></td>
                 <td><?=$new['comments']?></td>
                 <td>
-                    <a href="#" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                    <a href="/admin/news/delete" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                    <a href="/admin/news/edit/<?=$new['n_id']?>" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                    <a href="/admin/news/delete/<?=$new['n_id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
                 </td>
             </tr>
             <? endforeach; ?>

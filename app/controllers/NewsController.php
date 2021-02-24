@@ -34,6 +34,7 @@ class NewsController extends AppController
          */
         $categoryNews = $news->getCategory('category', 'news');
 
+
         $this->setVars(['allNews' => $allNews, 'arrCategory' => $categoryNews]);
     }
 
@@ -45,6 +46,8 @@ class NewsController extends AppController
         $news = new News();
         $comments = new Comment();
         $views = new View();
+
+
 
         /**
          * выбираем конкретную новость для детального просмотра
@@ -86,6 +89,7 @@ class NewsController extends AppController
 
             //добавление комментариев
             if (isset($_POST['add_comment'])){
+
                 $comment = clearStr($_POST['text_comment']);
                 $comments->addComment($comment, 'news', $id);
                 header('Location:/news/detail/'.$id);
@@ -96,8 +100,9 @@ class NewsController extends AppController
              */
             $categoryNews = $news->getCategory('category', 'news');
 
+            $title = $detailNew['title'];
 
-            $this->setVars(['arrCategory' => $categoryNews, 'detailNew' => $detailNew, 'comments' => $arrComments]);
+            $this->setVars(['arrCategory' => $categoryNews, 'detailNew' => $detailNew, 'comments' => $arrComments, 'title' => $title]);
         }
         else {
             header('Location: 404.html');
@@ -118,22 +123,25 @@ class NewsController extends AppController
          */
         if (isset($this->route['code'])) {
 
-            $breadcrumbs = $news->getBreadcrumbs($this->route['code']);
-            $id = $news->getIDCategory(clearStr($this->route['code']));
-            if (!empty($id)) {
-                $arNewsCat = $news->getNewsThisCategory($id);
-                $arNewsCat = $this->editNewDateArray($arNewsCat);
-                if (!empty($arNewsCat)) {
-                    foreach ($arNewsCat as &$News) {
-                        $News['comments'] = $comments->getCommentsCountByTable('news', $News['n_id']);
-                        $News['views'] = $views->getCountViewsByTable('news', $News['n_id']);
-                    }
-                }
-            }
-            else {
+            $arrCategory = $news->getCategoryByCode($this->route['code']);
+            if (empty($arrCategory)) {
                 header("Location:404.html");
                 die();
             }
+            $title = $arrCategory['title'];
+
+            $breadcrumbs = $news->getBreadcrumbs($this->route['code']);
+            $id = $news->getIDCategory(clearStr($this->route['code']));
+
+            $arNewsCat = $news->getNewsThisCategory($id);
+            $arNewsCat = $this->editNewDateArray($arNewsCat);
+            if (!empty($arNewsCat)) {
+                foreach ($arNewsCat as &$News) {
+                    $News['comments'] = $comments->getCommentsCountByTable('news', $News['n_id']);
+                    $News['views'] = $views->getCountViewsByTable('news', $News['n_id']);
+                }
+            }
+
         }
         else {
             header('Location:/news');
@@ -142,7 +150,8 @@ class NewsController extends AppController
 
         $categoryNews = $news->getCategory('category', 'news');
 
-        $this->setVars(['news' => $arNewsCat, 'arrCategory' => $categoryNews, 'breadcrumb' => $breadcrumbs]);
+
+        $this->setVars(['news' => $arNewsCat, 'arrCategory' => $categoryNews, 'breadcrumb' => $breadcrumbs, 'title' => $title]);
     }
 
 }

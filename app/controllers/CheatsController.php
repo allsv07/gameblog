@@ -48,13 +48,18 @@ class CheatsController extends AppController
         $views = new View();
         $cheats = new Cheat();
 
-        if (!empty($detailCheat)) {
+
 
             /**
              * выбираем конкретную новость для детального просмотра
              */
             $detailCheat = $cheats->findOne($id);
             $detailCheat = $this->editNewDate($detailCheat);
+
+            if (empty($detailCheat)) {
+                header('Location:404.html');
+                die();
+            }
 
             /**
              * добавление ip в таблицу просмотров и счетчик просмотров записи
@@ -93,11 +98,7 @@ class CheatsController extends AppController
 
 
             $this->setVars(['arrCategory' => $categoryCheats, 'detailCheat' => $detailCheat, 'comments' => $arrComments]);
-        }
-        else {
-            header('Location:404.html');
-            die();
-        }
+
     }
 
     public function categoryAction()
