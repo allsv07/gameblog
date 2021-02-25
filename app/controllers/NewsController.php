@@ -34,8 +34,20 @@ class NewsController extends AppController
          */
         $categoryNews = $news->getCategory('category', 'news');
 
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = 'Новости';
+        $metaD = 'игровые новости';
+        $metaK = 'игровые новости';
 
-        $this->setVars(['allNews' => $allNews, 'arrCategory' => $categoryNews]);
+        $this->setVars([
+            'allNews' => $allNews,
+            'arrCategory' => $categoryNews,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+            ]);
     }
 
 
@@ -90,8 +102,9 @@ class NewsController extends AppController
             //добавление комментариев
             if (isset($_POST['add_comment'])){
 
+                $author = (isset($_SESSION['user']['login'])) ? $_SESSION['user']['login'] : clearStr($_POST['author_comment']);
                 $comment = clearStr($_POST['text_comment']);
-                $comments->addComment($comment, 'news', $id);
+                $comments->addComment('news', $id, ['author' => $author, 'comment' => $comment]);
                 header('Location:/news/detail/'.$id);
             }
 
@@ -100,9 +113,21 @@ class NewsController extends AppController
              */
             $categoryNews = $news->getCategory('category', 'news');
 
+            /**
+             * формируем meta-тэги и title
+             */
             $title = $detailNew['title'];
+            $metaD = $detailNew['meta_desc'];
+            $metaK = $detailNew['meta_keywords'];
 
-            $this->setVars(['arrCategory' => $categoryNews, 'detailNew' => $detailNew, 'comments' => $arrComments, 'title' => $title]);
+            $this->setVars([
+                'arrCategory' => $categoryNews,
+                'detailNew' => $detailNew,
+                'comments' => $arrComments,
+                'title' => $title,
+                'metaD' => $metaD,
+                'metaK' => $metaK
+            ]);
         }
         else {
             header('Location: 404.html');
@@ -128,7 +153,7 @@ class NewsController extends AppController
                 header("Location:404.html");
                 die();
             }
-            $title = $arrCategory['title'];
+
 
             $breadcrumbs = $news->getBreadcrumbs($this->route['code']);
             $id = $news->getIDCategory(clearStr($this->route['code']));
@@ -150,8 +175,21 @@ class NewsController extends AppController
 
         $categoryNews = $news->getCategory('category', 'news');
 
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = $arrCategory['title'];
+        $metaD = $arrCategory['title'];
+        $metaK = $arrCategory['title'];
 
-        $this->setVars(['news' => $arNewsCat, 'arrCategory' => $categoryNews, 'breadcrumb' => $breadcrumbs, 'title' => $title]);
+        $this->setVars([
+            'news' => $arNewsCat,
+            'arrCategory' => $categoryNews,
+            'breadcrumb' => $breadcrumbs,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+        ]);
     }
 
 }

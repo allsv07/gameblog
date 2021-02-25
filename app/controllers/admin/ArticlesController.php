@@ -4,49 +4,52 @@
 namespace app\controllers\admin;
 
 
+use app\models\Article;
 use app\models\Comment;
-use app\models\News;
 use app\models\View;
 
-class NewsController extends AppController
+class ArticlesController extends AppController
 {
     public function indexAction()
     {
-        $news = new News();
+        $articles = new Article();
         $views = new View();
         $comments = new Comment();
 
-        $arrNew = $news->getAllNews();
+        $arrArticles = $articles->getAllArticles();
 
         /**
          * добавляем в массив поля кол-во просмотров и комментариев
          */
-        if (!empty($arrNew)) {
-            foreach ($arrNew as &$News){
-                $News['views'] = $views->getSumViewsByTable('news', $News['n_id']);
-                $News['comments'] = $comments->getCommentsCountByTable('news', $News['n_id']);
+        if (!empty($arrArticles)) {
+            foreach ($arrArticles as &$Articles){
+                $Articles['views'] = $views->getSumViewsByTable('articles', $Articles['a_id']);
+                $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['a_id']);
             }
         }
 
 
-        $this->setVars(['news' => $arrNew]);
+        $this->setVars(['articles' => $arrArticles]);
     }
 
+    /**
+     * добавление статьи
+     */
     public function addAction()
     {
-        $news = new News();
+        $articles = new Article();
 
         /**
-         * выбираем категории для добавления новости
+         * выбираем категории для добавления статьи
          */
-        $arrCategory = $news->getCategory('category', 'news');
+        $arrCategory = $articles->getCategory('category', 'articles');
 
-        if (empty($category)) {
-            $category = [];
+        if (empty($arrCategory)) {
+            $arrCategory = [];
         }
 
         /**
-         * добавление новости
+         * добавление статьи
          */
         if (isset($_POST['btn_add'])) {
             $file = $_FILES['add_image'];
@@ -59,9 +62,9 @@ class NewsController extends AppController
             $showSlider = $_POST['show_slider'];
 
 
-            if ($title == '') $_SESSION['error']['title'] = 'Введите название новости';
+            if ($title == '') $_SESSION['error']['title'] = 'Введите название статьи';
             if ($category == '0') $_SESSION['error']['category'] = 'Выберите категорию';
-            if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст новости';
+            if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст статьи';
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
             // проверка файла на допустимый размер, формат и выбран ли вообще файл
@@ -75,9 +78,9 @@ class NewsController extends AppController
                 // end
 
                 //добавление новости в БД
-                $news->add(['category' => $category, 'title' => $title, 'desc' => $desc, 'image' => $file_name,
+                $articles->add(['category' => $category, 'title' => $title, 'desc' => $desc, 'image' => $file_name,
                     'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => $showSlider]);
-                header('Location:/admin/news');
+                header('Location:/admin/articles');
             }
         }
 
@@ -85,33 +88,34 @@ class NewsController extends AppController
     }
 
     /**
-     * удаление новости
+     * удаление статьи
      */
     public function deleteAction()
     {
-        $news = new News();
+        $news = new Article();
 
         $id = $this->route['id'];
 
-        $news->delete('news', $id);
-        header('Location: /admin/news');
+        $news->delete('articles', $id);
+        header('Location: /admin/articles');
         die();
     }
 
     /**
-     * редактирование новости
+     * редактирование статьи
      */
     public function editAction()
     {
-        $news = new News();
+        $articles = new Article();
         $id = $this->route['id'];
 
-        $editNew = $news->getDetailNewsByEdit($id);
-        $category = $news->getCategory('category', 'news');
+        $editArticle = $articles->getDetailArticleByEdit($id);
+        $arrCategory = $articles->getCategory('category', 'articles');
 
-        if (empty($editNew)) {
-            header('Location: /admin/news');
+        if (empty($editArticle)) {
+            header('Location: /admin/articles');
         }
+
 
         //редактирование
         if (isset($_POST['btn_edit'])) {
@@ -141,23 +145,22 @@ class NewsController extends AppController
             }
             else {
                 $check = true;
-                $file_name = $editNew['image'];
+                $file_name = $editArticle['image'];
             }
 
-
-            if (isset($file) && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
+            if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
                 if ($f === true) {
                     //загрузка файла на сервер
                     $file_name = $this->uploadFile($file);
                     // end
                 }
                 //редактирование новости в БД
-                $news->edit('news', $id, ['category' => $category, 'title' => $title, 'desc' => $desc, 'image' => $file_name,
-                    'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => $showSlider]);
-                header('Location:/admin/news');
+                $articles->edit('news', $id, ['category' => $category, 'title' => $title, 'desc' => $desc,
+                    'image' => $file_name, 'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => $showSlider]);
+                header('Location:/admin/articles');
             }
         }
 
-        $this->setVars(['editNew' => $editNew, 'categories' => $category]);
+        $this->setVars(['editNew' => $editArticle, 'categories' => $arrCategory]);
     }
 }

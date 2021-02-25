@@ -19,7 +19,7 @@
                 <span>Всего статей<strong><?=$articles?></strong></span>
             </div>
             <div class="block-info__articles--futer">
-                <a href="#">Показать все</a>
+                <a href="/admin/articles">Показать все</a>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 block-info__blogs">
@@ -27,7 +27,7 @@
                 <span>Всего блогов<strong><?=$blogs?></strong></span>
             </div>
             <div class="block-info__blogs--futer">
-                <a href="#">Показать все</a>
+                <a href="/admin/blogs">Показать все</a>
             </div>
         </div>
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 block-info__cheats">
@@ -35,7 +35,7 @@
                 <span>Всего читов<strong><?=$cheats?></strong></span>
             </div>
             <div class="block-info__cheats--futer">
-                <a href="#">Показать все</a>
+                <a href="/admin/cheats">Показать все</a>
             </div>
         </div>
     </div>

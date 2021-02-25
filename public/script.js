@@ -1,10 +1,19 @@
 $(document).ready(function(){
     //start validate commentaries
+    let author = $("#author_comment");
+    console.log(author);
     let text = $("#text_comment");
     let btn = $("#submit");
-    let error = $(".error");
+    let error = $(".error-label");
 
     if (btn.click(function (e) {
+        if (author.val() == '') {
+            e.preventDefault();
+
+            error.css("opacity", "1");
+            author.css("border", "1px solid #c44d4d");
+        }
+        
         if (text.val() == '') {
             e.preventDefault();
 
@@ -12,9 +21,14 @@ $(document).ready(function(){
             text.css("border", "1px solid #c44d4d");
         }
 
+        author.blur(function () {
+            error.css("opacity", "0");
+            author.css("border", "1px solid #cfcfcf");
+        });
+
         text.blur(function () {
             error.css("opacity", "0");
-            text.css("border", "1px solid #000");
+            text.css("border", "1px solid #cfcfcf");
         });
 
     }));

@@ -24,7 +24,7 @@
             <? foreach ($news as $new): ?>
             <tr style="height: 50px">
                 <td><?=$new['title']?></td>
-                <td><?=$new['image']?></td>
+                <td><img style="width: 70px;" src="/public/images/upload_file/<?=$new['image']?>" alt=""></td>
                 <td><?=$new['name']?></td>
                 <td><?=$new['date']?></td>
                 <td><?=$new['views']?></td>

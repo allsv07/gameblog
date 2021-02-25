@@ -247,6 +247,7 @@ $color: #434343
             //border-bottom: 1px solid #8a8a8a 
             &__img
                 width: 100%
+                
             &__desc
                 &--name
                     a
@@ -277,6 +278,7 @@ $color: #434343
                     text-decoration: none
             &__img
                 width: 100%
+                
             .eyes
                 position: absolute
                 top: 0
@@ -932,7 +934,9 @@ $color: #434343
     .article-form-comment
         margin-top: 20px
         .form
-            label
+            display: flex
+            flex-direction: column
+            .error-label
                 color: #c44d4d
                 font-size: 15px
                 font-family: $font-roboto
@@ -941,8 +945,17 @@ $color: #434343
             .text_comment
                 width: 100%
                 height: 80px
+                outline: none
+                padding-left: 10px
+                border: 1px solid #cfcfcf
+            .author_comment
+                width: 30%
+                height: 35px
+                outline: none
+                padding-left: 10px
+                border: 1px solid #cfcfcf
             .add_comment
-                margin-top: 5px
+                margin-top: 15px
                 background: $accent-color
                 color: #fff
                 font-family: $font-rubik
@@ -951,6 +964,7 @@ $color: #434343
                 border: none
                 border-radius: 3px 0px 3px 0px 
                 transition: 0.5s ease
+                outline: none
                 &:hover
                     border-radius: 10px 0px 10px 0px
                     background: #0675ad
@@ -1166,3 +1180,41 @@ $color: #434343
     color: #fff
     font-size: 15px
     font-family: $font-roboto
+
+
+
+/*** 404 ***/
+.error-404
+    background-color: #000
+    display: flex
+    justify-content: center
+.block-404
+    margin-top: 100px
+    span
+        color: #fff
+        font-size: 28px
+        font-family: $font-coda
+        font-weight: 500
+    .location_404
+        color: #fff
+        font-size: 72px
+        font-family: $font-coda
+        font-weight: 500
+    .location_404--not_fount
+        color: #fff
+        font-size: 28px
+        font-family: $font-coda
+        font-weight: 500
+    .location_404--com-back
+        padding: 10px 30px
+        border: 2px solid $accent-color
+        color: $accent-color
+        text-decoration: none
+        font-family: $font-roboto
+        font-size: 18px
+        text-transform: uppercase
+        &:hover
+            color: #fff
+            background: $accent-color
+            
+

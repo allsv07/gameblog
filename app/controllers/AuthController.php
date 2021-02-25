@@ -18,7 +18,7 @@ class AuthController extends AppController
                 $login = clearStr($_POST['login_user']);
                 $pass = $_POST['pass_user'];
 
-                $id = $user->auth($login, $pass);
+                $id = $user->authUser($login, $pass);
 
                 if ($id !== false) {
                     $user->login($id);
@@ -44,6 +44,14 @@ class AuthController extends AppController
 
         }
 
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = 'Авторизвция';
+        $metaD = '';
+        $metaK = '';
+
+        $this->setVars(['title' => $title, 'metaD' => $metaD, 'metaK' => $metaK]);
 
     }
 

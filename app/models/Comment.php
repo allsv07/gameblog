@@ -24,12 +24,10 @@ class Comment extends Model
     }
 
 
-    public function addComment($comment, $user, $table, $id)
+    public function addComment($table, $id, $arr)
     {
-        if ($this->checkComment($comment)) {
             $sql = "INSERT INTO `comments` SET `author` = ?, `text` = ?, `table_name` = ?, `table_row_id` = ?, `date` = CURDATE()";
-            return $this->db->exec($sql, [$user, $comment, $table, $id]);
-        }
+            return $this->db->exec($sql, [$arr['author'], $arr['comment'], $table, $id]);
     }
 
         protected  function checkComment($comment)

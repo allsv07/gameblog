@@ -37,9 +37,9 @@
                     <ul>
                         <li><a href="/admin">Главная</a></li>
                         <li><a href="/admin/news">Новости</a></li>
-                        <li><a href="/admin">Статьи</a></li>
-                        <li><a href="/admin-blogs">Блоги</a></li>
-                        <li><a href="/admin-cheats">Читы</a></li>
+                        <li><a href="/admin/articles">Статьи</a></li>
+                        <li><a href="/admin/blogs">Блоги</a></li>
+                        <li><a href="/admin/cheats">Читы</a></li>
                         <li class="comments_count_list">
                             <a href="/admin-comments">Комментарии</a>
                             <div class="comment_count">

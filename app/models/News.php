@@ -30,13 +30,13 @@ class News extends Model
      */
     public function getNewsThisCategory($id)
     {
-        $sql = "SELECT N.id AS n_id, N.title, N.date, N.image, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE CAT.id = ? ORDER BY N.id DESC";
+        $sql = "SELECT N.id AS n_id, N.title, N.date, N.image, N.meta_desc, N.meta_keywords, CAT.title AS cat_title FROM news AS N JOIN category AS CAT ON CAT.id = N.cat_news WHERE CAT.id = ? ORDER BY N.id DESC";
         return $this->db->query($sql, [$id]);
     }
 
     public function findOneNewsByTable($id)
     {
-        $sql = "SELECT N.id, N.title, N.description, N.date, N.image AS n_img, U.name, U.image AS u_img FROM {$this->table} AS N JOIN users AS U ON N.author = U.id WHERE N.id = ? LIMIT 1";
+        $sql = "SELECT N.id, N.title, N.description, N.date, N.image AS n_img, N.meta_desc, N.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS N JOIN users AS U ON N.author = U.id WHERE N.id = ? LIMIT 1";
         $res = $this->db->query($sql, [$id]);
         return (!empty($res[0])) ? $res[0]: [];
     }
@@ -70,12 +70,13 @@ class News extends Model
                             `cat_news` = ?,
                             `title` = ?,
                             `description` = ?,
+                            `image` = ?,
                             `meta_desc` = ?,
                             `meta_keywords` = ?,
                             `showSlider` = ?
                             WHERE `id` = ?
                             ";
-        $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $arr['m_desc'], $arr['m_keywords'], $arr['show'], $id]);
+        $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $arr['image'], $arr['m_desc'], $arr['m_keywords'], $arr['show'], $id]);
     }
 
 

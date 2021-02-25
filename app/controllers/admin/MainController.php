@@ -26,7 +26,7 @@ class MainController extends AppController
                 $login = clearStr($_POST['admin_login']);
                 $pass = $_POST['admin_pass'];
 
-                $id = $user->auth($login, $pass);
+                $id = $user->authAdmin($login, $pass);
 
                 if ($id !== false) {
                     $user->login($id);

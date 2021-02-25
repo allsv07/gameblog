@@ -10,9 +10,22 @@ class User extends Model
 {
     protected $table = 'users';
 
-    public function auth($login, $pass)
+    public function authAdmin($login, $pass)
     {
-        $sql = "SELECT * FROM {$this->table} WHERE `login` = ? LIMIT 1";
+        $sql = "SELECT * FROM {$this->table} WHERE (`login` = ? AND `role` = 'admin') OR (`role` = 'moderator') LIMIT 1";
+        $res = $this->getUser($sql, [$login]);
+
+        if (!empty($res) && password_verify($pass, $res['password']) ) {
+
+            return $res['id'];
+        }
+
+        return false;
+    }
+
+    public function authUser($login, $pass)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE `login` = ? AND `role` = 'user' LIMIT 1";
         $res = $this->getUser($sql, [$login]);
 
         if (!empty($res) && password_verify($pass, $res['password']) ) {

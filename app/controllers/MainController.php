@@ -87,6 +87,12 @@ class MainController extends AppController
          */
         $arrLastComments = $comments->lastComment('5');
 
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = 'GameBlog';
+        $metaD = 'GameBlog - это игровые новости, обзоры и превью игр, коды и прохождения, трейлеры и видео, машинима, flash и онлайн игры, скриншоты и обои, блоги и обсуждения';
+        $metaK = 'игры, коды, скачать игры, компьютерные игры, прохождение, трейнер, коды к играм, прохождение игр, видео, машинима, онлайн игры, mmo, mmorpg, pc, ps3, ps4, xbox360, xbox720, ps vita';
 
         /**
          * Отправка массивов на главную страницу
@@ -98,7 +104,10 @@ class MainController extends AppController
             'lastBlogs' => $arrlastBlogs,
             'lastArticles' => $arrLastArticles,
             'lastChits' => $arrLastChit,
-            'lastComments' => $arrLastComments
+            'lastComments' => $arrLastComments,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
         ]);
     }
 

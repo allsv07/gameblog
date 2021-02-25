@@ -71,10 +71,10 @@
 
             <div class="article-form-comment">
                 <form action="" class="form" method="post">
-                    <label class="error">Заполните поле</label>
+                    <label class="error-label">Заполните поля</label>
                     <? if (!isset($_SESSION['user']['login'])): ?>
-                        <label class="qw" for="text_comment">Введите имя</label>
-                        <input type="text" id="author_comment class="author_comment name="uthor_comment">
+                        <label class="qw" for="author_comment">Введите имя</label>
+                        <input type="text" id="author_comment" class="author_comment" name="author_comment">
                     <? endif; ?>
                     <label class="qw" for="text_comment">Введите текст комментария</label>
                     <textarea name="text_comment" id="text_comment" class="text_comment"></textarea>

@@ -35,7 +35,20 @@ class CheatsController extends AppController
          */
         $categoryCheats = $cheats->getCategory('category', 'cheats');
 
-        $this->setVars(['allCheats' => $allCheats, 'arrCategory' => $categoryCheats]);
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = 'Прохождения игр, тактика и советы';
+        $metaD = 'Прохождения игр, тактика и советы';
+        $metaK = 'Прохождения игр, тактика и советы';
+
+        $this->setVars([
+            'allCheats' => $allCheats,
+            'arrCategory' => $categoryCheats,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+        ]);
     }
 
 
@@ -49,55 +62,68 @@ class CheatsController extends AppController
         $cheats = new Cheat();
 
 
+        /**
+         * выбираем конкретную новость для детального просмотра
+         */
+        $detailCheat = $cheats->findOne($id);
+        $detailCheat = $this->editNewDate($detailCheat);
 
-            /**
-             * выбираем конкретную новость для детального просмотра
-             */
-            $detailCheat = $cheats->findOne($id);
-            $detailCheat = $this->editNewDate($detailCheat);
+        if (empty($detailCheat)) {
+            header('Location:404.html');
+            die();
+        }
 
-            if (empty($detailCheat)) {
-                header('Location:404.html');
-                die();
-            }
+        /**
+         * добавление ip в таблицу просмотров и счетчик просмотров записи
+         */
+        $ip = clearStr($_SERVER['REMOTE_ADDR']);
 
-            /**
-             * добавление ip в таблицу просмотров и счетчик просмотров записи
-             */
-            $ip = clearStr($_SERVER['REMOTE_ADDR']);
-
-            if (empty($views->checkIP($ip, 'cheats', $id))) {
-                $views->addViews($ip, 'cheats', $id);
-            } else {
-                $views->updateView('cheats', $id);
-            }
-
-
-            //добавляем к массиву записи количество комментариев и количество просмотров
-            if (count($detailCheat) > 0) {
-                $detailCheat['comments'] = $comments->getCommentsCountByTable('cheats', $detailCheat['id']);
-                $detailCheat['views'] = $views->getSumViewsByTable('cheats', $detailCheat['id']);
-            }
-
-            //комментарии для конкретной новости
-            $arrComments = $comments->getComments($id, 'cheats');
-            $arrComments = $this->editNewDateArray($arrComments);
-
-            //добавление комментариев
-            if (isset($_POST['add_comment'])) {
-                $comment = clearStr($_POST['text_comment']);
-                $comments->addComment($comment, 'cheats', $id);
-                header('Location:/cheats/detail/' . $id);
-            }
+        if (empty($views->checkIP($ip, 'cheats', $id))) {
+            $views->addViews($ip, 'cheats', $id);
+        } else {
+            $views->updateView('cheats', $id);
+        }
 
 
-            /**
-             * категории новостей
-             */
-            $categoryCheats = $cheats->getCategory('category', 'cheats');
+        //добавляем к массиву записи количество комментариев и количество просмотров
+        if (count($detailCheat) > 0) {
+            $detailCheat['comments'] = $comments->getCommentsCountByTable('cheats', $detailCheat['id']);
+            $detailCheat['views'] = $views->getSumViewsByTable('cheats', $detailCheat['id']);
+        }
+
+        //комментарии для конкретной новости
+        $arrComments = $comments->getComments($id, 'cheats');
+        $arrComments = $this->editNewDateArray($arrComments);
+
+        //добавление комментариев
+        if (isset($_POST['add_comment'])) {
+            $author = (isset($_SESSION['user']['login'])) ? $_SESSION['user']['login'] : clearStr($_POST['author_comment']);
+            $comment = clearStr($_POST['text_comment']);
+            $comments->addComment('cheats', $id, ['author' => $author, 'comment' => $comment]);
+            header('Location:/cheats/detail/' . $id);
+        }
 
 
-            $this->setVars(['arrCategory' => $categoryCheats, 'detailCheat' => $detailCheat, 'comments' => $arrComments]);
+        /**
+         * категории новостей
+         */
+        $categoryCheats = $cheats->getCategory('category', 'cheats');
+
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = $detailCheat['title'];
+        $metaD = $detailCheat['meta_desc'];
+        $metaK = $detailCheat['meta_keywords'];
+
+        $this->setVars([
+            'arrCategory' => $categoryCheats,
+            'detailCheat' => $detailCheat,
+            'comments' => $arrComments,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+        ]);
 
     }
 
@@ -112,29 +138,48 @@ class CheatsController extends AppController
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+
+            $arrCategory = $cheats->getCategoryByCode($this->route['code']);
+            if (empty($arrCategory)) {
+                header("Location:404.html");
+                die();
+            }
+
             $breadcrumbs = $cheats->getBreadcrumbs($this->route['code']);
             $id = $cheats->getIDCategory(clearStr($this->route['code']));
-            if (!empty($id)) {
-                $arCheatsCat = $cheats->getCheatsThisCategory($id);
-                $arCheatsCat = $this->editNewDateArray($arCheatsCat);
 
-                if (count($arCheatsCat) > 0) {
-                    foreach ($arCheatsCat as &$Cheats) {
-                        $Cheats['comments'] = $comments->getCommentsCountByTable('cheats', $Cheats['ch_id']);
-                        $Cheats['views'] = $views->getCountViewsByTable('cheats', $Cheats['ch_id']);
-                    }
+            $arCheatsCat = $cheats->getCheatsThisCategory($id);
+            $arCheatsCat = $this->editNewDateArray($arCheatsCat);
+
+            if (!empty($arCheatsCat)) {
+                foreach ($arCheatsCat as &$Cheats) {
+                    $Cheats['comments'] = $comments->getCommentsCountByTable('cheats', $Cheats['ch_id']);
+                    $Cheats['views'] = $views->getCountViewsByTable('cheats', $Cheats['ch_id']);
                 }
             }
-            else {
-                header("Location:404.html");
-            }
+
         }
         else {
             header('Location:/news');
+            die();
         }
 
         $categoryCheats = $cheats->getCategory('category', 'cheats');
 
-        $this->setVars(['cheats' => $arCheatsCat, 'arrCategory' => $categoryCheats, 'breadcrumb' => $breadcrumbs]);
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = $arrCategory['title'];
+        $metaD = $arrCategory['title'];
+        $metaK = $arrCategory['title'];
+
+        $this->setVars([
+            'cheats' => $arCheatsCat,
+            'arrCategory' => $categoryCheats,
+            'breadcrumb' => $breadcrumbs,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+        ]);
     }
 }

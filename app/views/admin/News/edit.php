@@ -21,7 +21,6 @@
 
             <label for="cat_news">Выберите категорию</label>
             <select name="category" id="category">
-<!--                <option name="cat" value="--><?//=$editNew['cat_news']?><!--">--><?//=(isset($editNew['cat_title'])) ? $editNew['cat_title'] : '' ?><!--</option>-->
                 <? foreach ($categories as $category): ?>
                     <? if ($category['id'] == $editNew['cat_news']): ?>
                         <option name="cat" selected value="<?=$category['id']?>"><?=$category['title']?></option>
@@ -39,8 +38,8 @@
             </div>
 
 
-            <img src="<?$_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$editNew['image']?>" alt="">
             <label for="add_image">Изображение новости</label>
+            <img style="width: 100px;" src="/public/images/upload_file/<?=$editNew['image']?>" alt="">
             <input type="file" class="image_title" name="add_image" src="" alt="">
 
             <label for="meta_desc">Мета-тег Description:</label>

@@ -27,7 +27,20 @@ class ArticlesController extends AppController
         //каиегории статей
         $categoryArticles = $articles->getCategory('category', 'articles');
 
-        $this->setVars(['arrCategory' => $categoryArticles, 'allArticles' => $allArticles]);
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = 'Статьи';
+        $metaD = 'игровые статьи';
+        $metaK = 'игровые статьи';
+
+        $this->setVars([
+            'arrCategory' => $categoryArticles,
+            'allArticles' => $allArticles,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+        ]);
     }
 
     public function detailAction()
@@ -88,8 +101,21 @@ class ArticlesController extends AppController
              */
             $categoryArticles = $articles->getCategory('category', 'articles');
 
+            /**
+             * формируем meta-тэги и title
+             */
+            $title = $detailArticle['title'];
+            $metaD = $detailArticle['meta_desc'];
+            $metaK = $detailArticle['meta_keywords'];
 
-            $this->setVars(['arrCategory' => $categoryArticles, 'detailArticle' => $detailArticle, 'comments' => $arrComments]);
+            $this->setVars([
+                'arrCategory' => $categoryArticles,
+                'detailArticle' => $detailArticle,
+                'comments' => $arrComments,
+                'title' => $title,
+                'metaD' => $metaD,
+                'metaK' => $metaK
+            ]);
         }
         else {
             header("Location:404.html");
@@ -109,21 +135,23 @@ class ArticlesController extends AppController
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $arrCategory = $articles->getCategoryByCode($this->route['code']);
+            if (empty($arrCategory)) {
+                header("Location:404.html");
+                die();
+            }
+
             $breadcrumbs = $articles->getBreadcrumbs($this->route['code']);
             $id = $articles->getIDCategory(clearStr($this->route['code']));
-            if (!empty($id)) {
-                $arArticlesCat = $articles->getArticlesThisCategory($id);
-                $arArticlesCat = $this->editNewDateArray($arArticlesCat);
 
-                if (count($arArticlesCat) > 0) {
-                    foreach ($arArticlesCat as &$Articles) {
-                        $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['a_id']);
-                        $Articles['views'] = $views->getCountViewsByTable('articles', $Articles['a_id']);
-                    }
+            $arArticlesCat = $articles->getArticlesThisCategory($id);
+            $arArticlesCat = $this->editNewDateArray($arArticlesCat);
+
+            if (!isset($arArticlesCat)) {
+                foreach ($arArticlesCat as &$Articles) {
+                    $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['a_id']);
+                    $Articles['views'] = $views->getCountViewsByTable('articles', $Articles['a_id']);
                 }
-            }
-            else {
-                header('Location:404.html');
             }
         }
         else {
@@ -132,6 +160,20 @@ class ArticlesController extends AppController
 
         $categoryArticles = $articles->getCategory('category', 'articles');
 
-        $this->setVars(['articles' => $arArticlesCat, 'arrCategory' => $categoryArticles, 'breadcrumb' => $breadcrumbs]);
+        /**
+         * формируем meta-тэги и title
+         */
+        $title = $arrCategory['title'];
+        $metaD = $arrCategory['title'];
+        $metaK = $arrCategory['title'];
+
+        $this->setVars([
+            'articles' => $arArticlesCat,
+            'arrCategory' => $categoryArticles,
+            'breadcrumb' => $breadcrumbs,
+            'title' => $title,
+            'metaD' => $metaD,
+            'metaK' => $metaK
+        ]);
     }
 }

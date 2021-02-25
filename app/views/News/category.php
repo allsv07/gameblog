@@ -32,7 +32,11 @@
                         <div class="row">
                             <div class="col-4">
                                 <a href="/news/detail/<?=$new['n_id']?>">
-                                    <img src="/images/photo/hitman_3-4.jpg" class="article-new__img" alt="">
+                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$new['image'])): ?>
+                                        <img src="/public/images/upload_file/<?=$new['image']?>" class="article-new__img" alt="<?=$new['image']?>">
+                                    <? else: ?>
+                                        <img src="/public/images/photo/no-image.jpg" class="article-new__img" alt="<?=$new['image']?>">
+                                    <? endif; ?>
                                 </a>
                             </div>
                             <div class="col-8">

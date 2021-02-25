@@ -276,6 +276,10 @@
   margin-top: 15px;
 }
 
+.block-content .admin-content .form_add .image_title {
+  margin-top: 10px;
+}
+
 .block-autorization {
   margin-top: 20%;
   width: 350px;
@@ -293,5 +297,9 @@
   width: 100%;
   margin-top: 5px;
   margin-bottom: 15px;
+}
+
+.error {
+  color: #c44d4d;
 }
 /*# sourceMappingURL=style_admin.css.map */
