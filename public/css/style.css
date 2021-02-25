@@ -4,10 +4,6 @@
           box-sizing: border-box;
 }
 
-.auth-error {
-  color: red;
-}
-
 .blog_container {
   /*background-color: black; */
   background: #171717 url(../images/bg.jpg) repeat top center;
@@ -67,6 +63,9 @@
   -webkit-box-pack: center;
       -ms-flex-pack: center;
           justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
 }
 
 .header .auth .link_auth {
@@ -1604,7 +1603,7 @@
 }
 
 /*** Модальное окно входа пользователя ***/
-.auth-form {
+.bloc_auth-user {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -1614,7 +1613,7 @@
           flex-direction: column;
 }
 
-.auth-form .login, .bloc_auth-user .pass {
+.bloc_auth-user .login, .bloc_auth-user .pass {
   margin-top: 7px;
   margin-bottom: 7px;
   outline: none;
@@ -1625,17 +1624,8 @@
   font-family: "Rubik", sans-serif;
   font-size: 14px;
 }
-#auth-form {
-  display: flex;
-  align-items: center;
-  margin-bottom: 50px;
-}
 
-#auth-form .login, #auth-form .pass {
-  width: 30%;
-}
-
-.auth-form .btn_auth {
+.bloc_auth-user .btn_auth {
   margin-top: 10px;
   border: 1px solid #006495;
   background: #fff;
@@ -1649,9 +1639,31 @@
   padding: 8px 0;
 }
 
-.auth-form .btn_auth:hover {
+.bloc_auth-user .btn_auth:hover {
   background: #006495;
   color: #fff;
   font-weight: 500;
+}
+
+.user-is_auth {
+  color: #fff;
+  font-size: 16px;
+  font-family: "Roboto", sans-serif;
+  display: block;
+  text-align: center;
+  margin: 20px 0 50px 0;
+}
+
+.auth-user_login {
+  color: #fff;
+  font-size: 18px;
+  font-family: "Roboto", sans-serif;
+}
+
+.exit-user_login {
+  margin-left: 10px;
+  color: #fff;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
 }
 /*# sourceMappingURL=style.css.map */

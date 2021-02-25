@@ -52,7 +52,8 @@ class NewsController extends AppController
             $file = $_FILES['add_image'];
             $title = clearStr($_POST['title']);
             $category = $_POST['category'];
-            $desc = clearStr($_POST['desc']);
+            //$desc = clearStr($_POST['desc']);
+            $desc = $_POST['desc'];
             $m_desc = clearStr($_POST['meta_desc']);
             $m_keywords = clearStr($_POST['meta_keywords']);
             $showSlider = $_POST['show_slider'];
@@ -63,6 +64,8 @@ class NewsController extends AppController
             if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст новости';
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
+            if ($file['add_image']['name'] = '') $_SESSION['error']['file'] = 'Выберите изоражение';
+
 
             if (isset($file) && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
                 //проверка и загрузка файла на сервер

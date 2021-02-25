@@ -8,12 +8,12 @@
     <div class="admin-content">
         <form action="" class="form_add" method="POST" enctype="multipart/form-data">
             <?if (isset($_SESSION['error'])):?>
-                <div class="block_error">
-                    <? foreach ($_SESSION['error'] as $error): ?>
-                        <span class="error"><?=$error;?></span><br>
-                    <? endforeach; ?>
-                </div>
-                <?unset($_SESSION['error'])?>
+            <div class="block_error">
+                <? foreach ($_SESSION['error'] as $error): ?>
+                <span class="error"><?= $error; ?></span><br>
+                <? endforeach; ?>
+            </div>
+            <?unset($_SESSION['error'])?>
             <?endif;?>
 
             <label for="title_news">Название новости</label>
@@ -22,12 +22,12 @@
             <label for="cat_news">Выберите категорию</label>
             <select name="category" id="category">
                 <? foreach ($categories as $category): ?>
-                <option name="cat" value="<?=$category['id']?>"><?=$category['title']?></option>
+                <option name="cat" value="<?= $category['id'] ?>"><?= $category['title'] ?></option>
                 <? endforeach; ?>
             </select>
             <div class="block_desc">
                 <label for="desc_news">Описание новости</label>
-                <textarea name="desc" id="desc_news" ></textarea>
+                <textarea name="desc" id="desc_news"></textarea>
                 <script>
                     CKEDITOR.replace( 'desc_news' );
                 </script>

@@ -40,8 +40,8 @@
             <div class="col-md-2 col-sm-12 col-12 auth">
                 <!--            <a class="link_auth" href="#"><i class="fa fa-user" aria-hidden="true"></i><span>Войти</span></a>-->
                 <? if (isset($_SESSION['user']['login'])): ?>
-                    <a href="#"><?=$_SESSION['user']['login']?></a>
-                    <a href="?logout=exit" class="user" >Выйти</a>
+                    <a href="#" class="auth-user_login"><?=$_SESSION['user']['login']?></a>
+                    <a href="?logout=exit" class="exit-user_login" >выйти</a>
                 <? else: ?>
                     <a type="button" class="link_auth" data-toggle="modal" data-target="#authModal">Войти</a>
                 <? endif; ?>
