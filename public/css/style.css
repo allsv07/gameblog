@@ -1682,6 +1682,14 @@
   font-family: "Roboto", sans-serif;
 }
 
+.auth-user_login:hover {
+  color: #C70501;
+}
+
+.auth-user_login .fa-user {
+  margin-right: 5px;
+}
+
 .exit-user_login {
   margin-left: 10px;
   color: #fff;
@@ -1738,5 +1746,199 @@
 .block-404 .location_404--com-back:hover {
   color: #fff;
   background: #006495;
+}
+
+/*** Регистрация ***/
+.reg_text {
+  margin-top: 10px;
+  margin-bottom: 10px;
+  color: #555555;
+  font-size: 15px;
+  font-family: "Roboto", sans-serif;
+  display: block;
+  text-align: center;
+}
+
+.block_register {
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  border-top: 1px solid #006495;
+}
+
+.block_register .register {
+  text-align: center;
+  padding: 5px 10px;
+  border: 1px solid #006495;
+  text-decoration: none;
+}
+
+.block_register .register:hover {
+  background: #006495;
+  color: #fff;
+}
+
+.block-reg-user {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background: #1C1C1C;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.block-reg-user h1 {
+  color: #fff;
+}
+
+.block-reg-user .registarion-block {
+  width: 60%;
+}
+
+.block-reg-user .registarion-block .reg-form-user {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.block-reg-user .registarion-block .reg-form-user .reg_user--name, .block-reg-user .registarion-block .reg-form-user .reg_user--login, .block-reg-user .registarion-block .reg-form-user .reg_user--email {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: 35px;
+  padding-left: 10px;
+  outline: none;
+}
+
+.block-reg-user .registarion-block .reg-form-user .btn-reg-user {
+  width: 40%;
+  margin-top: 10px;
+  outline: none;
+  border: 1px solid #006495;
+  background: #006495;
+  height: 35px;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+}
+
+.block-reg-user .registarion-block .reg-form-user .btn-reg-user:hover {
+  background: #005F8F;
+}
+
+/*** Авторизация ***/
+.block-auth--user {
+  margin-top: 30px;
+  margin-bottom: 30px;
+  padding-top: 20px;
+  padding-bottom: 30px;
+  background: #1C1C1C;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.block-auth--user h1 {
+  color: #fff;
+}
+
+.block-auth--user .auth-block {
+  width: 60%;
+}
+
+.block-auth--user .auth-block .auth-form {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.block-auth--user .auth-block .auth-form .auth_user--login, .block-auth--user .auth-block .auth-form .auth_user--pass {
+  width: 100%;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  height: 35px;
+  padding-left: 10px;
+  outline: none;
+}
+
+.block-auth--user .auth-block .auth-form .btn_auth--user {
+  width: 40%;
+  margin-top: 10px;
+  outline: none;
+  border: 1px solid #006495;
+  background: #006495;
+  height: 35px;
+  color: #fff;
+  text-transform: uppercase;
+  font-family: "Roboto", sans-serif;
+  font-size: 15px;
+}
+
+.block-auth--user .auth-block .auth-form .btn_auth--user:hover {
+  background: #005F8F;
+}
+
+.block-auth--user .block-auth-reg--user {
+  border-top: 1px solid #006495;
+  padding-top: 10px;
+  margin-top: 20px;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+}
+
+.block-auth--user .block-auth-reg--user span {
+  color: #fff;
+  text-align: center;
+  margin-bottom: 15px;
+}
+
+.block-auth--user .block-auth-reg--user .register {
+  text-align: center;
+  padding: 5px 10px;
+  border: 1px solid #006495;
+  text-decoration: none;
+}
+
+.block-auth--user .block-auth-reg--user .register:hover {
+  background: #006495;
+  color: #fff;
 }
 /*# sourceMappingURL=style.css.map */

@@ -5,8 +5,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <meta name="description" content="<?=$metaD;?>">
-    <meta name="keywords" content="<?=$metaK;?>">
+    <meta name="description" content="<?= $metaD; ?>">
+    <meta name="keywords" content="<?= $metaK; ?>">
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.css">
     <!-- css -->
@@ -42,11 +42,10 @@
             <div class="col-md-2 col-sm-12 col-12 auth">
                 <!--            <a class="link_auth" href="#"><i class="fa fa-user" aria-hidden="true"></i><span>Войти</span></a>-->
                 <? if (isset($_SESSION['user']['login'])): ?>
-                    <i class="fa fa-user" aria-hidden="true"></i>
-                    <a href="#" class="auth-user_login"><?=$_SESSION['user']['login']?></a>
-                    <a href="?logout=exit" class="exit-user_login" >выйти</a>
+                <a href="#" class="auth-user_login"><i class="fa fa-user" aria-hidden="true"></i><?= $_SESSION['user']['login'] ?></a>
+                <a href="?logout=exit" class="exit-user_login">выйти</a>
                 <? else: ?>
-                    <a type="button" class="link_auth" data-toggle="modal" data-target="#authModal">Войти</a>
+                <a type="button" class="link_auth" data-toggle="modal" data-target="#authModal">Войти</a>
                 <? endif; ?>
             </div>
         </div>
@@ -148,6 +147,10 @@
                             <input type="password" class="pass" name="pass_user" id="auth-pass" placeholder="Пароль">
                             <input type="button" id="btn-auth" class="btn_auth" value="Войти">
                         </form>
+                    </div>
+                    <div class="block_register">
+                        <span class="reg_text">Нет аккаунта?</span>
+                        <a href="/register" class="register">Зарегистрироваться</a>
                     </div>
                 </div>
             </div>
