@@ -62,8 +62,8 @@ class MainController extends AppController
         /**
          * Блоги
          */
-        $arrlastBlogs = $blogs->last('id', 5);
-        if (count($arrlastBlogs) > 0) {
+        $arrlastBlogs = $blogs->getLastBlogs();
+        if (!empty($arrlastBlogs)) {
             foreach ($arrlastBlogs as &$Blogs) {
                 $Blogs['comments'] = $comments->getCommentsCountByTable('blogs', $Blogs['id']);
                 $Blogs['views'] = $views->getCountViewsByTable('blogs', $Blogs['id']);

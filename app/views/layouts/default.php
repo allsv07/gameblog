@@ -67,13 +67,12 @@
                                 </div>
                                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 bottom-menu">
                                     <ul>
-                                        <li><a href="#">Главная</a></li>
-                                        <li><a href="#">Игры</a></li>
-                                        <li><a href="#">Новости</a></li>
-                                        <li><a href="#">Статьи</a></li>
-                                        <li><a href="#">Блоги</a></li>
+                                        <li><a href="/">Главная</a></li>
+                                        <li><a href="/games">Игры</a></li>
+                                        <li><a href="/news">Новости</a></li>
+                                        <li><a href="/articles">Статьи</a></li>
+                                        <li><a href="/blogs">Блоги</a></li>
                                         <li><a href="#">Галерея</a></li>
-                                        <li><a href="#">Помощь</a></li>
                                     </ul>
                                 </div>
                             </div>

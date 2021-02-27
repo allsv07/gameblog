@@ -5,6 +5,8 @@
 
 .error { color: #c44d4d; }
 
+.success { color: green; }
+
 .not_comment { font-family: "Roboto", sans-serif; font-size: 16px; color: #c44d4d; margin-bottom: 10px; }
 
 .blog_container { /*background-color: black; */ background: #171717 url(../images/bg.jpg) repeat top center; }
@@ -612,7 +614,9 @@
 
 .block-edit-user .form-edit-img .image { display: flex; flex-direction: column; border-bottom: 1px solid #c1c1c1; padding-bottom: 10px; }
 
-.block-edit-user .form-edit-img .image img { width: 30%; }
+.block-edit-user .form-edit-img .image img { width: 20%; }
+
+.block-edit-user .form-edit-img .image .avatar { outline: none; }
 
 .block-edit-user .mail-and-pass { margin-top: 15px; margin-bottom: 25px; border-bottom: 1px solid #c1c1c1; padding-bottom: 10px; }
 

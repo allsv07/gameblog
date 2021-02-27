@@ -31,17 +31,163 @@ class UserController extends AppController
             die();
         }
 
-        //редактирование
-        if (isset($_POST['btn-edit'])) {
-            $file = $_FILES['avatar'];
-            $name = clearStr($_POST['name']);
-            $pass = password_hash($_POST['new-pass']);
-            $email = clearStr($_POST['mail']);
+        //редактирование аватара user
+        if (isset($_POST['btn-edit-img'])) {
+            $this->editImageUser($_FILES['avatar'], $user);
+            header('Location: /user/edit');
+            die();
+        }
 
+        // редактирование email user
+        if (isset($_POST['btn-edit-mail'])) {
+            $this->editEmailUser($_POST['mail'], $user['login']);
+            header('Location: /user/edit');
+            die();
+        }
 
+        // редактирование имя user
+        if (isset($_POST['btn-edit-name'])) {
+            $this->editNameUser($_POST['name'], $user['login']);
+            header('Location: /user/edit');
+            die();
+        }
+
+        // редактирование пароля user
+        if (isset($_POST['btn-edit-pass'])) {
+            $this->editPassUser($_POST['new-pass'], $user['password'], $user['login']);
+            header('Location: /user/edit');
+            die();
         }
 
 
         $this->setVars(['user' => $user]);
+    }
+
+
+    /**
+     * @param $file
+     * @param $user
+     * редактирование аватара user
+     */
+    protected function editImageUser($file, $user)
+    {
+        $users = new User();
+
+        if ($file['name'] != '') {
+            // проверка файла на допустимый размер, формат и выбран ли вообще файл
+            $check = $this->canUploadFile($file);
+            if ($check !== true) $_SESSION['error']['file'] = $check;
+            $file_name = $this->uploadFile($file);
+        }
+        else {
+            $check = true;
+            $file_name = $user['image'];
+        }
+
+        $users->editUserImage($file_name, $user['login']);
+        $_SESSION['success']['file'] = 'Аватар изменен';
+    }
+
+
+    /**
+     * @param $email
+     * @param $login
+     * редактирование email user
+     */
+    protected function editEmailUser($email, $login)
+    {
+        $users = new User();
+
+        $email = clearStr($email);
+        $users->editEmailUser($email, $login);
+        $_SESSION['success']['email'] = 'E-mail изменен';
+    }
+
+
+    /**
+     * @param $name
+     * @param $login
+     * редактирование имя user
+     */
+    protected function editNameUser($name, $login)
+    {
+        $users = new User();
+
+        $name = clearStr($name);
+        $users->editNameUser($name, $login);
+        $_SESSION['success']['name'] = 'Имя изменено';
+    }
+
+
+    /**
+     * @param $newPass
+     * @param $pass
+     * @param $login
+     * редактирование пароля user
+     */
+    protected function editPassUser($newPass, $pass, $login)
+    {
+        $users = new User();
+
+        if ($pass != '') {
+            if ($newPass != '') {
+                if (strlen($newPass) >= 3) {
+                    if (password_verify($newPass, $pass)) {
+                        $users->editPassUser(password_hash($newPass, PASSWORD_DEFAULT), $login);
+                        $_SESSION['success']['pass'] = 'Пароль изменен';
+                    }
+                    else {
+                        $_SESSION['error']['pass'] = 'Неверный пароль';
+                    }
+                }
+                else {
+                    $_SESSION['error']['pass'] = 'Пароль должен состоять из 3-х и более символов';
+                }
+            }
+            else {
+                $_SESSION['error']['pass'] = 'Введите новый пароль';
+            }
+        }
+        else {
+            $_SESSION['error']['pass'] = 'Введите текущий пароль';
+        }
+    }
+
+
+
+
+
+    /**
+     * производит все проверки файла: возвращает true либо строку с сообщением об ошибке
+     * @param $file
+     */
+    protected function canUploadFile($file)
+    {
+        $types = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
+
+        if ($file['name'] == '') return 'Вы не выбрали файл';
+        if ($file['size'] >= 1000000) return 'Файл слишком большой';
+
+        // разбиваем имя файла по точке и получаем массив
+        $getTypeFile = explode('.', $file['name']);
+        // получаем - расширение файла
+        $typeFile = strtolower(end($getTypeFile));
+
+        if (!in_array($typeFile, $types)) return 'Недопустимый тип файла';
+
+        return true;
+    }
+
+    /**
+     * загрузка файла на сервер
+     * @param $file
+     */
+    protected function uploadFile($file)
+    {
+        $directory = $_SERVER['DOCUMENT_ROOT'].'/public/images/user';
+        $tmp_name = $file['tmp_name'];
+        $name = time() . $file['name'];
+        move_uploaded_file($tmp_name, "$directory/$name");
+        return $name;
     }
 }

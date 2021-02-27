@@ -91,9 +91,36 @@ class User extends Model
         }
     }
 
-    public function editUser()
+    /**
+     * редактирование аватара user в БД
+     */
+    public function editUserImage($file, $login)
     {
+        $this->db->exec("UPDATE `users` SET `image` = ? WHERE `login` = ?", [$file, $login]);
+    }
 
+    /**
+     * редактирование email user
+     */
+    public function editEmailUser($email, $login)
+    {
+        $this->db->exec("UPDATE `users` SET `email` = ? WHERE `login` = ?", [$email, $login]);
+    }
+
+    /**
+     * редактирование имя user
+     */
+    public function editNameUser($name, $login)
+    {
+        $this->db->exec("UPDATE `users` SET `name` = ? WHERE `login` = ?", [$name, $login]);
+    }
+
+    /**
+     * редактирование пароля user
+     */
+    public function editPassUser($pass, $login)
+    {
+        $this->db->exec("UPDATE `users` SET `password` = ? WHERE `login` = ?", [$pass, $login]);
     }
 
 }

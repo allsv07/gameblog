@@ -143,7 +143,7 @@
             <div class="row">
                 <? foreach ($lastBlogs as $blog): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
-                    <a href="#">
+                    <a href="/blogs/detail/<?=$blog['id']?>">
                         <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
                         <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?= $blog['views'] ?></span></div>
                     </a>
