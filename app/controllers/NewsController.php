@@ -101,10 +101,10 @@ class NewsController extends AppController
 
             //добавление комментариев
             if (isset($_POST['add_comment'])){
-
-                $author = (isset($_SESSION['user']['login'])) ? $_SESSION['user']['login'] : clearStr($_POST['author_comment']);
+                $author = $_SESSION['user']['login'];
+                $id_author = $_SESSION['user']['id'];
                 $comment = clearStr($_POST['text_comment']);
-                $comments->addComment('news', $id, ['author' => $author, 'comment' => $comment]);
+                $comments->addComment('news', $id, ['author' => $author, 'id_author' => $id_author, 'comment' => $comment]);
                 header('Location:/news/detail/'.$id);
             }
 

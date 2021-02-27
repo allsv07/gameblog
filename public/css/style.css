@@ -1388,6 +1388,7 @@
   -webkit-transition: 0.5s ease;
   transition: 0.5s ease;
   outline: none;
+  width: 30%;
 }
 
 .article-content .article-form-comment .form .add_comment:hover {
@@ -1832,20 +1833,23 @@
 }
 
 .block-reg-user .registarion-block .reg-form-user .btn-reg-user {
-  width: 40%;
-  margin-top: 10px;
-  outline: none;
-  border: 1px solid #006495;
+  margin-top: 15px;
   background: #006495;
-  height: 35px;
   color: #fff;
-  text-transform: uppercase;
-  font-family: "Roboto", sans-serif;
-  font-size: 15px;
+  font-family: "Rubik", sans-serif;
+  font-weight: 400;
+  padding: 5px 15px;
+  border: none;
+  border-radius: 3px 0px 3px 0px;
+  -webkit-transition: 0.5s ease;
+  transition: 0.5s ease;
+  outline: none;
+  width: 30%;
 }
 
 .block-reg-user .registarion-block .reg-form-user .btn-reg-user:hover {
-  background: #005F8F;
+  border-radius: 10px 0px 10px 0px;
+  background: #0675ad;
 }
 
 /*** Авторизация ***/

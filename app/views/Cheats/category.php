@@ -27,7 +27,7 @@
 
             <div class="article-news">
                 <div class="row">
-                    <? if (count($cheats) >= 1): ?>
+                    <? if (!empty($cheats)): ?>
                     <? foreach ($cheats as $cheat): ?>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 chit-post">
                         <a href="/cheats/detail/<?= $cheat['ch_id'] ?>">
@@ -40,7 +40,7 @@
                                 <a href="/cheats/detail/<?= $cheat['ch_id'] ?>"><?= $cheat['title'] ?></a>
                             </div>
                             <div class="chit-post__info">
-                                <div class="tags"><span>Советы и тактика</span></div>
+                                <div class="tags"><span><?=$cheat['cat_title']?></span></div>
                                 <div class="day"><span><?= $cheat['date'] ?></div>
                                 <div class="comments"><span><i class="fa fa-comment-o" aria-hidden="true"></i><?= $cheat['comments'] ?></span></div>
                             </div>

@@ -12,7 +12,7 @@ class Comment extends Model
 
     public function getComments($id, $table)
     {
-        $sql = "SELECT C.author, C.date AS date, C.text FROM comments AS C JOIN {$table} AS N ON C.table_name = '{$table}' AND C.table_row_id = N.id WHERE N.id = :id ORDER BY C.id DESC";
+        $sql = "SELECT C.author, C.date AS date, C.text, U.image FROM comments AS C JOIN {$table} AS N ON C.table_name = '{$table}' AND C.table_row_id = N.id JOIN users AS U ON U.id = C.author_id WHERE N.id = :id ORDER BY C.id DESC";
         return $this->db->query($sql, [':id' => $id]);
     }
 
@@ -26,8 +26,8 @@ class Comment extends Model
 
     public function addComment($table, $id, $arr)
     {
-            $sql = "INSERT INTO `comments` SET `author` = ?, `text` = ?, `table_name` = ?, `table_row_id` = ?, `date` = CURDATE()";
-            return $this->db->exec($sql, [$arr['author'], $arr['comment'], $table, $id]);
+            $sql = "INSERT INTO `comments` SET `author_id` = ?, `author` = ?, `text` = ?, `table_name` = ?, `table_row_id` = ?, `date` = CURDATE()";
+            return $this->db->exec($sql, [$arr['id_author'], $arr['author'], $arr['comment'], $table, $id]);
     }
 
         protected  function checkComment($comment)

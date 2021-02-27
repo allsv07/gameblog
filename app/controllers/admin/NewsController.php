@@ -111,6 +111,7 @@ class NewsController extends AppController
 
         if (empty($editNew)) {
             header('Location: /admin/news');
+            die();
         }
 
         //редактирование

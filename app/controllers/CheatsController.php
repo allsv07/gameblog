@@ -65,8 +65,10 @@ class CheatsController extends AppController
         /**
          * выбираем конкретную новость для детального просмотра
          */
-        $detailCheat = $cheats->findOne($id);
+        $detailCheat = $cheats->findOneCheatByTable($id);
         $detailCheat = $this->editNewDate($detailCheat);
+
+
 
         if (empty($detailCheat)) {
             header('Location:404.html');
@@ -97,9 +99,10 @@ class CheatsController extends AppController
 
         //добавление комментариев
         if (isset($_POST['add_comment'])) {
-            $author = (isset($_SESSION['user']['login'])) ? $_SESSION['user']['login'] : clearStr($_POST['author_comment']);
+            $author = $_SESSION['user']['login'];
+            $id_author = $_SESSION['user']['id'];
             $comment = clearStr($_POST['text_comment']);
-            $comments->addComment('cheats', $id, ['author' => $author, 'comment' => $comment]);
+            $comments->addComment('cheats', $id, ['author' => $author, 'id_author' => $id_author, 'comment' => $comment]);
             header('Location:/cheats/detail/' . $id);
         }
 

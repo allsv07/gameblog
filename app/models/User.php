@@ -75,8 +75,23 @@ class User extends Model
         return [];
     }
 
+    /**
+     * регистрация пользователей на сайте
+     */
+    public function regUser($arr)
+    {
+        $user = $this->getUser("SELECT `login` FROM {$this->table} WHERE `login` = ? AND `role` = 'user'", [$arr['login']]);
 
-    public function getUserByDetailPage()
+        if (empty($user)) {
+            $sql = "INSERT INTO {$this->table} SET login = ?, password = ?, name = '', email = ?, image = '', role = 'user'";
+            return $this->db->exec($sql, [$arr['login'], $arr['pass'], $arr['email']]);
+        }
+        else {
+            return 'login-isset';
+        }
+    }
+
+    public function editUser()
     {
 
     }

@@ -7,6 +7,17 @@ $font-coda: 'Coda Caption', sans-serif
 $accent-color: #006495
 $color: #434343
 
+.error-input
+    border: 1px solid #c44d4d
+
+.error
+    color: #c44d4d
+
+.not_comment
+    font-family: $font-roboto
+    font-size: 16px
+    color: #c44d4d
+    margin-bottom: 10px
 
 .blog_container 
     /*background-color: black; */
@@ -1260,10 +1271,17 @@ $color: #434343
         color: #fff
     .registarion-block
         width: 60%
+        &--error
+            width: 100%
+            border: 1px solid #c44d4d
+            span
+                display: block
+                text-align: center
+                margin: 10px 0px 10px 0px
         .reg-form-user
             display: flex
             flex-direction: column
-            .reg_user--name, .reg_user--login, .reg_user--email
+            .reg_user--pass, .reg_user--login, .reg_user--email
                 width: 100%
                 margin-top: 8px
                 margin-bottom: 8px
@@ -1344,3 +1362,130 @@ $color: #434343
             &:hover
                 background: $accent-color
                 color: #fff
+
+
+/*** USER ***/
+.auth-user
+    margin-top: 10px
+    margin-bottom: 30px
+    padding-top: 10px
+    padding-bottom: 10px
+    background: #1C1C1C
+    .block-info
+        display: flex
+        justify-content: space-between
+        border-right: 1px solid #fff
+        &--image
+            img
+                width: 100%
+        &--name
+            span
+                color: #fff
+                font-family: $font-roboto
+                font-size: 18px
+
+    .block-personal-data
+        &--info
+            span
+                color: #fff
+                font-family: $font-roboto
+                font-size: 15px
+                strong
+                    font-family: $font-roboto
+                    font-size: 14px
+                    font-weight: 400
+                    font-style: italic
+                    margin-left: 10px
+
+    .href-edit
+        margin-top: 35px
+        margin-bottom: 15px
+        margin-left: 15px
+        &--link
+            padding: 10px 20px
+            border: 1px solid $accent-color
+            color: $accent-color
+            font-size: 15px
+            font-family: $font-roboto
+            text-decoration: none
+            text-transform: uppercase
+            &:hover
+                background: $accent-color
+                color: #fff
+
+
+.lab
+    color: #666666
+    font-family: $font-roboto
+    font-size: 18px
+    font-weight: 500
+    margin-bottom: 10px
+
+
+.block-edit-user
+    margin-top: 15px
+    margin-bottom: 15px
+    padding-top: 10px
+    padding-bottom: 10px
+    background: #fff
+    .form-edit-img
+        .image
+            display: flex
+            flex-direction: column
+            border-bottom: 1px solid #c1c1c1
+            padding-bottom: 10px
+            img
+                width: 30%
+
+    .mail-and-pass
+        margin-top: 15px
+        margin-bottom: 25px
+        border-bottom: 1px solid #c1c1c1
+        padding-bottom: 10px
+        .mail
+            border-right: 1px solid #c1c1c1
+            .form-edit-mail
+                display: flex
+                flex-direction: column
+                .inp-mail
+                    outline: none
+                    height: 35px
+                    padding-left: 15px
+        .pass
+            .form-edit-pass
+                display: flex
+                flex-direction: column
+                .inp-pass
+                    outline: none
+                    height: 35px
+                    padding-left: 15px
+                .new-pass
+                    outline: none
+                    height: 35px
+                    padding-left: 15px
+                    margin-top: 15px
+
+        .info
+            .form-edit-info
+                display: flex
+                flex-direction: column
+                .inp-name
+                    outline: none
+                    height: 35px
+                    padding-left: 15px
+
+    .btn-edit
+        margin-top: 15px
+        background: $accent-color
+        color: #fff
+        font-family: $font-rubik
+        font-weight: 400
+        padding: 5px 15px
+        border: none
+        border-radius: 3px 0px 3px 0px
+        transition: 0.5s ease
+        outline: none
+        width: 30%
+        &:hover
+            border-radius: 10px 0px 10px 0px
+            background: #0675ad

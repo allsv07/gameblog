@@ -85,8 +85,10 @@ class ArticlesController extends AppController
 
             //добавление комментариев
             if (isset($_POST['add_comment'])){
+                $author = $_SESSION['user']['login'];
+                $id_author = $_SESSION['user']['id'];
                 $comment = clearStr($_POST['text_comment']);
-                $comments->addComment($comment, 'articles', $id);
+                $comments->addComment('articles', $id, ['author' => $author, 'id_author' => $id_author, 'comment' => $comment]);
                 header('Location:/articles/detail/'.$id);
             }
 

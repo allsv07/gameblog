@@ -47,7 +47,7 @@ class AuthController extends AppController
         /**
          * формируем meta-тэги и title
          */
-        $title = 'Авторизвция';
+        $title = 'Авторизация';
         $metaD = '';
         $metaK = '';
 

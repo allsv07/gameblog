@@ -10,8 +10,8 @@
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.css">
     <!-- css -->
-    <link rel="stylesheet" href="/css/style.css">
-    <link rel="stylesheet" href="/css/media.css">
+    <link rel="stylesheet" href="/css/css/style.css">
+    <link rel="stylesheet" href="/css/css/media.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -34,7 +34,7 @@
                     <a class="item" href="#"><span>Игры</span></a>
                     <a class="item" href="/news"><span>Новости</span></a>
                     <a class="item" href="/articles"><span>Статьи</span></a>
-                    <a class="item" href="#"><span>Блоги</span></a>
+                    <a class="item" href="/blogs"><span>Блоги</span></a>
                     <a class="item" href="#"><span>Галерея</span></a>
                     <a class="item" href="/cheats"><span>Читы</span></a>
                 </nav>
@@ -42,7 +42,7 @@
             <div class="col-md-2 col-sm-12 col-12 auth">
                 <!--            <a class="link_auth" href="#"><i class="fa fa-user" aria-hidden="true"></i><span>Войти</span></a>-->
                 <? if (isset($_SESSION['user']['login'])): ?>
-                <a href="#" class="auth-user_login"><i class="fa fa-user" aria-hidden="true"></i><?= $_SESSION['user']['login'] ?></a>
+                <a href="/user" class="auth-user_login"><i class="fa fa-user" aria-hidden="true"></i><?= $_SESSION['user']['login'] ?></a>
                 <a href="?logout=exit" class="exit-user_login">выйти</a>
                 <? else: ?>
                 <a type="button" class="link_auth" data-toggle="modal" data-target="#authModal">Войти</a>

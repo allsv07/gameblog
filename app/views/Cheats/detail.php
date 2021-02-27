@@ -24,9 +24,10 @@
             <div class="article-info">
                 <div class="article-info-author">
                     <div class="image_author">
-                        <img src="/images/photo/control-5.jpg" alt="author image">
+                        <img src="/images/user/<?=$detailCheat['u_img']?>" alt="author image">
                     </div>
-                    <span class="name-author"><a href="#"><?= $detailCheat['author'] ?></a></span>
+                    <span class="name-author"><a href="#"><?= $detailCheat['name'] ?></a></span>
+
                 </div>
                 <div class="article-info-date">
                     <span><?= $detailCheat['date'] ?></span>
@@ -44,13 +45,13 @@
             </div>
 
             <div class="article-comments">
-                <? if (count($comments) > 0): ?>
-                <h3>Коментарии (<?= count($comments) ?>)</h3>
+                <? if (!empty($comments)): ?>
+                <h3>Коментарии (<?=count($comments) ?>)</h3>
                 <? foreach ($comments as $comment): ?>
                 <div class="block-comment">
                     <div class="block-author">
                         <div class="block-author-image">
-                            <img src="/images/photo/cyberpunk_2077-17.jpg" alt="author image">
+                            <img src="/images/user/<?=$comment['image']?>" alt="author image">
                         </div>
                         <span class="block-author-name"><?= $comment['author'] ?></span>
                         <span class="block-author-date"><?= $comment['date'] ?></span>
@@ -70,12 +71,14 @@
                 <form action="" class="form" method="post">
                     <label class="error-label">Заполните поля</label>
                     <? if (!isset($_SESSION['user']['login'])): ?>
-                    <label class="qw" for="author_comment">Введите имя</label>
-                    <input type="text" id="author_comment" class="author_comment" name="author_comment">
+                        <span class="not_comment">Комментарии могут оставлять только зарегистрированные пользователи</span>
+                        <label class="qw" for="text_comment">Введите текст комментария</label>
+                        <textarea disabled name="text_comment" id="text_comment" class="text_comment"></textarea>
+                    <? else: ?>
+                        <label class="qw" for="text_comment">Введите текст комментария</label>
+                        <textarea name="text_comment" id="text_comment" class="text_comment"></textarea>
+                        <input type="submit" name="add_comment" class="add_comment" id="submit" value="Опубликовать">
                     <? endif; ?>
-                    <label class="qw" for="text_comment">Введите текст комментария</label>
-                    <textarea name="text_comment" id="text_comment" class="text_comment"></textarea>
-                    <input type="submit" name="add_comment" class="add_comment" id="submit" value="Опубликовать">
                 </form>
             </div>
 

@@ -32,6 +32,10 @@ Router::add(['^articles/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Articles'
 Router::add(['^cheats/category/(?P<code>[a-z0-9]+)/?$' => ['controller' => 'Cheats', 'action' => 'category']]);
 Router::add(['^cheats/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Cheats', 'action' => 'detail']]);
 
+Router::add(['^blogs/category/(?P<code>[a-z0-9]+)/?$' => ['controller' => 'Blogs', 'action' => 'category']]);
+Router::add(['^blogs/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Blogs', 'action' => 'detail']]);
+
+
 
 
 /**

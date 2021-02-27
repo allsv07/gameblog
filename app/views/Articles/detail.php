@@ -14,7 +14,7 @@
 
         <div class="col-xs-12 col-sm-12 col-md-9 col-lg-9 article-content">
             <div class="block-breadcrumbs">
-                <p class="wrapper_p"><a href="">Главная</a> / <a href="/news">Новости</a> / <?= $detailArticle['title'] ?></p>
+                <p class="wrapper_p"><a href="">Главная</a> / <a href="/articles">Статьи</a> / <?= $detailArticle['title'] ?></p>
             </div>
 
             <div class="article-header">
@@ -49,7 +49,7 @@
                 <div class="block-comment">
                     <div class="block-author">
                         <div class="block-author-image">
-                            <img src="/images/photo/cyberpunk_2077-17.jpg" alt="author image">
+                            <img src="/images/user/<?=$comment['image']?>" alt="author image">
                         </div>
                         <span class="block-author-name"><?= $comment['author'] ?></span>
                         <span class="block-author-date"><?= $comment['date'] ?></span>
@@ -69,12 +69,14 @@
                 <form action="" class="form" method="post">
                     <label class="error-label">Заполните поля</label>
                     <? if (!isset($_SESSION['user']['login'])): ?>
-                    <label class="qw" for="author_comment">Введите имя</label>
-                    <input type="text" id="author_comment" class="author_comment" name="author_comment">
+                        <span class="not_comment">Комментарии могут оставлять только зарегистрированные пользователи</span>
+                        <label class="qw" for="text_comment">Введите текст комментария</label>
+                        <textarea disabled name="text_comment" id="text_comment" class="text_comment"></textarea>
+                    <? else: ?>
+                        <label class="qw" for="text_comment">Введите текст комментария</label>
+                        <textarea name="text_comment" id="text_comment" class="text_comment"></textarea>
+                        <input type="submit" name="add_comment" class="add_comment" id="submit" value="Опубликовать">
                     <? endif; ?>
-                    <label class="qw" for="text_comment">Введите текст комментария</label>
-                    <textarea name="text_comment" id="text_comment" class="text_comment"></textarea>
-                    <input type="submit" name="add_comment" class="add_comment" id="submit" value="Опубликовать">
                 </form>
             </div>
 
