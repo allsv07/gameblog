@@ -8,6 +8,7 @@ use app\models\Cheat;
 use app\models\Comment;
 use app\models\News;
 use app\models\View;
+use system\libs\Pagination;
 
 class CheatsController extends AppController
 {
@@ -17,15 +18,24 @@ class CheatsController extends AppController
         $comments = new Comment();
         $cheats = new Cheat();
 
+        //пагинация
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 20;
+        $total = $news->count();
+
+        $pagination = new Pagination($page, $perPage, $total);
+        $start = $pagination->getStart();
+        // end
+
         /**
          * Все читы
          */
-        $allCheats = $cheats->getAllCheats();
+        $allCheats = $cheats->getAllLimit($start, $perPage);
         $allCheats = $this->editNewDateArray($allCheats);
 
         if (count($allCheats) > 0) {
             foreach ($allCheats as &$Cheats) {
-                $Cheats['comments'] = $comments->getCommentsCountByTable('cheats', $Cheats['ch_id']);
+                $Cheats['comments'] = $comments->getCommentsCountByTable('cheats', $Cheats['num_id']);
             }
         }
 
@@ -45,6 +55,7 @@ class CheatsController extends AppController
         $this->setVars([
             'allCheats' => $allCheats,
             'arrCategory' => $categoryCheats,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK
@@ -151,19 +162,28 @@ class CheatsController extends AppController
             $breadcrumbs = $cheats->getBreadcrumbs($this->route['code']);
             $id = $cheats->getIDCategory(clearStr($this->route['code']));
 
-            $arCheatsCat = $cheats->getCheatsThisCategory($id);
+            //пагинация
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage = 20;
+            $total = $news->countByCategory($id);
+
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            // end
+
+            $arCheatsCat = $cheats->getCategoryLimit($id, $start, $perPage);
             $arCheatsCat = $this->editNewDateArray($arCheatsCat);
 
             if (!empty($arCheatsCat)) {
                 foreach ($arCheatsCat as &$Cheats) {
-                    $Cheats['comments'] = $comments->getCommentsCountByTable('cheats', $Cheats['ch_id']);
-                    $Cheats['views'] = $views->getCountViewsByTable('cheats', $Cheats['ch_id']);
+                    $Cheats['comments'] = $comments->getCommentsCountByTable('cheats', $Cheats['num_id']);
+                    $Cheats['views'] = $views->getCountViewsByTable('cheats', $Cheats['num_id']);
                 }
             }
 
         }
         else {
-            header('Location:/news');
+            header('Location:/cheats');
             die();
         }
 
@@ -180,6 +200,7 @@ class CheatsController extends AppController
             'cheats' => $arCheatsCat,
             'arrCategory' => $categoryCheats,
             'breadcrumb' => $breadcrumbs,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

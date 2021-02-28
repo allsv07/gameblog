@@ -43,13 +43,13 @@ class User extends Model
         if (!empty($res)) {
 
             if ($res['role'] == 'admin') {
-                $_SESSION['is_user'] = 'admin';
+                $_SESSION['is_admin'] = 'admin';
                 $_SESSION['admin']['login'] = $res['login'];
                 $_SESSION['admin']['id'] = $res['id'];
             }
 
             if ($res['role'] == 'moderator') {
-                $_SESSION['is_user'] = 'moderator';
+                $_SESSION['is_admin'] = 'moderator';
                 $_SESSION['admin']['login'] = $res['login'];
                 $_SESSION['admin']['id'] = $res['id'];
             }
@@ -58,6 +58,7 @@ class User extends Model
                 $_SESSION['is_user'] = 'user';
                 $_SESSION['user']['login'] = $res['login'];
                 $_SESSION['user']['id'] = $res['id'];
+                setcookie('USER', $res['login'], time()+2592000);
             }
         }
 

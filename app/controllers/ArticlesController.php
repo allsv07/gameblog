@@ -7,6 +7,7 @@ namespace app\controllers;
 use app\models\Article;
 use app\models\Comment;
 use app\models\View;
+use system\libs\Pagination;
 
 class ArticlesController extends AppController
 {
@@ -15,13 +16,22 @@ class ArticlesController extends AppController
         $articles = new Article();
         $comments = new Comment();
 
+        //пагинация
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 20;
+        $total = $articles->count();
+
+        $pagination = new Pagination($page, $perPage, $total);
+        $start = $pagination->getStart();
+        // end
+
         // все статьи
-        $allArticles = $articles->getAllArticles();
+        $allArticles = $articles->getAllLimit($start, $perPage);
         $allArticles = $this->editNewDateArray($allArticles);
 
         if (count($allArticles) > 0) {
             foreach ($allArticles as &$Articles) {
-                $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['a_id']);
+                $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['num_id']);
             }
         }
         //каиегории статей
@@ -37,6 +47,7 @@ class ArticlesController extends AppController
         $this->setVars([
             'arrCategory' => $categoryArticles,
             'allArticles' => $allArticles,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK
@@ -146,13 +157,22 @@ class ArticlesController extends AppController
             $breadcrumbs = $articles->getBreadcrumbs($this->route['code']);
             $id = $articles->getIDCategory(clearStr($this->route['code']));
 
-            $arArticlesCat = $articles->getArticlesThisCategory($id);
+            //пагинация
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage = 20;
+            $total = $articles->countByCategory($id);
+
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            // end
+
+            $arArticlesCat = $articles->getCategoryLimit($id, $start, $perPage);
             $arArticlesCat = $this->editNewDateArray($arArticlesCat);
 
-            if (!isset($arArticlesCat)) {
+            if (!empty($arArticlesCat)) {
                 foreach ($arArticlesCat as &$Articles) {
-                    $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['a_id']);
-                    $Articles['views'] = $views->getCountViewsByTable('articles', $Articles['a_id']);
+                    $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['num_id']);
+                    $Articles['views'] = $views->getCountViewsByTable('articles', $Articles['num_id']);
                 }
             }
         }
@@ -173,6 +193,7 @@ class ArticlesController extends AppController
             'articles' => $arArticlesCat,
             'arrCategory' => $categoryArticles,
             'breadcrumb' => $breadcrumbs,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

@@ -27,14 +27,14 @@
                     <? if (!empty($allCheats)): ?>
                     <? foreach ($allCheats as $cheat): ?>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 chit-post">
-                        <a href="/cheats/detail/<?=$cheat['ch_id']?>">
+                        <a href="/cheats/detail/<?=$cheat['num_id']?>">
                             <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$cheat['image'])): ?>
                                 <img src="/public/images/upload_file/<?=$cheat['image']?>" class="chit-post__img" alt="<?=$cheat['image']?>">
                             <? else: ?>
                                 <img src="/public/images/photo/no-image.jpg" class="chit-post__img" alt="<?=$cheat['image']?>">
                             <? endif; ?>
                             <div class="chit-post__name">
-                                <a href="/cheats/detail/<?=$cheat['ch_id']?>"><?= $cheat['title'] ?></a>
+                                <a href="/cheats/detail/<?=$cheat['num_id']?>"><?= $cheat['title'] ?></a>
                             </div>
                             <div class="chit-post__info">
                                 <div class="tags"><span><?=$cheat['cat_title']?></span></div>
@@ -48,6 +48,9 @@
                     <? endif; ?>
 
                 </div>
+            </div>
+            <div class="block-pagination">
+                <?=$pagination;?>
             </div>
         </div>
     </div>

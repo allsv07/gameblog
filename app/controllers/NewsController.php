@@ -7,6 +7,7 @@ use app\models\AddComments;
 use app\models\Comment;
 use app\models\News;
 use app\models\View;
+use system\libs\Pagination;
 
 class NewsController extends AppController
 {
@@ -16,15 +17,24 @@ class NewsController extends AppController
         $news = new News();
         $comments = new Comment();
 
+        //пагинация
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 20;
+        $total = $news->count();
+
+        $pagination = new Pagination($page, $perPage, $total);
+        $start = $pagination->getStart();
+        // end
+
         /**
-         * Все новости
+         * Все новости для пагинации
          */
-        $allNews = $news->getAllNews();
+        $allNews = $news->getAllLimit($start, $perPage);
         $allNews = $this->editNewDateArray($allNews);
 
         if (count($allNews) > 0) {
             foreach ($allNews as &$News) {
-                $News['comments'] = $comments->getCommentsCountByTable('news', $News['n_id']);
+                $News['comments'] = $comments->getCommentsCountByTable('news', $News['num_id']);
             }
         }
 
@@ -33,6 +43,7 @@ class NewsController extends AppController
          * категории новостей
          */
         $categoryNews = $news->getCategory('category', 'news');
+
 
         /**
          * формируем meta-тэги и title
@@ -44,6 +55,7 @@ class NewsController extends AppController
         $this->setVars([
             'allNews' => $allNews,
             'arrCategory' => $categoryNews,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK
@@ -158,12 +170,23 @@ class NewsController extends AppController
             $breadcrumbs = $news->getBreadcrumbs($this->route['code']);
             $id = $news->getIDCategory(clearStr($this->route['code']));
 
-            $arNewsCat = $news->getNewsThisCategory($id);
+
+            //пагинация
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage = 20;
+            $total = $news->countByCategory($id);
+
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            // end
+
+
+            $arNewsCat = $news->getCategoryLimit($id, $start, $perPage);
             $arNewsCat = $this->editNewDateArray($arNewsCat);
             if (!empty($arNewsCat)) {
                 foreach ($arNewsCat as &$News) {
-                    $News['comments'] = $comments->getCommentsCountByTable('news', $News['n_id']);
-                    $News['views'] = $views->getCountViewsByTable('news', $News['n_id']);
+                    $News['comments'] = $comments->getCommentsCountByTable('news', $News['num_id']);
+                    $News['views'] = $views->getCountViewsByTable('news', $News['num_id']);
                 }
             }
 
@@ -186,6 +209,7 @@ class NewsController extends AppController
             'news' => $arNewsCat,
             'arrCategory' => $categoryNews,
             'breadcrumb' => $breadcrumbs,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

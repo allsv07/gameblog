@@ -29,7 +29,7 @@
                     <div class="col-12 article-new">
                         <div class="row">
                             <div class="col-4">
-                                <a href="articles/detail/<?=$article['a_id']?>">
+                                <a href="articles/detail/<?=$article['num_id']?>">
                                     <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$article['image'])): ?>
                                         <img src="/public/images/upload_file/<?=$article['image']?>" class="article-new__img" alt="<?=$article['image']?>">
                                     <? else: ?>
@@ -40,7 +40,7 @@
                             <div class="col-8">
                                 <div class="article__new">
                                     <div class="article-new__name">
-                                        <a href="articles/detail/<?=$article['a_id']?>"><?=$article['title']?></a>
+                                        <a href="articles/detail/<?=$article['num_id']?>"><?=$article['title']?></a>
                                     </div>
                                     <div class="article-new__info">
                                         <span class="article-new__info--date"><?=$article['date']?></span>
@@ -55,7 +55,9 @@
                     </div>
                 <? endforeach; ?>
                 <? endif; ?>
-
+                <div class="block-pagination">
+                    <?=$pagination;?>
+                </div>
             </div>
         </div>
     </div>

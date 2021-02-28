@@ -16,15 +16,15 @@ class ArticlesController extends AppController
         $views = new View();
         $comments = new Comment();
 
-        $arrArticles = $articles->getAllArticles();
+        $arrArticles = $articles->getAllByAdmin();
 
         /**
          * добавляем в массив поля кол-во просмотров и комментариев
          */
         if (!empty($arrArticles)) {
             foreach ($arrArticles as &$Articles){
-                $Articles['views'] = $views->getSumViewsByTable('articles', $Articles['a_id']);
-                $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['a_id']);
+                $Articles['views'] = $views->getSumViewsByTable('articles', $Articles['num_id']);
+                $Articles['comments'] = $comments->getCommentsCountByTable('articles', $Articles['num_id']);
             }
         }
 
@@ -78,7 +78,7 @@ class ArticlesController extends AppController
                 // end
 
                 //добавление новости в БД
-                $articles->add(['category' => $category, 'title' => $title, 'desc' => $desc, 'image' => $file_name,
+                $articles->add('articles',['category' => $category, 'title' => $title, 'desc' => $desc, 'image' => $file_name,
                     'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => $showSlider]);
                 header('Location:/admin/articles');
             }
@@ -92,11 +92,11 @@ class ArticlesController extends AppController
      */
     public function deleteAction()
     {
-        $news = new Article();
+        $articles = new Article();
 
         $id = $this->route['id'];
 
-        $news->delete('articles', $id);
+        $articles->delete('articles', $id);
         header('Location: /admin/articles');
         die();
     }
@@ -109,7 +109,7 @@ class ArticlesController extends AppController
         $articles = new Article();
         $id = $this->route['id'];
 
-        $editArticle = $articles->getDetailArticleByEdit($id);
+        $editArticle = $articles->getDetailByEdit($id);
         $arrCategory = $articles->getCategory('category', 'articles');
 
         if (empty($editArticle)) {
@@ -155,12 +155,12 @@ class ArticlesController extends AppController
                     // end
                 }
                 //редактирование новости в БД
-                $articles->edit('news', $id, ['category' => $category, 'title' => $title, 'desc' => $desc,
+                $articles->edit('articles', $id, ['category' => $category, 'title' => $title, 'desc' => $desc,
                     'image' => $file_name, 'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => $showSlider]);
                 header('Location:/admin/articles');
             }
         }
 
-        $this->setVars(['editNew' => $editArticle, 'categories' => $arrCategory]);
+        $this->setVars(['editArticle' => $editArticle, 'categories' => $arrCategory]);
     }
 }

@@ -23,11 +23,12 @@
             </div>
 
             <div class="article-news">
+                <? if(!empty($allNews)): ?>
                 <? foreach ($allNews as $new): ?>
                 <div class="col-12 article-new">
                     <div class="row">
                         <div class="col-4">
-                            <a href="news/detail/<?=$new['n_id']?>">
+                            <a href="news/detail/<?=$new['num_id']?>">
                                 <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$new['image'])): ?>
                                 <img src="/public/images/upload_file/<?=$new['image']?>" class="article-new__img" alt="<?=$new['image']?>">
                                 <? else: ?>
@@ -38,7 +39,7 @@
                         <div class="col-8">
                             <div class="article__new">
                                 <div class="article-new__name">
-                                    <a href="news/detail/<?=$new['n_id']?>"><?=$new['title']?></a>
+                                    <a href="news/detail/<?=$new['num_id']?>"><?=$new['title']?></a>
                                 </div>
                                 <div class="article-new__info">
                                     <span class="article-new__info--date"><?=$new['date']?></span>
@@ -52,6 +53,11 @@
                     </div>
                 </div>
                 <? endforeach; ?>
+                <? endif; ?>
+
+                <div class="block-pagination">
+                    <?=$pagination;?>
+                </div>
 
             </div>
         </div>

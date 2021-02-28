@@ -7,6 +7,7 @@ namespace app\controllers;
 use app\models\Blog;
 use app\models\Comment;
 use app\models\View;
+use system\libs\Pagination;
 
 class BlogsController extends AppController
 {
@@ -15,15 +16,24 @@ class BlogsController extends AppController
         $blogs = new Blog();
         $comments = new Comment();
 
+        //пагинация
+        $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+        $perPage = 20;
+        $total = $blogs->count();
+
+        $pagination = new Pagination($page, $perPage, $total);
+        $start = $pagination->getStart();
+        // end
+
         /**
          * Все новости
          */
-        $allBlogs = $blogs->getAllBlogs();
+        $allBlogs = $blogs->getAllLimit($start, $perPage);
         $allBlogs = $this->editNewDateArray($allBlogs);
 
         if (count($allBlogs) > 0) {
             foreach ($allBlogs as &$Blogs) {
-                $Blogs['comments'] = $comments->getCommentsCountByTable('blogs', $Blogs['b_id']);
+                $Blogs['comments'] = $comments->getCommentsCountByTable('blogs', $Blogs['num_id']);
             }
         }
 
@@ -43,6 +53,7 @@ class BlogsController extends AppController
         $this->setVars([
             'allBlogs' => $allBlogs,
             'arrCategory' => $categoryBlogs,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK
@@ -146,13 +157,22 @@ class BlogsController extends AppController
             $breadcrumbs = $blogs->getBreadcrumbs($this->route['code']);
             $id = $blogs->getIDCategory(clearStr($this->route['code']));
 
-            $arBlogsCat = $blogs->getBlogsThisCategory($id);
+            //пагинация
+            $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+            $perPage = 20;
+            $total = $blogs->countByCategory($id);
+
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            // end
+
+            $arBlogsCat = $blogs->getCategoryLimit($id, $start, $perPage);
             $arBlogsCat = $this->editNewDateArray($arBlogsCat);
 
             if (!empty($arBlogsCat)) {
                 foreach ($arBlogsCat as &$Blogs) {
-                    $Blogs['comments'] = $comments->getCommentsCountByTable('blogs', $Blogs['b_id']);
-                    $Blogs['views'] = $views->getCountViewsByTable('blogs', $Blogs['b_id']);
+                    $Blogs['comments'] = $comments->getCommentsCountByTable('blogs', $Blogs['num_id']);
+                    $Blogs['views'] = $views->getCountViewsByTable('blogs', $Blogs['num_id']);
                 }
             }
 
@@ -175,6 +195,7 @@ class BlogsController extends AppController
             'blogs' => $arBlogsCat,
             'arrCategory' => $categoryBlogs,
             'breadcrumb' => $breadcrumbs,
+            'pagination' => $pagination,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

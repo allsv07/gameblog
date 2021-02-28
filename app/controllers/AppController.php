@@ -13,6 +13,11 @@ class AppController extends Controller
     {
         parent::__construct($route, $view);
 
+//        if (!isset($_SESSION['is_user']) && (!isset($_SESSION['USER']))) {
+//            header('Location: /');
+//            die();
+//        }
+
         // выход из панели пользователя
         if (isset($_GET['logout']) && $_GET['logout'] == 'exit') {
             $this->outUser();
@@ -92,10 +97,12 @@ class AppController extends Controller
         return $array;
     }
 
+
     public function outUser()
     {
-        if (isset($_SESSION['is_user'])) {
+        if (isset($_SESSION['is_user']) && isset($_COOKIE['USER'])) {
             unset($_SESSION['is_user']);
+            setcookie('USER', '', time() - 3600);
         }
 
         session_destroy();

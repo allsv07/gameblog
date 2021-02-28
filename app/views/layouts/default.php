@@ -10,8 +10,8 @@
     <!-- Bootstrap css -->
     <link rel="stylesheet" href="/libs/bootstrap/css/bootstrap.css">
     <!-- css -->
-    <link rel="stylesheet" href="/css/css/style.css">
-    <link rel="stylesheet" href="/css/css/media.css">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/media.css">
     <!-- fonts -->
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link href="https://fonts.googleapis.com/css2?family=Coda+Caption:wght@800&family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
@@ -80,42 +80,42 @@
                         <div class="col-12">
                             <div class="row social">
                                 <ul>
-                                    <a href="#">
+                                    <a href="https://www.youtube.com" target="_blank">
                                         <li class="icon-youtube">
                                             <div class="block-social"><i class="fa fa-youtube-play" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://vk.com" target="_blank">
                                         <li class="icon-vk">
                                             <div class="block-social"><i class="fa fa-vk" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://ru-ru.facebook.com" target="_blank">
                                         <li class="icon-facebook">
                                             <div class="block-social"><i class="fa fa-facebook" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://twitter.com" target="_blank">
                                         <li class="icon-twitter">
                                             <div class="block-social"><i class="fa fa-twitter" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://web.telegram.org/#/login" target="_blank">
                                         <li class="icon-telegram">
                                             <div class="block-social"><i class="fa fa-telegram" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://www.instagram.com" target="_blank">
                                         <li class="icon-instagram">
                                             <div class="block-social"><i class="fa fa-instagram" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://store.steampowered.com" target="_blank">
                                         <li class="icon-steam">
                                             <div class="block-social"><i class="fa fa-steam" aria-hidden="true"></i></div>
                                         </li>
                                     </a>
-                                    <a href="#">
+                                    <a href="https://www.twitch.tv" target="_blank">
                                         <li class="icon-twitch">
                                             <div class="block-social"><i class="fa fa-twitch" aria-hidden="true"></i></div>
                                         </li>

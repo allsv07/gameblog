@@ -27,14 +27,14 @@
                     <? if (!empty($allBlogs)): ?>
                         <? foreach ($allBlogs as $blog): ?>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 chit-post">
-                                <a href="/blogs/detail/<?=$blog['b_id']?>">
+                                <a href="/blogs/detail/<?=$blog['num_id']?>">
                                     <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$blog['image'])): ?>
                                         <img src="/public/images/upload_file/<?=$blog['image']?>" class="chit-post__img" alt="<?=$blog['image']?>">
                                     <? else: ?>
                                         <img src="/public/images/photo/no-image.jpg" class="chit-post__img" alt="<?=$blog['image']?>">
                                     <? endif; ?>
                                     <div class="chit-post__name">
-                                        <a href="/blogs/detail/<?=$blog['b_id']?>"><?= $blog['title'] ?></a>
+                                        <a href="/blogs/detail/<?=$blog['num_id']?>"><?= $blog['title'] ?></a>
                                     </div>
                                     <div class="chit-post__info">
                                         <div class="tags"><span><?=$blog['cat_title']?></span></div>
@@ -46,8 +46,10 @@
                             </div>
                         <? endforeach; ?>
                     <? endif; ?>
-
                 </div>
+            </div>
+            <div class="block-pagination">
+                <?=$pagination;?>
             </div>
         </div>
     </div>

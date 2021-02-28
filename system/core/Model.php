@@ -50,6 +50,17 @@ abstract class Model
     }
 
     /**
+     * количество записей конкретной категории
+     */
+    public function countByCategory($id)
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE {$this->table}.cat_id = ?";
+        $arr = $this->db->query($sql, [$id]);
+        return count($arr);
+    }
+
+
+    /**
      * одна запись
      */
     public function findOne($id, $pk = '') // выбрать одну запись из таблицы
@@ -124,9 +135,103 @@ abstract class Model
 
     public function getMainToday()
     {
-        $sql = "SELECT news.id, news.title, news.image, C.title as category, 'news' as tbl FROM news JOIN category as C ON news.cat_news = C.id WHERE showSlider = 1 UNION SELECT articles.id, articles.title, articles.image, C.title as category, 'articles' as tbl FROM articles JOIN category as C ON articles.cat_article = C.id WHERE showSlider = 1 LIMIT 4";
+        $sql = "SELECT news.id, news.title, news.image, C.title as category, 'news' as tbl FROM news JOIN category as C ON news.cat_id = C.id WHERE showSlider = 1 UNION SELECT articles.id, articles.title, articles.image, C.title as category, 'articles' as tbl FROM articles JOIN category as C ON articles.cat_id = C.id WHERE showSlider = 1 LIMIT 4";
         return $this->db->query($sql);
     }
+
+
+
+
+
+
+    /**
+     * @return array
+     * выбираем все записи мз таблицы
+     */
+    public function getAll()
+    {
+        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.title, {$this->table}.date, {$this->table}.image, {$this->table}.meta_desc, {$this->table}.meta_keywords, C.title AS cat_title FROM {$this->table} JOIN category AS C ON C.id = {$this->table}.cat_id WHERE C.table_name = '{$this->table}' ORDER BY {$this->table}.id DESC";
+        return $this->db->query($sql);
+    }
+
+    /**
+     * @return array
+     * выбираем все записи мз таблицы для пагинации
+     */
+    public function getAllLimit($start, $limit)
+    {
+        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.title, {$this->table}.date, {$this->table}.image, {$this->table}.meta_desc, {$this->table}.meta_keywords, C.title AS cat_title FROM {$this->table} JOIN category AS C ON C.id = {$this->table}.cat_id WHERE C.table_name = '{$this->table}' ORDER BY {$this->table}.id DESC LIMIT $start, $limit";
+        return $this->db->query($sql);
+    }
+
+    /**
+     * получает записи по id категории для пагинации
+     * @param $id
+     * @return array
+     */
+    public function getCategoryLimit($id, $start, $limit)
+    {
+        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.title, {$this->table}.date, {$this->table}.image, CAT.title AS cat_title FROM {$this->table} JOIN category AS CAT ON CAT.id = {$this->table}.cat_id WHERE CAT.id = ? ORDER BY {$this->table}.id DESC LIMIT $start, $limit";
+        return $this->db->query($sql, [$id]);
+    }
+
+
+    /**
+     * @param $start
+     * @param $limit
+     * @return array
+     * выводит все новости
+     */
+    public function getAllByAdmin()
+    {
+        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.title, {$this->table}.description, {$this->table}.date, {$this->table}.image, C.title AS cat_title, U.name FROM {$this->table} JOIN category AS C ON C.id = {$this->table}.cat_id JOIN users AS U ON {$this->table}.author = U.id WHERE C.table_name = '{$this->table}' ORDER BY {$this->table}.id DESC ";
+        return $this->db->query($sql);
+    }
+
+
+
+
+    /*** ADMIN PANEL ***/
+
+    /**
+     * добавление
+     * @param $arr
+     */
+    public function add($table, $arr)
+    {
+        $sql = "INSERT INTO {$table} 
+                SET `cat_id` = ?,
+                `title` = ?,
+                `description` = ?,
+                `author` = ?,
+                `date` = CURRENT_DATE(),
+                `image` = ?,
+                `meta_desc` = ?,
+                `meta_keywords` = ?,
+                `showSlider` = ?
+                ";
+        return $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $_SESSION['admin']['id'], $arr['image'], $arr['m_desc'], $arr['m_keywords'], $arr['show']]);
+    }
+
+
+    /**
+     * редактировани записи в БД
+     */
+    public function edit($table, $id, $arr)
+    {
+        $sql = "UPDATE {$table} SET  
+                            `cat_id` = ?,
+                            `title` = ?,
+                            `description` = ?,
+                            `image` = ?,
+                            `meta_desc` = ?,
+                            `meta_keywords` = ?,
+                            `showSlider` = ?
+                            WHERE `id` = ?
+                            ";
+        $this->db->exec($sql, [$arr['category'], $arr['title'], $arr['desc'], $arr['image'], $arr['m_desc'], $arr['m_keywords'], $arr['show'], $id]);
+    }
+
 
     /**
      * удаление записи из бд
@@ -145,9 +250,17 @@ abstract class Model
     }
 
 
-
-
-
+    /**
+     * выблор запись для редактирования
+     * @param $id
+     * @return array|mixed
+     */
+    public function getDetailByEdit($id)
+    {
+        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.cat_id, {$this->table}.title, {$this->table}.description, {$this->table}.meta_desc, {$this->table}.meta_keywords, {$this->table}.showSlider, {$this->table}.date, {$this->table}.image, CAT.title AS cat_title FROM {$this->table} JOIN category AS CAT ON CAT.id = {$this->table}.cat_id WHERE {$this->table}.id = ?";
+        $res = $this->db->query($sql, [$id]);
+        return (!empty($res[0])) ? $res[0]: [];
+    }
 
 
 }

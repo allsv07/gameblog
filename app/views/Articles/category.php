@@ -10,7 +10,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/articles">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                        <li class="category-news_item"><a href="/articles/category/<?=$category['code']?>" class="active"><?=$category['title']?></a></li>
+                        <li class="category-news_item"><a href="/articles/category/<?=$category['code']?>" ><?=$category['title']?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>
@@ -31,7 +31,7 @@
                         <div class="col-12 article-new">
                             <div class="row">
                                 <div class="col-4">
-                                    <a href="/articles/detail/<?=$article['a_id']?>">
+                                    <a href="/articles/detail/<?=$article['num_id']?>">
                                         <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$article['image'])): ?>
                                             <img src="/public/images/upload_file/<?=$article['image']?>" class="article-new__img" alt="<?=$article['image']?>">
                                         <? else: ?>
@@ -42,7 +42,7 @@
                                 <div class="col-8">
                                     <div class="article__new">
                                         <div class="article-new__name">
-                                            <a href="/articles/detail/<?=$article['a_id']?>"><?=$article['title']?></a>
+                                            <a href="/articles/detail/<?=$article['num_id']?>"><?=$article['title']?></a>
                                         </div>
                                         <div class="article-new__info">
                                             <span class="article-new__info--date"><?=$article['date']?></span>
@@ -58,7 +58,9 @@
                     <? endforeach; ?>
                 <? else: ?>
                 <? endif; ?>
-
+                <div class="block-pagination">
+                    <?=$pagination;?>
+                </div>
             </div>
         </div>
     </div>

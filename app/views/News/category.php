@@ -10,7 +10,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/news">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>" class="active"><?=$category['title']?></a></li>
+                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>"><?=$category['title']?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>
@@ -31,7 +31,7 @@
                     <div class="col-12 article-new">
                         <div class="row">
                             <div class="col-4">
-                                <a href="/news/detail/<?=$new['n_id']?>">
+                                <a href="/news/detail/<?=$new['num_id']?>">
                                     <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$new['image'])): ?>
                                         <img src="/public/images/upload_file/<?=$new['image']?>" class="article-new__img" alt="<?=$new['image']?>">
                                     <? else: ?>
@@ -42,7 +42,7 @@
                             <div class="col-8">
                                 <div class="article__new">
                                     <div class="article-new__name">
-                                        <a href="/news/detail/<?=$new['n_id']?>"><?=$new['title']?></a>
+                                        <a href="/news/detail/<?=$new['num_id']?>"><?=$new['title']?></a>
                                     </div>
                                     <div class="article-new__info">
                                         <span class="article-new__info--date"><?=$new['date']?></span>
@@ -59,6 +59,9 @@
                 <? else: ?>
                 <? endif; ?>
 
+                <div class="block-pagination">
+                    <?=$pagination;?>
+                </div>
             </div>
         </div>
     </div>

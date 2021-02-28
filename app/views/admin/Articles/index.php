@@ -27,8 +27,8 @@
                         <td><?=$article['views']?></td>
                         <td><?=$article['comments']?></td>
                         <td>
-                            <a href="/admin/articles/edit/<?=$article['a_id']?>" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <a href="/admin/articles/delete/<?=$article['a_id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="/admin/articles/edit/<?=$article['num_id']?>" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="/admin/articles/delete/<?=$article['num_id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 <? endforeach; ?>

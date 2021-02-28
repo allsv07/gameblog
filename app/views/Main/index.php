@@ -291,20 +291,21 @@
         </div>
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 last-comments">
             <span>Последние комментарии</span>
-            <? if (count($lastComments) > 0): ?>
+            <? if (!empty($lastComments)): ?>
+            <? //pr($lastComments); ?>
             <? foreach ($lastComments as $comment): ?>
             <a href="#">
                 <div class="col-12 last-comment">
                     <div class="last-comment__img">
-                        <img src="images/photo/cyberpunk_2077-19.jpg" class="last-comment__img--avatar" alt="">
+                        <img src="/images/user/<?=$comment['user_img']?>" class="last-comment__img--avatar" alt="<?=$comment['author']?>">
                     </div>
                     <div class="last-comment__text">
                         <div class="last-comment__text--author">
-                            <a href="#"><?= $comment['author'] ?></a>
+                            <a href="#"><?=$comment['author'] ?></a>
                         </div>
                         <div class="last-comment__text--text">
-                            <p><?= $comment['text'] ?></p>
-                            <a href="/news/detail/<?= $comment['n_id'] ?>">
+                            <p><?= $comment['comment'] ?></p>
+                            <a href="/<?=$comment['tbl']?>/detail/<?= $comment['title_id'] ?>">
                                 <p><?= $comment['title'] ?></p>
                             </a>
                         </div>
