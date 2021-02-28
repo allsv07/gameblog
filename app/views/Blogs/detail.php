@@ -67,6 +67,7 @@
             </div>
 
             <div class="article-form-comment">
+                <span class="success"><?=(isset($_SESSION['success-comment'])) ? $_SESSION['success-comment'] : ''; unset($_SESSION['success-comment']);?></span>
                 <form action="" class="form" method="post">
                     <label class="error-label">Заполните поля</label>
                     <? if (!isset($_SESSION['user']['login'])): ?>

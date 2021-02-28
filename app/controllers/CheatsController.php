@@ -114,7 +114,9 @@ class CheatsController extends AppController
             $id_author = $_SESSION['user']['id'];
             $comment = clearStr($_POST['text_comment']);
             $comments->addComment('cheats', $id, ['author' => $author, 'id_author' => $id_author, 'comment' => $comment]);
+            $_SESSION['success-comment'] = 'Ваш комменатрий отобразиться после модерации';
             header('Location:/cheats/detail/' . $id);
+            die();
         }
 
 

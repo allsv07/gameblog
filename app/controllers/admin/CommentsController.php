@@ -14,6 +14,28 @@ class CommentsController extends AppController
 
         $arrComments = $comments->allComments();
 
-        $this->setVars(['comments' => $arrComments]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['comments' => $arrComments, 'cComment' => $countComments]);
+    }
+
+    public function editAction()
+    {
+        $comments = new Comment();
+        $id = $this->route['id'];
+        $table_name = $comments->getTableNameFromComments($id);
+
+        $comment = $comments->getComment($id, $table_name);
+
+        /**
+         * редактирование комментария
+         */
+        if (isset($_POST['btn_edit'])) {
+            $comments->editComment($id, ['show_comment' => $_POST['show_comment']]);
+            header('Location: /admin/comments');
+            die();
+        }
+
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['comments' => $comment, 'cComment' => $countComments]);
     }
 }

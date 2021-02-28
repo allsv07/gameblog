@@ -28,8 +28,8 @@ class BlogsController extends AppController
             }
         }
 
-
-        $this->setVars(['blogs' => $arrBlogs]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['blogs' => $arrBlogs, 'cComment' => $countComments]);
     }
 
 
@@ -39,6 +39,7 @@ class BlogsController extends AppController
     public function addAction()
     {
         $blogs = new Blog();
+        $comments = new Comment();
 
         /**
          * выбираем категории для добавления статьи
@@ -84,7 +85,8 @@ class BlogsController extends AppController
             }
         }
 
-        $this->setVars(['categories' => $arrCategory]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['categories' => $arrCategory, 'cComment' => $countComments]);
     }
 
     /**
@@ -95,8 +97,10 @@ class BlogsController extends AppController
         $blogs = new Blog();
 
         $id = $this->route['id'];
+        $img = $blogs->getNameImageByTable($id);
 
         $blogs->delete('articles', $id);
+        unlink($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$img);
         header('Location: /admin/blogs');
         die();
     }
@@ -108,6 +112,8 @@ class BlogsController extends AppController
     public function editAction()
     {
         $blogs = new Blog();
+        $comments = new Comment();
+
         $id = $this->route['id'];
 
         $editBlog = $blogs->getDetailByEdit($id);
@@ -161,6 +167,7 @@ class BlogsController extends AppController
             }
         }
 
-        $this->setVars(['editBlog' => $editBlog, 'categories' => $arrCategory]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['editBlog' => $editBlog, 'categories' => $arrCategory, 'cComment' => $countComments]);
     }
 }

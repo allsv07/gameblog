@@ -64,17 +64,61 @@ class Comment extends Model
     {
         $limit = (strlen($limit) != '') ? "LIMIT ".(int)$limit : '';
 
-        $sql = "SELECT C.id, C.author_id, C.author, C.text as comment, C.date, N.id AS title_id, N.title, U.image AS user_img, 'news' as tbl FROM comments AS C JOIN news AS N ON C.table_name = 'news' AND C.table_row_id = N.id JOIN users AS U ON C.author_id = U.id 
+        $sql = "SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, N.id AS title_id, N.title, U.image AS user_img, 'news' as tbl FROM comments AS C JOIN news AS N ON C.table_name = 'news' AND C.table_row_id = N.id JOIN users AS U ON C.author_id = U.id 
                 UNION
-                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, A.id AS title_id, A.title, U.image AS user_img, 'articles' as tbl FROM comments AS C JOIN articles AS A ON C.table_name = 'articles' AND C.table_row_id = A.id JOIN users AS U ON C.author_id = U.id 
+                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, A.id AS title_id, A.title, U.image AS user_img, 'articles' as tbl FROM comments AS C JOIN articles AS A ON C.table_name = 'articles' AND C.table_row_id = A.id JOIN users AS U ON C.author_id = U.id 
                 UNION
-                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, B.id AS title_id, B.title, U.image AS user_img, 'blogs' as tbl FROM comments AS C JOIN blogs AS B ON C.table_name = 'blogs' AND C.table_row_id = B.id JOIN users AS U ON C.author_id = U.id 
+                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, B.id AS title_id, B.title, U.image AS user_img, 'blogs' as tbl FROM comments AS C JOIN blogs AS B ON C.table_name = 'blogs' AND C.table_row_id = B.id JOIN users AS U ON C.author_id = U.id 
                 UNION 
-                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, CH.id AS title_id, CH.title, U.image AS user_img, 'cheats' as tbl FROM comments AS C JOIN cheats AS CH ON C.table_name = 'cheats' AND C.table_row_id = CH.id JOIN users AS U ON C.author_id = U.id 
+                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, CH.id AS title_id, CH.title, U.image AS user_img, 'cheats' as tbl FROM comments AS C JOIN cheats AS CH ON C.table_name = 'cheats' AND C.table_row_id = CH.id JOIN users AS U ON C.author_id = U.id 
                 ORDER BY id DESC " . $limit;
         return $this->db->query($sql);
     }
 
+    /**
+     * @return int
+     * считаем кол-во коментариев
+     */
+    public function countCommentsByAdmin()
+    {
+        $sql = "SELECT * FROM {$this->table} WHERE `active` = '0'";
+        $res = $this->db->query($sql);
+        return count($res);
+    }
 
+    /**
+     * @param $id
+     * @return array
+     * получаем один комментарий для редактирование в адин панели
+     */
+    public function getComment($id, $table)
+    {
+        $sql = "SELECT C.author_id, C.author, C.text as comment, C.date, C.active, U.image, T.title FROM comments AS C 
+                JOIN users AS U ON C.author_id = U.id 
+                JOIN {$table} AS T ON C.table_name = ? AND C.table_row_id = T.id
+                WHERE C.id = ? LIMIT 1";
+        return $this->db->query($sql, [$table, $id])[0];
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     * получаем имя таблицы в комментариях
+     */
+    public function getTableNameFromComments($id)
+    {
+        $sql = "SELECT `table_name` FROM `comments` WHERE id = ?";
+        return $this->db->query($sql, [$id])[0]['table_name'];
+    }
+
+
+    /**
+     * редактируем комменатрий
+     */
+    public function editComment($id, $arr)
+    {
+        $sql = "UPDATE `comments` SET `active` = ? WHERE `id` = ?";
+        $this->db->exec($sql, [$arr['show_comment'], $id]);
+    }
 
 }

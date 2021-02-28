@@ -144,7 +144,7 @@
                 <? foreach ($lastBlogs as $blog): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
                     <a href="/blogs/detail/<?=$blog['id']?>">
-                        <img src="images/photo/NFSR3.jpg" class="blog__img" alt="">
+                        <img src="/images/upload_file/<?$blog['image']?>" class="blog__img" alt="">
                         <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?= $blog['views'] ?></span></div>
                     </a>
                     <div class="blog-author">
@@ -274,7 +274,7 @@
                 <? foreach ($lastChits as $chit): ?>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
                     <a href="/cheats/detail/<?=$chit['id']?>">
-                        <img src="images/photo/NFSR3.jpg" class="resent-post__img" alt="">
+                        <img src="/images/upload_file/<?=$chit['image']?>" class="resent-post__img" alt="">
                         <div class="resent-post__day">
                             <div class="day"><span><?=$chit['date']?></div>
                         </div>

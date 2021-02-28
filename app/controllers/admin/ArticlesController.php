@@ -28,8 +28,8 @@ class ArticlesController extends AppController
             }
         }
 
-
-        $this->setVars(['articles' => $arrArticles]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['articles' => $arrArticles, 'cComment' => $countComments]);
     }
 
     /**
@@ -38,6 +38,7 @@ class ArticlesController extends AppController
     public function addAction()
     {
         $articles = new Article();
+        $comments = new Comment();
 
         /**
          * выбираем категории для добавления статьи
@@ -83,8 +84,9 @@ class ArticlesController extends AppController
                 header('Location:/admin/articles');
             }
         }
+        $countComments = $comments->countCommentsByAdmin();
 
-        $this->setVars(['categories' => $arrCategory]);
+        $this->setVars(['categories' => $arrCategory, 'cComment' => $countComments]);
     }
 
     /**
@@ -95,8 +97,10 @@ class ArticlesController extends AppController
         $articles = new Article();
 
         $id = $this->route['id'];
+        $img = $articles->getNameImageByTable($id);
 
         $articles->delete('articles', $id);
+        unlink($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$img);
         header('Location: /admin/articles');
         die();
     }
@@ -107,6 +111,8 @@ class ArticlesController extends AppController
     public function editAction()
     {
         $articles = new Article();
+        $comments = new Comment();
+
         $id = $this->route['id'];
 
         $editArticle = $articles->getDetailByEdit($id);
@@ -161,6 +167,8 @@ class ArticlesController extends AppController
             }
         }
 
-        $this->setVars(['editArticle' => $editArticle, 'categories' => $arrCategory]);
+        $countComments = $comments->countCommentsByAdmin();
+
+        $this->setVars(['editArticle' => $editArticle, 'categories' => $arrCategory, 'cComment' => $countComments]);
     }
 }

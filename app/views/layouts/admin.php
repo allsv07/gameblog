@@ -29,7 +29,6 @@
             </ul>
         </div>
     </div>
-
     <section class="content">
         <div class="container-fluid block-admin-content">
             <div class="row">
@@ -42,9 +41,11 @@
                         <li><a href="/admin/cheats">Коды и прохождения игр</a></li>
                         <li class="comments_count_list">
                             <a href="/admin/comments">Комментарии</a>
-                            <div class="comment_count">
-                                <span>+5</span>
-                            </div>
+                            <? if (isset($cComment) && $cComment > 0) :?>
+                                <div class="comment_count">
+                                    <span>+<?=$cComment;?></span>
+                                </div>
+                            <? endif; ?>
                         </li>
                         <li><a href="/admin/users">Пользователи</a></li>
                     </ul>

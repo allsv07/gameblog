@@ -54,7 +54,7 @@ class UserController extends AppController
 
         // редактирование пароля user
         if (isset($_POST['btn-edit-pass'])) {
-            $this->editPassUser($_POST['new-pass'], $user['password'], $user['login']);
+            $this->editPassUser($_POST['new-pass'], $_POST['pass'], $user['password'], $user['login']);
             header('Location: /user/edit');
             die();
         }
@@ -76,16 +76,17 @@ class UserController extends AppController
         if ($file['name'] != '') {
             // проверка файла на допустимый размер, формат и выбран ли вообще файл
             $check = $this->canUploadFile($file);
-            if ($check !== true) $_SESSION['error']['file'] = $check;
-            $file_name = $this->uploadFile($file);
-        }
-        else {
-            $check = true;
-            $file_name = $user['image'];
+            if ($check !== true) {
+                $_SESSION['error']['file'] = $check;
+            }
+            else {
+                $file_name = $this->uploadFile($file);
+                $users->editUserImage($file_name, $user['login']);
+                $_SESSION['success']['file'] = 'Аватар изменен';
+            }
         }
 
-        $users->editUserImage($file_name, $user['login']);
-        $_SESSION['success']['file'] = 'Аватар изменен';
+
     }
 
 
@@ -120,19 +121,20 @@ class UserController extends AppController
 
 
     /**
-     * @param $newPass
-     * @param $pass
+     * @param $newPass - новый пароль
+     * @param $pass - введенный текущий пароль
+     * @param $passUser - текущий пароль user в БД
      * @param $login
      * редактирование пароля user
      */
-    protected function editPassUser($newPass, $pass, $login)
+    protected function editPassUser($newPass, $pass, $passUser, $login)
     {
         $users = new User();
 
         if ($pass != '') {
             if ($newPass != '') {
                 if (strlen($newPass) >= 3) {
-                    if (password_verify($newPass, $pass)) {
+                    if (password_verify($pass, $passUser)) {
                         $users->editPassUser(password_hash($newPass, PASSWORD_DEFAULT), $login);
                         $_SESSION['success']['pass'] = 'Пароль изменен';
                     }

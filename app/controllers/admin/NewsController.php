@@ -27,14 +27,16 @@ class NewsController extends AppController
                 $News['comments'] = $comments->getCommentsCountByTable('news', $News['num_id']);
             }
         }
+        $countComments = $comments->countCommentsByAdmin();
 
 
-        $this->setVars(['news' => $arrNew]);
+        $this->setVars(['news' => $arrNew, 'cComment' => $countComments]);
     }
 
     public function addAction()
     {
         $news = new News();
+        $comments = new Comment();
 
         /**
          * выбираем категории для добавления новости
@@ -81,7 +83,9 @@ class NewsController extends AppController
             }
         }
 
-        $this->setVars(['categories' => $arrCategory]);
+        $countComments = $comments->countCommentsByAdmin();
+
+        $this->setVars(['categories' => $arrCategory, 'cComment' => $countComments]);
     }
 
     /**
@@ -92,8 +96,10 @@ class NewsController extends AppController
         $news = new News();
 
         $id = $this->route['id'];
+        $img = $news->getNameImageByTable($id);
 
         $news->delete('news', $id);
+        unlink($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$img);
         header('Location: /admin/news');
         die();
     }
@@ -104,6 +110,8 @@ class NewsController extends AppController
     public function editAction()
     {
         $news = new News();
+        $comments = new Comment();
+
         $id = $this->route['id'];
 
         $editNew = $news->getDetailByEdit($id);
@@ -159,6 +167,8 @@ class NewsController extends AppController
             }
         }
 
-        $this->setVars(['editNew' => $editNew, 'categories' => $category]);
+        $countComments = $comments->countCommentsByAdmin();
+
+        $this->setVars(['editNew' => $editNew, 'categories' => $category, 'cComment' => $countComments]);
     }
 }

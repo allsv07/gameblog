@@ -67,7 +67,8 @@ class AppController extends Controller
     {
         $directory = $_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file';
         $tmp_name = $file['tmp_name'];
-        $name = time() . $file['name'];
+        $arNameFile = explode('/', $file['type']);
+        $name = time() .'.'. $arNameFile[1];
         move_uploaded_file($tmp_name, "$directory/$name");
         return $name;
     }

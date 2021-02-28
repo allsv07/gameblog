@@ -14,6 +14,7 @@
                 <th>Автор</th>
                 <th>Комментарий</th>
                 <th>Прокоментированная запись</th>
+                <th>Статус</th>
                 <th>Дата</th>
                 <th>Действие</th>
             </tr>
@@ -23,10 +24,11 @@
                         <td><?=$comment['author']?></td>
                         <td><?=$comment['comment']?></td>
                         <td><?=$comment['title']?></td>
+                        <td><?=($comment['active'] > 0) ? 'Включен' : 'Отключен';?></td>
                         <td><?=$comment['date']?></td>
                         <td>
-                            <a href="/admin/news/edit/<?=$comment['num_id']?>" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <a href="/admin/news/delete/<?=$comment['num_id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="/admin/comments/edit/<?=$comment['id']?>" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
+                            <a href="/admin/comments/delete/<?=$comment['id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 <? endforeach; ?>

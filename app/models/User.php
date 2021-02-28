@@ -84,7 +84,7 @@ class User extends Model
         $user = $this->getUser("SELECT `login` FROM {$this->table} WHERE `login` = ? AND `role` = 'user'", [$arr['login']]);
 
         if (empty($user)) {
-            $sql = "INSERT INTO {$this->table} SET login = ?, password = ?, name = '', email = ?, image = '', role = 'user'";
+            $sql = "INSERT INTO {$this->table} SET login = ?, password = ?, name = '', email = ?, image = '', date = CURDATE(), role = 'user'";
             return $this->db->exec($sql, [$arr['login'], $arr['pass'], $arr['email']]);
         }
         else {

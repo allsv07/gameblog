@@ -249,6 +249,15 @@ abstract class Model
         $this->db->exec($sql, [$id]);
     }
 
+    /**
+     * получение имя картинки записи в бд
+     */
+    public function getNameImageByTable($id)
+    {
+        $res = $this->db->query("SELECT `image` FROM {$this->table} WHERE `id` = ?", [$id]);
+        return $res[0]['image'];
+    }
+
 
     /**
      * выблор запись для редактирования

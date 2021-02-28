@@ -28,8 +28,8 @@ class CheatsController extends AppController
             }
         }
 
-
-        $this->setVars(['cheats' => $arrCheat]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['cheats' => $arrCheat, 'cComment' => $countComments]);
     }
 
 
@@ -39,6 +39,7 @@ class CheatsController extends AppController
     public function addAction()
     {
         $cheats = new Cheat();
+        $comments = new Comment();
 
         /**
          * выбираем категории для добавления статьи
@@ -83,7 +84,8 @@ class CheatsController extends AppController
             }
         }
 
-        $this->setVars(['categories' => $arrCategory]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['categories' => $arrCategory, 'cComment' => $countComments]);
     }
 
 
@@ -92,8 +94,10 @@ class CheatsController extends AppController
         $cheats = new Cheat();
 
         $id = $this->route['id'];
+        $img = $cheats->getNameImageByTable($id);
 
         $cheats->delete('cheats', $id);
+        unlink($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$img);
         header('Location: /admin/cheats');
         die();
     }
@@ -105,6 +109,8 @@ class CheatsController extends AppController
     public function editAction()
     {
         $cheats = new Cheat();
+        $comments = new Comment();
+
         $id = $this->route['id'];
 
         $editCheat = $cheats->getDetailByEdit($id);
@@ -158,6 +164,7 @@ class CheatsController extends AppController
             }
         }
 
-        $this->setVars(['editCheat' => $editCheat, 'categories' => $arrCategory]);
+        $countComments = $comments->countCommentsByAdmin();
+        $this->setVars(['editCheat' => $editCheat, 'categories' => $arrCategory, 'cComment' => $countComments]);
     }
 }

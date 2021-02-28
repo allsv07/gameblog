@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use app\models\User;
 use system\core\Controller;
 
 class AppController extends Controller
@@ -13,10 +14,11 @@ class AppController extends Controller
     {
         parent::__construct($route, $view);
 
-//        if (!isset($_SESSION['is_user']) && (!isset($_SESSION['USER']))) {
-//            header('Location: /');
-//            die();
-//        }
+        // проверка на доступ к кабинету пользователя
+        if ($this->route['controller'] == 'User' && (!isset($_SESSION['is_user']))) {
+            header('Location: /');
+            die();
+        }
 
         // выход из панели пользователя
         if (isset($_GET['logout']) && $_GET['logout'] == 'exit') {

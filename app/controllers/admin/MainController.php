@@ -8,6 +8,7 @@ namespace app\controllers\admin;
 use app\models\Article;
 use app\models\Blog;
 use app\models\Cheat;
+use app\models\Comment;
 use app\models\News;
 use app\models\User;
 
@@ -50,6 +51,7 @@ class MainController extends AppController
         $articles = new Article();
         $blogs = new Blog();
         $cheats = new Cheat();
+        $comments = new Comment();
 
 
         /**
@@ -59,8 +61,9 @@ class MainController extends AppController
         $countArticles= $articles->count();
         $countBlogs= $blogs->count();
         $countCheats = $cheats->count();
+        $countComments = $comments->countCommentsByAdmin();
 
 
-        $this->setVars(['news' => $countNews, 'articles' => $countArticles, 'blogs' => $countBlogs, 'cheats' => $countCheats]);
+        $this->setVars(['news' => $countNews, 'articles' => $countArticles, 'blogs' => $countBlogs, 'cheats' => $countCheats, 'cComment' => $countComments]);
     }
 }
