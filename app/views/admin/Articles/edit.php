@@ -39,7 +39,7 @@
 
 
             <label for="add_image">Изображение статьи</label>
-            <img style="width: 100px;" src="/public/images/upload_file/<?=$editArticle['image']?>" alt="">
+            <img style="width: 100px;" src="<?=PATH_IMAGE?>/<?=$editArticle['image']?>" alt="">
             <input type="file" class="image_title" name="add_image" src="" alt="">
 
             <label for="meta_desc">Мета-тег Description:</label>

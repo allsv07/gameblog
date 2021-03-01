@@ -5,7 +5,7 @@
 
             <div class="category-news">
                 <ul class="category-news-list">
-                    <li class="category-news_item"><a href="/blogs">Все</a></li>
+                    <li class="category-news_item"><a href="/blogs" class="active">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
                         <li class="category-news_item"><a href="/blogs/category/<?= $category['code'] ?>"><?= $category['title'] ?></a></li>
                     <? endforeach; ?>
@@ -28,10 +28,10 @@
                         <? foreach ($allBlogs as $blog): ?>
                             <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 chit-post">
                                 <a href="/blogs/detail/<?=$blog['num_id']?>">
-                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$blog['image'])): ?>
-                                        <img src="/public/images/upload_file/<?=$blog['image']?>" class="chit-post__img" alt="<?=$blog['image']?>">
+                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$blog['image'])): ?>
+                                        <img src="<?=PATH_IMAGE?>/<?=$blog['image']?>" class="chit-post__img" alt="<?=$blog['image']?>">
                                     <? else: ?>
-                                        <img src="/public/images/photo/no-image.jpg" class="chit-post__img" alt="<?=$blog['image']?>">
+                                        <img src="<?=NO_IMG?>" class="chit-post__img" alt="<?=$blog['image']?>">
                                     <? endif; ?>
                                     <div class="chit-post__name">
                                         <a href="/blogs/detail/<?=$blog['num_id']?>"><?= $blog['title'] ?></a>
@@ -45,6 +45,8 @@
                                 </a>
                             </div>
                         <? endforeach; ?>
+                    <? else: ?>
+                        <span class="no-records">Блогов еще нет. Но скоро появятся!</span>
                     <? endif; ?>
                 </div>
             </div>

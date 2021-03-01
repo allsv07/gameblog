@@ -8,6 +8,8 @@ use app\models\User;
 
 class UserController extends AppController
 {
+    protected $nameAvatar = 'no-avatar.jpg';
+
     public function indexAction()
     {
         $users = new User();
@@ -73,6 +75,9 @@ class UserController extends AppController
     {
         $users = new User();
 
+        //получаем имя аватара user
+        $imgUser = $users->getNameImageByTable($_SESSION['user']['id']);
+
         if ($file['name'] != '') {
             // проверка файла на допустимый размер, формат и выбран ли вообще файл
             $check = $this->canUploadFile($file);
@@ -80,7 +85,12 @@ class UserController extends AppController
                 $_SESSION['error']['file'] = $check;
             }
             else {
-                $file_name = $this->uploadFile($file);
+                //удаляем старый аватар, если он не по дефолту
+                if ($imgUser != $this->nameAvatar) {
+                    unlink($_SERVER['DOCUMENT_ROOT'].PATH_AVATAR.'/'.$imgUser);
+                }
+                //загрузка нового аватара и изменение имени аватара в БД
+                $file_name = $this->uploadAvatar($file);
                 $users->editUserImage($file_name, $user['login']);
                 $_SESSION['success']['file'] = 'Аватар изменен';
             }
@@ -157,38 +167,16 @@ class UserController extends AppController
 
 
 
-
-
-    /**
-     * производит все проверки файла: возвращает true либо строку с сообщением об ошибке
-     * @param $file
-     */
-    protected function canUploadFile($file)
-    {
-        $types = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
-
-        if ($file['name'] == '') return 'Вы не выбрали файл';
-        if ($file['size'] >= 1000000) return 'Файл слишком большой';
-
-        // разбиваем имя файла по точке и получаем массив
-        $getTypeFile = explode('.', $file['name']);
-        // получаем - расширение файла
-        $typeFile = strtolower(end($getTypeFile));
-
-        if (!in_array($typeFile, $types)) return 'Недопустимый тип файла';
-
-        return true;
-    }
-
     /**
      * загрузка файла на сервер
      * @param $file
      */
-    protected function uploadFile($file)
+    protected function uploadAvatar($file)
     {
-        $directory = $_SERVER['DOCUMENT_ROOT'].'/public/images/user';
+        $directory = $_SERVER['DOCUMENT_ROOT'].PATH_AVATAR;
         $tmp_name = $file['tmp_name'];
-        $name = time() . $file['name'];
+        $arNameFile = explode('/', $file['type']);
+        $name = time() .'.'. $arNameFile[1];
         move_uploaded_file($tmp_name, "$directory/$name");
         return $name;
     }

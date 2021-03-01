@@ -21,7 +21,7 @@
                 <? foreach ($blogs as $blog): ?>
                     <tr style="height: 50px">
                         <td><?=$blog['title']?></td>
-                        <td><img style="width: 70px;" src="/public/images/upload_file/<?=$blog['image']?>" alt=""></td>
+                        <td><img style="width: 70px;" src="<?=PATH_IMAGE?>/<?=$blog['image']?>" alt=""></td>
                         <td><?=$blog['name']?></td>
                         <td><?=$blog['date']?></td>
                         <td><?=$blog['views']?></td>

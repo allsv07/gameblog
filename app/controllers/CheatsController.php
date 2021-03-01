@@ -23,14 +23,21 @@ class CheatsController extends AppController
         $perPage = 20;
         $total = $news->count();
 
-        $pagination = new Pagination($page, $perPage, $total);
-        $start = $pagination->getStart();
+        $pagination = '';
+        if ($total >= $perPage){
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            $allCheats = $cheats->getAllLimit($start, $perPage);
+        }
+        else {
+            $allCheats = $cheats->getAll();
+        }
         // end
 
         /**
          * Все читы
          */
-        $allCheats = $cheats->getAllLimit($start, $perPage);
+
         $allCheats = $this->editNewDateArray($allCheats);
 
         if (count($allCheats) > 0) {
@@ -149,11 +156,14 @@ class CheatsController extends AppController
         $comments = new Comment();
         $views = new View();
         $cheats = new Cheat();
+        $codeGet = '';
+
 
         /**
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $codeGet = $this->route['code'];
 
             $arrCategory = $cheats->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
@@ -169,11 +179,18 @@ class CheatsController extends AppController
             $perPage = 20;
             $total = $news->countByCategory($id);
 
-            $pagination = new Pagination($page, $perPage, $total);
-            $start = $pagination->getStart();
+            $pagination = '';
+            if ($total >= $perPage) {
+                $pagination = new Pagination($page, $perPage, $total);
+                $start = $pagination->getStart();
+                $arCheatsCat = $cheats->getCategoryLimit($id, $start, $perPage);
+            }
+            else {
+                $arCheatsCat = $cheats->getRecordsThisCategory($id);
+            }
             // end
 
-            $arCheatsCat = $cheats->getCategoryLimit($id, $start, $perPage);
+
             $arCheatsCat = $this->editNewDateArray($arCheatsCat);
 
             if (!empty($arCheatsCat)) {
@@ -203,6 +220,7 @@ class CheatsController extends AppController
             'arrCategory' => $categoryCheats,
             'breadcrumb' => $breadcrumbs,
             'pagination' => $pagination,
+            'code' => $codeGet,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

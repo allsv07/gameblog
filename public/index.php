@@ -12,6 +12,9 @@ $qStr = $_SERVER['QUERY_STRING'];
 
 define("ROOT", dirname(__DIR__));
 define('LAYOUT', 'default');
+define('PATH_IMAGE', '/public/images/upload_file');
+define('PATH_AVATAR', '/public/images/user');
+define('NO_IMG', '/public/images/photo/no-image.jpg');
 
 spl_autoload_register(function ($className){
     $className = ROOT .'/'. str_replace('\\', '/', $className) . '.php';

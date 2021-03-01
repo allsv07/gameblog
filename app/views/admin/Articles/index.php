@@ -21,7 +21,7 @@
                 <? foreach ($articles as $article): ?>
                     <tr style="height: 50px">
                         <td><?=$article['title']?></td>
-                        <td><img style="width: 70px;" src="/public/images/upload_file/<?=$article['image']?>" alt=""></td>
+                        <td><img style="width: 70px;" src="<?=PATH_IMAGE?>/<?=$article['image']?>" alt=""></td>
                         <td><?=$article['name']?></td>
                         <td><?=$article['date']?></td>
                         <td><?=$article['views']?></td>

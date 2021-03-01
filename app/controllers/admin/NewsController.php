@@ -99,7 +99,9 @@ class NewsController extends AppController
         $img = $news->getNameImageByTable($id);
 
         $news->delete('news', $id);
-        unlink($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$img);
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$img)){
+            unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$img);
+        }
         header('Location: /admin/news');
         die();
     }
@@ -147,6 +149,11 @@ class NewsController extends AppController
                 $check = $this->canUploadFile($file);
                 if ($check !== true) $_SESSION['error']['file'] = $check;
                 $f = true;
+
+                // т.к загружаем новый файл, удаляем старый файл
+                if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editNew['image'])) {
+                    unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editNew['image']);
+                }
             }
             else {
                 $check = true;

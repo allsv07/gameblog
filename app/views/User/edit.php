@@ -6,7 +6,7 @@
                     <span class="lab">Текущий аватар</span>
                     <span class="error"><?=(isset($_SESSION['error']['file']) && $_SESSION['error']['file'] != '') ? $_SESSION['error']['file'] : '' ; unset($_SESSION['error']['file'])?></span>
                     <span class="success"><?=(isset($_SESSION['success']['file'])) ? $_SESSION['success']['file'] : '' ; unset($_SESSION['success']['file'])?></span>
-                    <img src="/images/user/<?=$user['image']?>" alt=""><br>
+                    <img src="<?=PATH_AVATAR?>/<?=$user['image']?>" alt=""><br>
                     <input type="file" name="avatar" id="avatar" class="avatar">
                     <input type="submit" id="btn-edit" class="btn-edit" name="btn-edit-img" value="Загрузить">
                 </div>

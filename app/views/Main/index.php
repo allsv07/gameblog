@@ -14,10 +14,10 @@
                 <div class="cat">
                     <span><?=$today['category']?></span>
                 </div>
-                <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$today['image'])): ?>
-                    <img src="/public/images/upload_file/<?=$today['image']?>" class="article-img" alt="<?=$today['image']?>">
+                <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$today['image'])): ?>
+                    <img src="<?=PATH_IMAGE?>/<?=$today['image']?>" class="article-img" alt="<?=$today['image']?>">
                 <? else: ?>
-                    <img src="/public/images/photo/no-image.jpg" class="article-img" alt="<?=$today['image']?>">
+                    <img src="<?=NO_IMG?>" class="article-img" alt="<?=$today['image']?>">
                 <? endif; ?>
                 <div class="article-today__text">
                     <span class="article-today__name"><?=$today['title']?></span>
@@ -48,10 +48,10 @@
                     <span><?=$today['category']?></span>
                 </div>
                 <a href="<?=$today['tbl'].'/detail/'.$today['id']?>">
-                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$today['image'])): ?>
-                        <img src="/public/images/upload_file/<?=$today['image']?>" class="d-block w-100" alt="<?=$today['image']?>">
+                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$today['image'])): ?>
+                        <img src="<?=PATH_IMAGE?>/<?=$today['image']?>" class="d-block w-100" alt="<?=$today['image']?>">
                     <? else: ?>
-                        <img src="/public/images/photo/no-image.jpg" class="d-block w-100" alt="<?=$today['image']?>">
+                        <img src="<?=NO_IMG?>" class="d-block w-100" alt="<?=$today['image']?>">
                     <? endif; ?>
 
                     <div class="carousel-caption d-block d-md-block" style="background: #0e1417; opacity: 0.8">
@@ -84,10 +84,10 @@
                 <div class="row">
                     <div class="col-4">
                         <a href="news/detail/<?=$new['id']?>">
-                            <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$new['image'])): ?>
-                                <img src="/public/images/upload_file/<?=$new['image']?>" class="game-new__img" alt="<?=$new['image']?>">
+                            <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$new['image'])): ?>
+                                <img src="<?=PATH_IMAGE?>/<?=$new['image']?>" class="game-new__img" alt="<?=$new['image']?>">
                             <? else: ?>
-                                <img src="/public/images/photo/no-image.jpg" class="game-new__img" alt="<?=$new['image']?>">
+                                <img src="<?=NO_IMG?>" class="game-new__img" alt="<?=$new['image']?>">
                             <? endif; ?>
                         </a>
                     </div>
@@ -115,10 +115,10 @@
             <? foreach ($popularNews as $popular): ?>
             <a href="#">
                 <div class="col-12 popular-new">
-                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$popular['image'])): ?>
-                        <img src="/public/images/upload_file/<?=$popular['image']?>" class="popular-new__img" alt="<?=$popular['image']?>">
+                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$popular['image'])): ?>
+                        <img src="<?=PATH_IMAGE?><?=$popular['image']?>" class="popular-new__img" alt="<?=$popular['image']?>">
                     <? else: ?>
-                        <img src="/public/images/photo/no-image.jpg" class="popular-new__img" alt="<?=$popular['image']?>">
+                        <img src="<?=NO_IMG?>" class="popular-new__img" alt="<?=$popular['image']?>">
                     <? endif; ?>
                     <div class="popular-new__desc">
                         <div class="popular-new__desc--name">
@@ -144,7 +144,11 @@
                 <? foreach ($lastBlogs as $blog): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
                     <a href="/blogs/detail/<?=$blog['id']?>">
-                        <img src="/images/upload_file/<?$blog['image']?>" class="blog__img" alt="">
+                        <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$blog['image'])): ?>
+                            <img src="<?=PATH_IMAGE?>/<?$blog['image']?>" class="blog__img" alt="">
+                        <? else: ?>
+                            <img src="<?=NO_IMG?>" class="blog__img" alt="<?=$blog['image']?>">
+                        <? endif; ?>
                         <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?= $blog['views'] ?></span></div>
                     </a>
                     <div class="blog-author">
@@ -171,10 +175,10 @@
                 <? foreach ($lastArticles as $article): ?>
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 article">
                     <a href="/articles/detail/<?=$article['id']?>">
-                        <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$article['image'])): ?>
-                            <img src="/public/images/upload_file/<?=$article['image']?>" class="article__img" alt="<?=$article['image']?>">
+                        <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$article['image'])): ?>
+                            <img src="<?=PATH_IMAGE?>/<?=$article['image']?>" class="article__img" alt="<?=$article['image']?>">
                         <? else: ?>
-                            <img src="/public/images/photo/no-image.jpg" class="article__img" alt="<?=$article['image']?>">
+                            <img src="<?=NO_IMG?>" class="article__img" alt="<?=$article['image']?>">
                         <? endif; ?>
                         <div class="article-day">
                             <div class="day"><span><?= $article['date'] ?></div>
@@ -196,69 +200,8 @@
         <span>Галерея</span>
     </div>
     <div class="row gallery">
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/control-7.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/cyberpunk_2077-17.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/cyberpunk_2077-18.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/cyberpunk_2077-19.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/cyberpunk_2077-21.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/cyberpunk_2077-22.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/hitman_3-3.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/hitman_3-4.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
+        <div class="col-12 block-gallery">
 
-        </div>
-        <div class="gallery-item">
-            <a href="#">
-                <img src="images/photo/NFSR.jpg" alt="">
-                <div class="eye"><i class="fa fa-eye" aria-hidden="true"></i></div>
-                <div class="overlay"></div>
-            </a>
         </div>
         <a href="#" class="more-gallery-item">Показать галерею</a>
     </div>
@@ -274,7 +217,11 @@
                 <? foreach ($lastChits as $chit): ?>
                 <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 resent-post">
                     <a href="/cheats/detail/<?=$chit['id']?>">
-                        <img src="/images/upload_file/<?=$chit['image']?>" class="resent-post__img" alt="">
+                        <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$chit['image'])): ?>
+                            <img src="<?=PATH_IMAGE?>/<?=$chit['image']?>" class="resent-post__img" alt="">
+                        <? else: ?>
+                            <img src="<?=NO_IMG?>" class="resent-post__img" alt="<?=$chit['image']?>">
+                        <? endif; ?>
                         <div class="resent-post__day">
                             <div class="day"><span><?=$chit['date']?></div>
                         </div>
@@ -297,7 +244,7 @@
             <a href="#">
                 <div class="col-12 last-comment">
                     <div class="last-comment__img">
-                        <img src="/images/user/<?=$comment['user_img']?>" class="last-comment__img--avatar" alt="<?=$comment['author']?>">
+                        <img src="<?=PATH_AVATAR?>/<?=$comment['user_img']?>" class="last-comment__img--avatar" alt="<?=$comment['author']?>">
                     </div>
                     <div class="last-comment__text">
                         <div class="last-comment__text--author">

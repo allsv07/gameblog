@@ -9,6 +9,7 @@ class DB
     protected $pdo;
     protected static $instance;
     public static $queries = [];
+    public $id;
 
     protected function __construct()
     {
@@ -33,7 +34,9 @@ class DB
     {
         self::$queries[] = $sql;
         $stmt = $this->pdo->prepare($sql);
-        return $stmt->execute($param);
+        $res = $stmt->execute($param);
+        $this->id = $this->pdo->lastInsertId();
+        return $res;
     }
 
 

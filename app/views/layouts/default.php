@@ -24,30 +24,45 @@
 
     <div class="container-fluid">
         <div class="row header">
-            <div class="col-md-2 col-sm-12 col-12 logo">
-                <a href="/">
-                    <h1>GameBlog</h1>
-                </a>
-            </div>
-            <div class="col-md-8 col-sm-12 col-12">
-                <nav class="main-nav">
-                    <a class="item" href="#"><span>Игры</span></a>
-                    <a class="item" href="/news"><span>Новости</span></a>
-                    <a class="item" href="/articles"><span>Статьи</span></a>
-                    <a class="item" href="/blogs"><span>Блоги</span></a>
-                    <a class="item" href="#"><span>Галерея</span></a>
-                    <a class="item" href="/cheats"><span>Читы</span></a>
+            <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12 top-header">
+                <nav class="navbar navbar-expand-lg navbar-dark top-menu">
+                    <div class="logo">
+                        <a href="/">
+                            <h1>GameBlog</h1>
+                        </a>
+                    </div>
+                    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                        <ul class="navbar-nav mr-auto">
+                            <li class="nav-item">
+                                <a class="nav-link item" href="/news">Новости <span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link item" href="/articles">Статьи</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link item" href="/blogs">Блоги</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link item" href="/cheats">Читы</a>
+                            </li>
+                        </ul>
+                        <div class="auth">
+                            <? if (isset($_SESSION['user']['login'])): ?>
+                                <a href="/user" class="auth-user_login"><i class="fa fa-user" aria-hidden="true"></i><?= $_SESSION['user']['login'] ?></a>
+                                <a href="?logout=exit" class="exit-user_login">выйти</a>
+                            <? else: ?>
+                                <a type="button" class="link_auth" data-toggle="modal" data-target="#authModal">Войти</a>
+                            <? endif; ?>
+                        </div>
+                    </div>
+
                 </nav>
             </div>
-            <div class="col-md-2 col-sm-12 col-12 auth">
-                <!--            <a class="link_auth" href="#"><i class="fa fa-user" aria-hidden="true"></i><span>Войти</span></a>-->
-                <? if (isset($_SESSION['user']['login'])): ?>
-                <a href="/user" class="auth-user_login"><i class="fa fa-user" aria-hidden="true"></i><?= $_SESSION['user']['login'] ?></a>
-                <a href="?logout=exit" class="exit-user_login">выйти</a>
-                <? else: ?>
-                <a type="button" class="link_auth" data-toggle="modal" data-target="#authModal">Войти</a>
-                <? endif; ?>
-            </div>
+
         </div>
     </div>
 

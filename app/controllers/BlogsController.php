@@ -21,14 +21,21 @@ class BlogsController extends AppController
         $perPage = 20;
         $total = $blogs->count();
 
-        $pagination = new Pagination($page, $perPage, $total);
-        $start = $pagination->getStart();
+        $pagination = '';
+        if ($total >= $perPage){
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            $allBlogs = $blogs->getAllLimit($start, $perPage);
+        }
+        else {
+            $allBlogs = $blogs->getAll();
+        }
         // end
 
         /**
          * Все новости
          */
-        $allBlogs = $blogs->getAllLimit($start, $perPage);
+
         $allBlogs = $this->editNewDateArray($allBlogs);
 
         if (count($allBlogs) > 0) {
@@ -144,11 +151,13 @@ class BlogsController extends AppController
         $blogs = new Blog();
         $comments = new Comment();
         $views = new View();
+        $codeGet = '';
 
         /**
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $codeGet = $this->route['code'];
 
             $arrCategory = $blogs->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
@@ -164,11 +173,18 @@ class BlogsController extends AppController
             $perPage = 20;
             $total = $blogs->countByCategory($id);
 
-            $pagination = new Pagination($page, $perPage, $total);
-            $start = $pagination->getStart();
+            $pagination = '';
+            if ($total >= $perPage) {
+                $pagination = new Pagination($page, $perPage, $total);
+                $start = $pagination->getStart();
+                $arBlogsCat = $blogs->getCategoryLimit($id, $start, $perPage);
+            }
+            else {
+                $arBlogsCat = $blogs->getRecordsThisCategory($id);
+            }
             // end
 
-            $arBlogsCat = $blogs->getCategoryLimit($id, $start, $perPage);
+
             $arBlogsCat = $this->editNewDateArray($arBlogsCat);
 
             if (!empty($arBlogsCat)) {
@@ -198,6 +214,7 @@ class BlogsController extends AppController
             'arrCategory' => $categoryBlogs,
             'breadcrumb' => $breadcrumbs,
             'pagination' => $pagination,
+            'code' => $codeGet,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

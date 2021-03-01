@@ -21,12 +21,19 @@ class ArticlesController extends AppController
         $perPage = 20;
         $total = $articles->count();
 
-        $pagination = new Pagination($page, $perPage, $total);
-        $start = $pagination->getStart();
+        $pagination = '';
+        if ($total >= $perPage){
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            $allArticles = $articles->getAllLimit($start, $perPage);
+        }
+        else {
+            $allArticles = $articles->getAll();
+        }
+
         // end
 
         // все статьи
-        $allArticles = $articles->getAllLimit($start, $perPage);
         $allArticles = $this->editNewDateArray($allArticles);
 
         if (count($allArticles) > 0) {
@@ -145,11 +152,14 @@ class ArticlesController extends AppController
         $articles = new Article();
         $comments = new Comment();
         $views = new View();
+        $codeGet = '';
 
         /**
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $codeGet = $this->route['code'];
+
             $arrCategory = $articles->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
                 header("Location:404.html");
@@ -164,11 +174,17 @@ class ArticlesController extends AppController
             $perPage = 20;
             $total = $articles->countByCategory($id);
 
-            $pagination = new Pagination($page, $perPage, $total);
-            $start = $pagination->getStart();
+            $pagination = '';
+            if ($total >= $perPage) {
+                $pagination = new Pagination($page, $perPage, $total);
+                $start = $pagination->getStart();
+                $arArticlesCat = $articles->getCategoryLimit($id, $start, $perPage);
+            }
+            else {
+                $arArticlesCat = $articles->getRecordsThisCategory($id);
+            }
             // end
 
-            $arArticlesCat = $articles->getCategoryLimit($id, $start, $perPage);
             $arArticlesCat = $this->editNewDateArray($arArticlesCat);
 
             if (!empty($arArticlesCat)) {
@@ -196,6 +212,7 @@ class ArticlesController extends AppController
             'arrCategory' => $categoryArticles,
             'breadcrumb' => $breadcrumbs,
             'pagination' => $pagination,
+            'code' => $codeGet,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK

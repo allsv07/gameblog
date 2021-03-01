@@ -10,7 +10,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/cheats">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                    <li class="category-news_item"><a href="/cheats/category/<?= $category['code'] ?>"><?= $category['title'] ?></a></li>
+                    <li class="category-news_item"><a href="/cheats/category/<?= $category['code'] ?>"<?=($code == $category['code']) ? 'class="active"' :'';?>><?= $category['title'] ?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>
@@ -31,10 +31,10 @@
                     <? foreach ($cheats as $cheat): ?>
                     <div class="col-xs-12 col-sm-12 col-md-6 col-lg-6 chit-post">
                         <a href="/cheats/detail/<?= $cheat['num_id'] ?>">
-                            <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$cheat['image'])): ?>
-                                <img src="/public/images/upload_file/<?=$cheat['image']?>" class="chit-post__img" alt="<?=$cheat['image']?>">
+                            <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$cheat['image'])): ?>
+                                <img src="<?=PATH_IMAGE?>/<?=$cheat['image']?>" class="chit-post__img" alt="<?=$cheat['image']?>">
                             <? else: ?>
-                                <img src="/public/images/photo/no-image.jpg" class="chit-post__img" alt="<?=$cheat['image']?>">
+                                <img src="<?=NO_IMG?>" class="chit-post__img" alt="<?=$cheat['image']?>">
                             <? endif; ?>
                             <div class="chit-post__name">
                                 <a href="/cheats/detail/<?= $cheat['num_id'] ?>"><?= $cheat['title'] ?></a>
@@ -49,6 +49,7 @@
                     </div>
                     <? endforeach; ?>
                     <? else: ?>
+                        <span class="no-records">Гайдов и прохождений игр еще нет. Но скоро появятся!</span>
                     <? endif; ?>
                 </div>
             </div>

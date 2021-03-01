@@ -6,7 +6,7 @@
 
             <div class="category-news">
                 <ul class="category-news-list">
-                    <li class="category-news_item"><a href="/articles">Все</a></li>
+                    <li class="category-news_item"><a href="/articles" class="active">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
                         <li class="category-news_item"><a href="/articles/category/<?=$category['code']?>"><?=$category['title']?></a></li>
                     <? endforeach; ?>
@@ -30,10 +30,10 @@
                         <div class="row">
                             <div class="col-4">
                                 <a href="articles/detail/<?=$article['num_id']?>">
-                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$article['image'])): ?>
-                                        <img src="/public/images/upload_file/<?=$article['image']?>" class="article-new__img" alt="<?=$article['image']?>">
+                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$article['image'])): ?>
+                                        <img src="<?=PATH_IMAGE?>/<?=$article['image']?>" class="article-new__img" alt="<?=$article['image']?>">
                                     <? else: ?>
-                                        <img src="/public/images/photo/no-image.jpg" class="article-new__img" alt="<?=$article['image']?>">
+                                        <img src="<?=NO_IMG?>" class="article-new__img" alt="<?=$article['image']?>">
                                     <? endif; ?>
                                 </a>
                             </div>
@@ -54,6 +54,8 @@
                         </div>
                     </div>
                 <? endforeach; ?>
+                <? else: ?>
+                    <span class="no-records">Статей еще нет. Но скоро появятся!</span>
                 <? endif; ?>
                 <div class="block-pagination">
                     <?=$pagination;?>

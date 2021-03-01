@@ -27,10 +27,11 @@ class RegisterController extends AppController
 
                         $reg = $users->regUser(['login' => $login, 'email' => $email, 'pass' => $pass]);
 
+
                         if ($reg !== 'login-isset') {
-//                            $_SESSION['is_user'] = 'user';
-//                            $_SESSION['user']['login'] = $login;
-//                            $_SESSION['user']['id'] = $reg;
+                            $_SESSION['is_user'] = 'user';
+                            $_SESSION['user']['login'] = $login;
+                            $_SESSION['user']['id'] = $reg;
                             header('Location: /');
                             die();
                         }

@@ -65,7 +65,7 @@ class AppController extends Controller
      */
     protected function uploadFile($file)
     {
-        $directory = $_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file';
+        $directory = $_SERVER['DOCUMENT_ROOT'].PATH_IMAGE;
         $tmp_name = $file['tmp_name'];
         $arNameFile = explode('/', $file['type']);
         $name = time() .'.'. $arNameFile[1];

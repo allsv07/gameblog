@@ -21,7 +21,7 @@
                 <? foreach ($cheats as $cheat): ?>
                     <tr style="height: 50px">
                         <td><?=$cheat['title']?></td>
-                        <td><img style="width: 70px;" src="/public/images/upload_file/<?=$cheat['image']?>" alt=""></td>
+                        <td><img style="width: 70px;" src="<?=PATH_IMAGE?>/<?=$cheat['image']?>" alt=""></td>
                         <td><?=$cheat['name']?></td>
                         <td><?=$cheat['date']?></td>
                         <td><?=$cheat['views']?></td>

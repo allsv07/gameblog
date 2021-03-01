@@ -14,9 +14,17 @@ class AppController extends Controller
     {
         parent::__construct($route, $view);
 
+        $path = $this->route['controller'];
+
         // проверка на доступ к кабинету пользователя
-        if ($this->route['controller'] == 'User' && (!isset($_SESSION['is_user']))) {
+        if ($path == 'User' && (!isset($_SESSION['is_user']))) {
             header('Location: /');
+            die();
+        }
+
+        //проверка на доступ к регистриции авторизированного пользователя
+        if ($path == 'Register' && (isset($_SESSION['is_user']))) {
+            header('Location: /user');
             die();
         }
 
@@ -108,6 +116,28 @@ class AppController extends Controller
         }
 
         session_destroy();
+    }
+
+
+    /**
+     * производит все проверки файла: возвращает true либо строку с сообщением об ошибке
+     * @param $file
+     */
+    protected function canUploadFile($file)
+    {
+        $types = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
+
+        if ($file['name'] == '') return 'Вы не выбрали файл';
+        if ($file['size'] >= 1000000) return 'Файл слишком большой';
+
+        // разбиваем имя файла по точке и получаем массив
+        $getTypeFile = explode('.', $file['name']);
+        // получаем - расширение файла
+        $typeFile = strtolower(end($getTypeFile));
+
+        if (!in_array($typeFile, $types)) return 'Недопустимый тип файла';
+
+        return true;
     }
 
 }

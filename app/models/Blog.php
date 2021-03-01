@@ -11,7 +11,7 @@ class Blog extends Model
 
     public function getLastBlogs()
     {
-        $sql = "SELECT B.id, B.title, U.login as author FROM {$this->table} as B JOIN users as U ON B.author = U.id ORDER BY B.id DESC LIMIT 4";
+        $sql = "SELECT B.id, B.title, B.image, U.login as author FROM {$this->table} as B JOIN users as U ON B.author = U.id ORDER BY B.id DESC LIMIT 4";
         return $this->db->query($sql);
     }
 

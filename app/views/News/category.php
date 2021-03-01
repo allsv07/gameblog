@@ -1,6 +1,3 @@
-<?php
-
-?>
 <div class="container">
     <div class="row main-content-news">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar">
@@ -10,7 +7,7 @@
                 <ul class="category-news-list">
                     <li class="category-news_item"><a href="/news">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
-                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>"><?=$category['title']?></a></li>
+                        <li class="category-news_item"><a href="/news/category/<?=$category['code']?>"<?=($code == $category['code']) ? 'class="active"' :'';?>><?=$category['title']?></a></li>
                     <? endforeach; ?>
                 </ul>
             </div>
@@ -32,10 +29,10 @@
                         <div class="row">
                             <div class="col-4">
                                 <a href="/news/detail/<?=$new['num_id']?>">
-                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$new['image'])): ?>
-                                        <img src="/public/images/upload_file/<?=$new['image']?>" class="article-new__img" alt="<?=$new['image']?>">
+                                    <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$new['image'])): ?>
+                                        <img src="<?=PATH_IMAGE?>/<?=$new['image']?>" class="article-new__img" alt="<?=$new['image']?>">
                                     <? else: ?>
-                                        <img src="/public/images/photo/no-image.jpg" class="article-new__img" alt="<?=$new['image']?>">
+                                        <img src="<?=NO_IMG?>" class="article-new__img" alt="<?=$new['image']?>">
                                     <? endif; ?>
                                 </a>
                             </div>
@@ -57,6 +54,7 @@
                     </div>
                 <? endforeach; ?>
                 <? else: ?>
+                    <span class="no-records">Новостей еще нет. Но скоро появятся!</span>
                 <? endif; ?>
 
                 <div class="block-pagination">

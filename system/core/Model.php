@@ -15,6 +15,15 @@ abstract class Model
         $this->db = DB::instance();
     }
 
+    /**
+     * @param $sql
+     * @return bool
+     */
+    public function getInsertID()
+    {
+        return $this->db->id;
+    }
+
     public function query($sql)
     {
         return $this->db->exec($sql);
@@ -120,6 +129,11 @@ abstract class Model
         return (!empty($res)) ? $res[0]['id'] : [];
     }
 
+    /**
+     * @param $code
+     * @return array|mixed
+     * получаем код категории
+     */
     public function getCategoryByCode($code)
     {
         $sql = "SELECT * FROM category WHERE code = :code";
@@ -127,6 +141,11 @@ abstract class Model
         return (!empty($res)) ? $res[0] : [];
     }
 
+    /**
+     * @param $code
+     * @return mixed
+     * получаем хлебные крошки
+     */
     public function getBreadcrumbs($code)
     {
         $sql = "SELECT `title` FROM `category` WHERE `code` = :c";
@@ -139,6 +158,17 @@ abstract class Model
         return $this->db->query($sql);
     }
 
+
+    /**
+     * получаем записи по id категории
+     * @param $id
+     * @return array
+     */
+    public function getRecordsThisCategory($id)
+    {
+        $sql = "SELECT T.id AS num_id, T.title, T.date, T.image, T.meta_desc, T.meta_keywords, CAT.title AS cat_title FROM {$this->table} AS T JOIN category AS CAT ON CAT.id = T.cat_id WHERE CAT.id = ? ORDER BY T.id DESC";
+        return $this->db->query($sql, [$id]);
+    }
 
 
 
@@ -254,7 +284,7 @@ abstract class Model
      */
     public function getNameImageByTable($id)
     {
-        $res = $this->db->query("SELECT `image` FROM {$this->table} WHERE `id` = ?", [$id]);
+        $res = $this->db->query("SELECT * FROM {$this->table} WHERE `id` = ?", [$id]);
         return $res[0]['image'];
     }
 

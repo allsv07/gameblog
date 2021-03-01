@@ -39,7 +39,7 @@
 
 
             <label for="add_image">Изображение блога</label>
-            <img style="width: 100px;" src="/public/images/upload_file/<?=$editBlog['image']?>" alt="">
+            <img style="width: 100px;" src="<?=PATH_IMAGE?>/<?=$editBlog['image']?>" alt="">
             <input type="file" class="image_title" name="add_image" src="" alt="">
 
             <label for="meta_desc">Мета-тег Description:</label>

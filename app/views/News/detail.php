@@ -27,7 +27,7 @@
             <div class="article-info">
                 <div class="article-info-author">
                     <div class="image_author">
-                        <img src="/images/user/<?=$detailNew['u_img']?>" alt="<?=$detailNew['login']?>">
+                        <img src="<?=PATH_AVATAR?>/<?=$detailNew['u_img']?>" alt="<?=$detailNew['name']?>">
                     </div>
                     <span class="name-author"><a href="#"><?=$detailNew['name']?></a></span>
                 </div>
@@ -53,7 +53,7 @@
                  <div class="block-comment">
                     <div class="block-author">
                         <div class="block-author-image">
-                            <img src="/images/user/<?=$comment['image']?>" alt="author image">
+                            <img src="<?=PATH_AVATAR?>/<?=$comment['image']?>" alt="author image">
                         </div>
                         <span class="block-author-name"><?=$comment['author']?></span>
                         <span class="block-author-date"><?=$comment['date']?></span>

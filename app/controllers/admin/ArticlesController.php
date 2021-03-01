@@ -100,7 +100,9 @@ class ArticlesController extends AppController
         $img = $articles->getNameImageByTable($id);
 
         $articles->delete('articles', $id);
-        unlink($_SERVER['DOCUMENT_ROOT'].'/public/images/upload_file/'.$img);
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$img)){
+            unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$img);
+        }
         header('Location: /admin/articles');
         die();
     }
@@ -148,6 +150,11 @@ class ArticlesController extends AppController
                 $check = $this->canUploadFile($file);
                 if ($check !== true) $_SESSION['error']['file'] = $check;
                 $f = true;
+
+                // т.к загружаем новый файл, удаляем старый файл
+                if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editArticle['image'])) {
+                    unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editArticle['image']);
+                }
             }
             else {
                 $check = true;

@@ -22,14 +22,22 @@ class NewsController extends AppController
         $perPage = 20;
         $total = $news->count();
 
-        $pagination = new Pagination($page, $perPage, $total);
-        $start = $pagination->getStart();
+        $pagination = '';
+        if ($total >= $perPage){
+            $pagination = new Pagination($page, $perPage, $total);
+            $start = $pagination->getStart();
+            $allNews = $news->getAllLimit($start, $perPage);
+        }
+        else {
+            $allNews = $news->getAll();
+        }
+
         // end
 
         /**
          * Все новости для пагинации
          */
-        $allNews = $news->getAllLimit($start, $perPage);
+
         $allNews = $this->editNewDateArray($allNews);
 
         if (count($allNews) > 0) {
@@ -42,7 +50,7 @@ class NewsController extends AppController
         /**
          * категории новостей
          */
-        $categoryNews = $news->getCategory('category', 'news');
+        $categoryNews = $news->getCategory('category' ,'news');
 
 
         /**
@@ -156,11 +164,12 @@ class NewsController extends AppController
         $news = new News();
         $comments = new Comment();
         $views = new View();
-
+        $codeGet = '';
         /**
          * сортировка новостей по выбранной категории
          */
         if (isset($this->route['code'])) {
+            $codeGet = $this->route['code'];
 
             $arrCategory = $news->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
@@ -172,18 +181,25 @@ class NewsController extends AppController
             $breadcrumbs = $news->getBreadcrumbs($this->route['code']);
             $id = $news->getIDCategory(clearStr($this->route['code']));
 
-
             //пагинация
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
             $perPage = 20;
             $total = $news->countByCategory($id);
 
-            $pagination = new Pagination($page, $perPage, $total);
-            $start = $pagination->getStart();
+            $pagination = '';
+            if ($total >= $perPage) {
+                $pagination = new Pagination($page, $perPage, $total);
+                $start = $pagination->getStart();
+                $arNewsCat = $news->getCategoryLimit($id, $start, $perPage);
+            }
+            else {
+                $arNewsCat = $news->getRecordsThisCategory($id);
+            }
+
             // end
 
 
-            $arNewsCat = $news->getCategoryLimit($id, $start, $perPage);
+
             $arNewsCat = $this->editNewDateArray($arNewsCat);
             if (!empty($arNewsCat)) {
                 foreach ($arNewsCat as &$News) {
@@ -212,6 +228,7 @@ class NewsController extends AppController
             'arrCategory' => $categoryNews,
             'breadcrumb' => $breadcrumbs,
             'pagination' => $pagination,
+            'code' => $codeGet,
             'title' => $title,
             'metaD' => $metaD,
             'metaK' => $metaK
