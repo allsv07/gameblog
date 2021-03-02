@@ -27,10 +27,5 @@ class Cheat extends Model
 //        return $this->db->query($sql, [$id]);
 //    }
 
-    public function findOneCheatByTable($id)
-    {
-        $sql = "SELECT CH.id, CH.title, CH.description, CH.date, CH.image AS ch_img, CH.meta_desc, CH.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS CH JOIN users AS U ON CH.author = U.id WHERE CH.id = ? LIMIT 1";
-        $res = $this->db->query($sql, [$id]);
-        return (!empty($res[0])) ? $res[0]: [];
-    }
+
 }

@@ -50,8 +50,14 @@
 
             <label for="show_slider">Показывать в разделе "Главное сегодня"</label>
             <select name="show_slider" id="show_slider">
-                <option value="0">Отключено</option>
-                <option value="1">Включено</option>
+                <? if ($editNew['showSlider'] == 1): ?>
+                <option value="0" >Отключено</option>
+                <option value="1" selected>Включено</option>
+                <? endif; ?>
+                <? if ($editNew['showSlider'] == 0): ?>
+                <option value="0" selected>Отключено</option>
+                <option value="1" selected>Включено</option>
+                <? endif; ?>
             </select>
 
             <input type="submit" name="btn_edit" class="btn_add" value="Сохранить">

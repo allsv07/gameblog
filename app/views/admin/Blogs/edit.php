@@ -22,7 +22,7 @@
             <label for="cat_news">Выберите категорию</label>
             <select name="category" id="category">
                 <? foreach ($categories as $category): ?>
-                    <? if ($category['id'] == $editBlog['cat_news']): ?>
+                    <? if ($category['id'] == $editBlog['cat_id']): ?>
                         <option name="cat" selected value="<?=$category['id']?>"><?=$category['title']?></option>
                         <? continue; ?>
                     <? endif; ?>

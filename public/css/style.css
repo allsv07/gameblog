@@ -165,7 +165,7 @@
 
 .blogs-on-games .more-blogs::before { content: ""; position: absolute; height: 2px; width: 100%; bottom: 0; margin-bottom: -2px; background: #006495; opacity: 1; transition: 0.5s ease; }
 
-.games-articles { padding-bottom: 100px; background: #ffffff; border-bottom: 1px solid #c2c2c2; }
+.games-articles { background: #1C1C1C; padding-bottom: 100px; border-bottom: 1px solid #c2c2c2; }
 
 .games-articles__game .article { position: relative; padding-left: 5px; padding-right: 5px; }
 
@@ -177,15 +177,15 @@
 
 .games-articles__game .article-day .day { margin-left: 5px; }
 
-.games-articles__game .article-day .day span { font-family: "Roboto", sans-serif; font-weight: 400; font-style: italic; font-size: 14px; color: #434343; }
+.games-articles__game .article-day .day span { font-family: "Roboto", sans-serif; font-weight: 400; font-style: italic; font-size: 14px; color: #fff; }
 
 .games-articles__game .article-desc { padding-top: 10px; }
 
-.games-articles__game .article-desc a { color: #434343; font-family: "Rubik", sans-serif; font-size: 18px; line-height: 1.4; font-weight: 600; }
+.games-articles__game .article-desc a { color: #fff; font-family: "Rubik", sans-serif; font-size: 18px; line-height: 1.4; font-weight: 600; }
 
 .games-articles__game .article-desc a:hover { color: #006495; text-decoration: none; }
 
-.games-articles .more-blogs { text-transform: uppercase; position: relative; color: #434343; top: 25px; left: 15px; }
+.games-articles .more-blogs { text-transform: uppercase; position: relative; color: #fff; top: 25px; left: 15px; }
 
 .games-articles .more-blogs:hover { text-decoration: none; color: #006495; }
 
@@ -541,6 +541,16 @@
 
 .block-auth--user .auth-block { width: 60%; }
 
+.block-auth--user .auth-block .auth-block { width: 60%; }
+
+.block-auth--user .auth-block .auth-block--error { width: 100%; border: 1px solid #c44d4d; }
+
+.block-auth--user .auth-block .auth-block--error span { display: block; text-align: center; margin: 10px 0px 10px 0px; }
+
+.block-auth--user .auth-block .auth-block--success { width: 100%; border: 1px solid green; }
+
+.block-auth--user .auth-block .auth-block--success span { display: block; text-align: center; margin: 10px 0px 10px 0px; }
+
 .block-auth--user .auth-block .auth-form { display: flex; flex-direction: column; }
 
 .block-auth--user .auth-block .auth-form .auth_user--login, .block-auth--user .auth-block .auth-form .auth_user--pass { width: 100%; margin-top: 8px; margin-bottom: 8px; height: 35px; padding-left: 10px; outline: none; }
@@ -614,3 +624,6 @@
 .block-pagination li { list-style: none; margin-right: 5px; margin-left: 5px; }
 
 .block-pagination li .page-link { color: #0e1417; border: none; }
+
+/***  forgot-pass ***/
+.forgot-pass { display: flex; justify-content: flex-end; }

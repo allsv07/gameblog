@@ -84,7 +84,7 @@ class NewsController extends AppController
         /**
          * выбираем конкретную новость для детального просмотра
          */
-        $detailNew = $news->findOneNewsByTable($id);
+        $detailNew = $news->findOneByTable($id);
 
         /**
          * проверяем массив на пустоту, если пустой то перенаправляем на 404
@@ -98,9 +98,9 @@ class NewsController extends AppController
             if (empty($views->checkIP($ip, 'news', $id))) {
                 $views->addViews($ip, 'news', $id);
             }
-            else {
-                $views->updateView('news', $id);
-            }
+//            else {
+//                $views->updateView('news', $id);
+//            }
 
             /**
              * редактируем дату в массиве новости в формат (12 марта 2021)

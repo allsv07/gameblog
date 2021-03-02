@@ -83,7 +83,7 @@ class CheatsController extends AppController
         /**
          * выбираем конкретную новость для детального просмотра
          */
-        $detailCheat = $cheats->findOneCheatByTable($id);
+        $detailCheat = $cheats->findOneByTable($id);
         $detailCheat = $this->editNewDate($detailCheat);
 
 
@@ -100,9 +100,10 @@ class CheatsController extends AppController
 
         if (empty($views->checkIP($ip, 'cheats', $id))) {
             $views->addViews($ip, 'cheats', $id);
-        } else {
-            $views->updateView('cheats', $id);
         }
+//        else {
+//            $views->updateView('cheats', $id);
+//        }
 
 
         //добавляем к массиву записи количество комментариев и количество просмотров

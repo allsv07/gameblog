@@ -39,11 +39,11 @@ class Article extends Model
 //        return $this->db->query($sql, [$id]);
 //    }
 
-    public function findOneArticleByTable($id)
-    {
-        $sql = "SELECT A.id, A.title, A.description, A.date, A.image AS a_img, A.meta_desc, A.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS A JOIN users AS U ON A.author = U.id WHERE A.id = ? LIMIT 1";
-        $res = $this->db->query($sql, [$id]);
-        return (!empty($res[0])) ? $res[0]: [];
-    }
+//    public function findOneArticleByTable($id)
+//    {
+//        $sql = "SELECT A.id, A.title, A.description, A.date, A.image AS a_img, A.meta_desc, A.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS A JOIN users AS U ON A.author = U.id WHERE A.id = ? LIMIT 1";
+//        $res = $this->db->query($sql, [$id]);
+//        return (!empty($res[0])) ? $res[0]: [];
+//    }
 
 }

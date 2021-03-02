@@ -80,7 +80,7 @@ class BlogsController extends AppController
         /**
          * выбираем конкретную новость для детального просмотра
          */
-        $detailBlog = $blogs->findOneBlogByTable($id);
+        $detailBlog = $blogs->findOneByTable($id);
         $detailBlog = $this->editNewDate($detailBlog);
 
         if (empty($detailBlog)) {
@@ -95,9 +95,10 @@ class BlogsController extends AppController
 
         if (empty($views->checkIP($ip, 'blogs', $id))) {
             $views->addViews($ip, 'blogs', $id);
-        } else {
-            $views->updateView('blogs', $id);
         }
+//        else {
+//            $views->updateView('blogs', $id);
+//        }
 
 
         //добавляем к массиву записи количество комментариев и количество просмотров

@@ -47,12 +47,12 @@ class News extends Model
 //        return $this->db->query($sql, [$id]);
 //    }
 
-    public function findOneNewsByTable($id)
-    {
-        $sql = "SELECT N.id, N.title, N.description, N.date, N.image AS n_img, N.meta_desc, N.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS N JOIN users AS U ON N.author = U.id WHERE N.id = ? LIMIT 1";
-        $res = $this->db->query($sql, [$id]);
-        return (!empty($res[0])) ? $res[0]: [];
-    }
+//    public function findOneNewsByTable($id)
+//    {
+//        $sql = "SELECT N.id, N.title, N.description, N.date, N.image AS n_img, N.meta_desc, N.meta_keywords, U.name, U.login, U.image AS u_img FROM {$this->table} AS N JOIN users AS U ON N.author = U.id WHERE N.id = ? LIMIT 1";
+//        $res = $this->db->query($sql, [$id]);
+//        return (!empty($res[0])) ? $res[0]: [];
+//    }
 
 
 }

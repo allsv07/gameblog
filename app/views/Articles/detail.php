@@ -27,7 +27,7 @@
                         <img src="<?=PATH_AVATAR?>/<?= $detailArticle['u_img'] ?>" alt="<?= $detailArticle['name'] ?>">
 
                     </div>
-                    <span class="name-author"><a href="#"><?= $detailArticle['name'] ?></a></span>
+                    <span class="name-author"><a href="#"><?= $detailArticle['login'] ?></a></span>
                 </div>
                 <div class="article-info-date">
                     <span><?= $detailArticle['date'] ?></span>

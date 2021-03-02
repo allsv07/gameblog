@@ -72,7 +72,7 @@ class ArticlesController extends AppController
         /**
          * выбираем конкретную статью для детального просмотра
          */
-        $detailArticle = $articles->findOneArticleByTable($id);
+        $detailArticle = $articles->findOneByTable($id);
 
         /**
          * проверяем массив на пустоту, если пустой то перенаправляем на 404
@@ -86,9 +86,9 @@ class ArticlesController extends AppController
             if (empty($views->checkIP($ip, 'articles', $id))) {
                 $views->addViews($ip, 'articles', $id);
             }
-            else {
-                $views->updateView('articles', $id);
-            }
+//            else {
+//                $views->updateView('articles', $id);
+//            }
 
             /**
              * редактируем дату в массиве новости в формат (12 марта 2021)

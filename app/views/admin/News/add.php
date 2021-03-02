@@ -31,6 +31,7 @@
                 <script>
                     CKEDITOR.replace( 'desc_news' );
                 </script>
+
             </div>
 
 

@@ -166,7 +166,7 @@
     </div>
 
     <!-- Игровые статьи -->
-    <div class="row span_light">
+    <div class="row span_dark">
         <span>Игровые статьи</span>
     </div>
     <div class="row games-articles">
@@ -195,16 +195,6 @@
         <a href="/articles" class="more-blogs">Больше статей</a>
     </div>
 
-    <!-- Галерея -->
-    <div class="row span_dark">
-        <span>Галерея</span>
-    </div>
-    <div class="row gallery">
-        <div class="col-12 block-gallery">
-
-        </div>
-        <a href="#" class="more-gallery-item">Показать галерею</a>
-    </div>
 
     <!-- Прохождения игр, тактика и советы -->
     <div class="row span_light">

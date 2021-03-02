@@ -161,6 +161,9 @@
                             <input type="password" class="pass" name="pass_user" id="auth-pass" placeholder="Пароль">
                             <input type="button" id="btn-auth" class="btn_auth" value="Войти">
                         </form>
+                        <div class="forgot-pass">
+                            <a href="/recover" class="forgot_pass">Забыли пароль?</a>
+                        </div>
                     </div>
                     <div class="block_register">
                         <span class="reg_text">Нет аккаунта?</span>

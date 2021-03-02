@@ -28,11 +28,11 @@ class Blog extends Model
 //    }
 
 
-    public function findOneBlogByTable($id)
-    {
-        $sql = "SELECT B.id, B.title, B.description, B.date, B.image AS b_img, B.meta_desc, B.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS B JOIN users AS U ON B.author = U.id WHERE B.id = ? LIMIT 1";
-        $res = $this->db->query($sql, [$id]);
-        return (!empty($res[0])) ? $res[0]: [];
-    }
+//    public function findOneBlogByTable($id)
+//    {
+//        $sql = "SELECT B.id, B.title, B.description, B.date, B.image AS b_img, B.meta_desc, B.meta_keywords, U.name, U.image AS u_img FROM {$this->table} AS B JOIN users AS U ON B.author = U.id WHERE B.id = ? LIMIT 1";
+//        $res = $this->db->query($sql, [$id]);
+//        return (!empty($res[0])) ? $res[0]: [];
+//    }
 
 }

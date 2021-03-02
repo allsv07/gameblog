@@ -68,13 +68,13 @@ class CheatsController extends AppController
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
             // проверка файла на допустимый размер, формат и выбран ли вообще файл
-            $check = $this->canUploadFile($file);
+            $check = canUploadFile($file);
             if ($check !== true) $_SESSION['error']['file'] = $check;
 
 
             if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
                 //загрузка файла на сервер
-                $file_name = $this->uploadFile($file);
+                $file_name = uploadFile($file, PATH_IMAGE);
                 // end
 
                 //добавление новости в БД
@@ -144,14 +144,9 @@ class CheatsController extends AppController
             $f = false;
             if ($file['name'] != '') {
                 // проверка файла на допустимый размер, формат и выбран ли вообще файл
-                $check = $this->canUploadFile($file);
+                $check = canUploadFile($file);
                 if ($check !== true) $_SESSION['error']['file'] = $check;
                 $f = true;
-
-                // т.к загружаем новый файл, удаляем старый файл
-                if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editCheat['image'])) {
-                    unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editCheat['image']);
-                }
             }
             else {
                 $check = true;
@@ -159,9 +154,15 @@ class CheatsController extends AppController
             }
 
             if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
+
                 if ($f === true) {
+                    // т.к загружаем новый файл, удаляем старый файл
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editCheat['image'])) {
+                        unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editCheat['image']);
+                    }
+
                     //загрузка файла на сервер
-                    $file_name = $this->uploadFile($file);
+                    $file_name = uploadFile($file, PATH_IMAGE);
                     // end
                 }
                 //редактирование новости в БД

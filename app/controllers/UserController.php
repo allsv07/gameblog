@@ -8,7 +8,6 @@ use app\models\User;
 
 class UserController extends AppController
 {
-    protected $nameAvatar = 'no-avatar.jpg';
 
     public function indexAction()
     {
@@ -80,17 +79,17 @@ class UserController extends AppController
 
         if ($file['name'] != '') {
             // проверка файла на допустимый размер, формат и выбран ли вообще файл
-            $check = $this->canUploadFile($file);
+            $check = canUploadFile($file);
             if ($check !== true) {
                 $_SESSION['error']['file'] = $check;
             }
             else {
                 //удаляем старый аватар, если он не по дефолту
-                if ($imgUser != $this->nameAvatar) {
+                if (($imgUser != DEFAULT_AVATAR) && (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_AVATAR.'/'.$imgUser))) {
                     unlink($_SERVER['DOCUMENT_ROOT'].PATH_AVATAR.'/'.$imgUser);
                 }
                 //загрузка нового аватара и изменение имени аватара в БД
-                $file_name = $this->uploadAvatar($file);
+                $file_name = uploadFile($file, PATH_AVATAR);
                 $users->editUserImage($file_name, $user['login']);
                 $_SESSION['success']['file'] = 'Аватар изменен';
             }
@@ -165,19 +164,4 @@ class UserController extends AppController
         }
     }
 
-
-
-    /**
-     * загрузка файла на сервер
-     * @param $file
-     */
-    protected function uploadAvatar($file)
-    {
-        $directory = $_SERVER['DOCUMENT_ROOT'].PATH_AVATAR;
-        $tmp_name = $file['tmp_name'];
-        $arNameFile = explode('/', $file['type']);
-        $name = time() .'.'. $arNameFile[1];
-        move_uploaded_file($tmp_name, "$directory/$name");
-        return $name;
-    }
 }

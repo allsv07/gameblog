@@ -108,6 +108,9 @@ class AppController extends Controller
     }
 
 
+    /**
+     * выход пользователя
+     */
     public function outUser()
     {
         if (isset($_SESSION['is_user']) && isset($_COOKIE['USER'])) {
@@ -118,26 +121,29 @@ class AppController extends Controller
         session_destroy();
     }
 
-
     /**
-     * производит все проверки файла: возвращает true либо строку с сообщением об ошибке
-     * @param $file
+     * @param int $lenght
+     * @return string
+     * генерация пароля
      */
-    protected function canUploadFile($file)
+    public function generatePassword($lenght = 8)
     {
-        $types = ['jpg', 'png', 'gif', 'bmp', 'jpeg'];
+        $chars = 'abcdefghijklmopqrstuvwxyzABCDEFGHIJKLMOPQRSTUVWXYZ123456789';
+        $numChars = strlen($chars);
+        $string = '';
 
-        if ($file['name'] == '') return 'Вы не выбрали файл';
-        if ($file['size'] >= 1000000) return 'Файл слишком большой';
+        for($i = 0; $i < $lenght; $i++) {
+            $string .= substr($chars, rand(1, $numChars) -1, 1);
+        }
 
-        // разбиваем имя файла по точке и получаем массив
-        $getTypeFile = explode('.', $file['name']);
-        // получаем - расширение файла
-        $typeFile = strtolower(end($getTypeFile));
-
-        if (!in_array($typeFile, $types)) return 'Недопустимый тип файла';
-
-        return true;
+        return $string;
     }
+
+    public function sendMail($to, $subject, $message)
+    {
+        return mail($to, $subject, $message."\r\n");
+    }
+
+
 
 }

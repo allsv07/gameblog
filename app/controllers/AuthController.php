@@ -25,10 +25,12 @@ class AuthController extends AppController
 
                 } else {
                     $error['message'] = 'Не вырный логин или пароль';
+                    $_SESSION['error']['message'] = 'Не вырный логин или пароль';
                 }
 
             } else {
                 $error['message'] = 'Заполните все поля';
+                $_SESSION['error']['message'] = 'Заполните все поля';
             }
 
             if ($this->isAjax()) {
@@ -37,7 +39,7 @@ class AuthController extends AppController
                 die();
             }
 
-            if ($error['message'] = 'ok') {
+            if ($error['message'] == 'ok') {
                 header("Location: /");
                 die();
             }

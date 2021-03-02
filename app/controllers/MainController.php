@@ -27,19 +27,6 @@ class MainController extends AppController
          */
         $arrMainToday = $news->getMainToday();
 
-//        if (!empty($arrMainToday)) {
-//            foreach ($arrMainToday as &$MainToday) {
-//                if ($MainToday['tbl'] == 'news') {
-//                    $MainToday['url'] = '/news/detail/';
-//                }
-//
-//                if ($MainToday['tbl'] == 'articles') {
-//                    $MainToday['url'] = '/articles/detail/';
-//                }
-//            }
-//        }
-
-
 
         /**
          * Последние новости

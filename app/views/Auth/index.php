@@ -4,6 +4,11 @@
         <span class="error"></span>
         <? if (!isset($_SESSION['user']['login'])): ?>
         <div class="auth-block">
+            <? if (isset($_SESSION['error']['message']) && $_SESSION['error']['message'] != '') : ?>
+                <div class="auth-block--error">
+                    <span class="error"><?=$_SESSION['error']['message']; unset($_SESSION['error']['message'])?></span>
+                </div>
+            <? endif; ?>
             <form action="" method="post" id="auth-form" class="auth-form">
                 <input type="text" class="auth_user--login" name="login_user" id="auth_user--login" placeholder="Логин">
                 <input type="password" class="auth_user--pass" name="pass_user" id="auth_user--pass" placeholder="Пароль">

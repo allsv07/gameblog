@@ -69,13 +69,13 @@ class ArticlesController extends AppController
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
             // проверка файла на допустимый размер, формат и выбран ли вообще файл
-            $check = $this->canUploadFile($file);
+            $check = canUploadFile($file);
             if ($check !== true) $_SESSION['error']['file'] = $check;
 
 
             if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
                 //загрузка файла на сервер
-                $file_name = $this->uploadFile($file);
+                $file_name = uploadFile($file, PATH_IMAGE);
                 // end
 
                 //добавление новости в БД
@@ -137,7 +137,7 @@ class ArticlesController extends AppController
 
 
             if ($title == '') $_SESSION['error']['title'] = 'Введите название новости';
-            if ($category == '0') $_SESSION['error']['category'] = 'Выберите категорию';
+            //if ($category == '0') $_SESSION['error']['category'] = 'Выберите категорию';
             if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст новости';
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
@@ -147,14 +147,9 @@ class ArticlesController extends AppController
             $f = false;
             if ($file['name'] != '') {
                 // проверка файла на допустимый размер, формат и выбран ли вообще файл
-                $check = $this->canUploadFile($file);
+                $check = canUploadFile($file);
                 if ($check !== true) $_SESSION['error']['file'] = $check;
                 $f = true;
-
-                // т.к загружаем новый файл, удаляем старый файл
-                if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editArticle['image'])) {
-                    unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editArticle['image']);
-                }
             }
             else {
                 $check = true;
@@ -162,9 +157,15 @@ class ArticlesController extends AppController
             }
 
             if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
+
                 if ($f === true) {
+                    // т.к загружаем новый файл, удаляем старый файл
+                    if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editArticle['image'])) {
+                        unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$editArticle['image']);
+                    }
+
                     //загрузка файла на сервер
-                    $file_name = $this->uploadFile($file);
+                    $file_name = uploadFile($file, PATH_IMAGE);
                     // end
                 }
                 //редактирование новости в БД

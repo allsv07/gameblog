@@ -25,7 +25,7 @@ class RegisterController extends AppController
                     if (strlen($pass) >= 3) {
 
 
-                        $reg = $users->regUser(['login' => $login, 'email' => $email, 'pass' => $pass]);
+                        $reg = $users->regUser(['login' => $login, 'email' => $email, 'pass' => $pass], 'user');
 
 
                         if ($reg !== 'login-isset') {

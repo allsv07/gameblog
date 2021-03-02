@@ -15,6 +15,8 @@ define('LAYOUT', 'default');
 define('PATH_IMAGE', '/public/images/upload_file');
 define('PATH_AVATAR', '/public/images/user');
 define('NO_IMG', '/public/images/photo/no-image.jpg');
+define('RECOVER_PASS', 'Восстановление пароля к доступу в личный кабинет на сайте GameBlog');
+define('DEFAULT_AVATAR', 'no-avatar.jpg');
 
 spl_autoload_register(function ($className){
     $className = ROOT .'/'. str_replace('\\', '/', $className) . '.php';

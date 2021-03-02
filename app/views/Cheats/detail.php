@@ -26,7 +26,7 @@
                     <div class="image_author">
                         <img src="<?=PATH_AVATAR?>/<?=$detailCheat['u_img']?>" alt="author image">
                     </div>
-                    <span class="name-author"><a href="#"><?= $detailCheat['name'] ?></a></span>
+                    <span class="name-author"><a><?= $detailCheat['login'] ?></a></span>
 
                 </div>
                 <div class="article-info-date">

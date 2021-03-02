@@ -43,7 +43,7 @@ $(document).ready(function(){
             dataType: 'json',
             success: function (data) {
                 if (data.message != 'ok') {
-                    $("#ajax-form").before("<span class='auth-error'>"+ data.message +"</span>");
+                    $("#ajax-form").before("<div class='error-input'><span style='display: block; text-align: center;' class='error'>"+ data.message +"</span></div>");
                 }
                 else {
                     $("#authModal").hide();

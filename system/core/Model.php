@@ -207,6 +207,19 @@ abstract class Model
 
 
     /**
+     * @param $id
+     * @return array|mixed
+     * выбор одной записи из таблицы для детального просмотра
+     */
+    public function findOneByTable($id)
+    {
+        $sql = "SELECT {$this->table}.id, {$this->table}.title, {$this->table}.description, {$this->table}.date, {$this->table}.image AS t_img, {$this->table}.meta_desc, {$this->table}.meta_keywords, U.name, U.login, U.image AS u_img FROM {$this->table} JOIN users AS U ON {$this->table}.author = U.id WHERE {$this->table}.id = ? LIMIT 1";
+        $res = $this->db->query($sql, [$id]);
+        return (!empty($res[0])) ? $res[0]: [];
+    }
+
+
+    /**
      * @param $start
      * @param $limit
      * @return array

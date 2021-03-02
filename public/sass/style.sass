@@ -403,8 +403,8 @@ $color: #434343
 
 
 .games-articles
+    background: #1C1C1C
     padding-bottom: 100px
-    background: #ffffff
     border-bottom: 1px solid #c2c2c2 
     &__game
         
@@ -427,11 +427,11 @@ $color: #434343
                         font-weight: 400
                         font-style: italic
                         font-size: 14px
-                        color: $color
+                        color: #fff
             &-desc
                 padding-top: 10px
                 a
-                    color: $color
+                    color: #fff
                     font-family: $font-rubik
                     font-size: 18px
                     line-height: 1.4
@@ -442,7 +442,7 @@ $color: #434343
     .more-blogs
         text-transform: uppercase
         position: relative
-        color: $color
+        color: #fff
         top: 25px
         left: 15px
         &:hover
@@ -1232,6 +1232,24 @@ $color: #434343
         color: #fff
     .auth-block
         width: 60%
+        .auth-block
+            width: 60%
+            &--error
+                width: 100%
+                border: 1px solid #c44d4d
+                span
+                    display: block
+                    text-align: center
+                    margin: 10px 0px 10px 0px
+
+            &--success
+                width: 100%
+                border: 1px solid green
+                span
+                    display: block
+                    text-align: center
+                    margin: 10px 0px 10px 0px
+
         .auth-form
             display: flex
             flex-direction: column
@@ -1423,3 +1441,7 @@ $color: #434343
             border: none
 
 
+/***  forgot-pass ***/
+.forgot-pass
+    display: flex
+    justify-content: flex-end

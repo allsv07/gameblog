@@ -29,7 +29,7 @@
                     <div class="image_author">
                         <img src="<?=PATH_AVATAR?>/<?=$detailNew['u_img']?>" alt="<?=$detailNew['name']?>">
                     </div>
-                    <span class="name-author"><a href="#"><?=$detailNew['name']?></a></span>
+                    <span class="name-author"><a><?=$detailNew['login']?></a></span>
                 </div>
                 <div class="article-info-date">
                     <span><?=$detailNew['date']?></span>
@@ -43,7 +43,7 @@
             </div>
 
             <div class="article-description">
-                <p><?=$detailNew['description']?></p>
+                <p><?=htmlspecialchars_decode($detailNew['description'])?></p>
             </div>
 
             <div class="article-comments">
