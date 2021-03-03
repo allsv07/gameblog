@@ -1,6 +1,4 @@
-<?php
-//pr($detailNew);
-?>
+
 <div class="container">
     <div class="row main-content">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar-article sidebar">

@@ -33,11 +33,11 @@ class Router
     public static function checkRoute($url)
     {
         $url = self::removeQueryString($url);
-        //pr(self::$routers);
+
         foreach (self::$routers as $key => $value){
 
             if (preg_match("#$key#i", $url, $matches)){
-                //pr(self::$routers[$key]);
+
                 $route = $value;
 
                 foreach ($matches as $key => $match){
@@ -55,7 +55,7 @@ class Router
                 if (!isset($route['prefix'])) {
                     $route['prefix'] = '';
                 }
-                //pr($route);
+
                 self::$rout = $route;
 
                 return true;
@@ -70,7 +70,7 @@ class Router
     {
         if (self::checkRoute($path)){
             $controller = 'app\controllers\\' . self::$rout['prefix'] . self::$rout['controller'] . 'Controller';
-            //pr(self::$rout);
+
             if(class_exists($controller)){
                 $obj = new $controller(self::$rout);
                 $action = self::lStr(self::$rout['action']) . 'Action';

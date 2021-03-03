@@ -1,6 +1,3 @@
-<?php
-//pr($mainToday);
-?>
 <div class="container">
     <div class="row span">
         <span>Главное сегодня</span>
@@ -229,7 +226,6 @@
         <div class="col-xs-12 col-sm-12 col-md-4 col-lg-4 last-comments">
             <span>Последние комментарии</span>
             <? if (!empty($lastComments)): ?>
-            <? //pr($lastComments); ?>
             <? foreach ($lastComments as $comment): ?>
             <a href="/<?=$comment['tbl']?>/detail/<?= $comment['title_id'] ?>">
                 <div class="col-12 last-comment">

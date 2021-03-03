@@ -23,8 +23,10 @@ class RecoverController extends AppController
 
                     //формируем данные для отправки письма и отправляем
                     $to = $user['email'];
+                    $from = "info@gameblog.by";
                     $message = 'Ваш новый пароль: '.$newPass;
-                    $this->sendMail($to, RECOVER_PASS, $message);
+                    $headers = "From: $from\r\nReply-to:$from\r\nContent-type:text/html; charser=utf-8\r\n";
+                    $this->sendMail($to, RECOVER_PASS, $message, $headers);
 
                     $newPass = password_hash($newPass, PASSWORD_DEFAULT);
                     $users->editPassUser($newPass, $user['login']);

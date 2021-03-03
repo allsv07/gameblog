@@ -1,6 +1,4 @@
-<?php
-//pr($news);
-?>
+
 <div class="row">
     <div class="admin-header">
         <span><a href="/admin">Админ панель</a> / Админстраторы</span>

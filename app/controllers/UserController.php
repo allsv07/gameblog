@@ -21,8 +21,7 @@ class UserController extends AppController
 
         //получаем все комментарии оставленные пользователем
         $allCommentsUser = $comments->getCommentsByUser($_SESSION['user']['id']);
-        pr($allCommentsUser);
-        die();
+
         $allCommentsUser = editNewDateArray($allCommentsUser);
 
         $this->setVars(['user' => $user, 'allComments' => $allCommentsUser]);
