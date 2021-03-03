@@ -13,6 +13,7 @@ class CommentsController extends AppController
         $comments = new Comment();
 
         $arrComments = $comments->allComments();
+        $arrComments = editNewDateArray($arrComments);
 
         $countComments = $comments->countCommentsByAdmin();
         $this->setVars(['comments' => $arrComments, 'cComment' => $countComments]);
@@ -37,5 +38,15 @@ class CommentsController extends AppController
 
         $countComments = $comments->countCommentsByAdmin();
         $this->setVars(['comments' => $comment, 'cComment' => $countComments]);
+    }
+
+    public function dellAction()
+    {
+        $comments = new Comment();
+        $id = $this->route['id'];
+
+        $comments->dellComments($id);
+        header('Location: /admin/comments');
+        die();
     }
 }

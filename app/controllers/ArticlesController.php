@@ -34,7 +34,7 @@ class ArticlesController extends AppController
         // end
 
         // все статьи
-        $allArticles = $this->editNewDateArray($allArticles);
+        $allArticles = editNewDateArray($allArticles);
 
         if (count($allArticles) > 0) {
             foreach ($allArticles as &$Articles) {
@@ -93,7 +93,7 @@ class ArticlesController extends AppController
             /**
              * редактируем дату в массиве новости в формат (12 марта 2021)
              */
-            $detailArticle = $this->editNewDate($detailArticle);
+            $detailArticle = editNewDate($detailArticle);
 
             //добавляем к массиву записи количество комментариев и просмотров
             if(!empty($detailArticle)) {
@@ -115,7 +115,7 @@ class ArticlesController extends AppController
 
             //комментарии для конкретной новости
             $arrComments = $comments->getComments($id, 'articles');
-            $arrComments = $this->editNewDateArray($arrComments);
+            $arrComments = editNewDateArray($arrComments);
 
 
             /**
@@ -140,7 +140,8 @@ class ArticlesController extends AppController
             ]);
         }
         else {
-            header("Location:404.html");
+            http_response_code(404);
+            include '404.html';
             die();
         }
 
@@ -162,7 +163,8 @@ class ArticlesController extends AppController
 
             $arrCategory = $articles->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
-                header("Location:404.html");
+                http_response_code(404);
+                include '404.html';
                 die();
             }
 
@@ -185,7 +187,7 @@ class ArticlesController extends AppController
             }
             // end
 
-            $arArticlesCat = $this->editNewDateArray($arArticlesCat);
+            $arArticlesCat = editNewDateArray($arArticlesCat);
 
             if (!empty($arArticlesCat)) {
                 foreach ($arArticlesCat as &$Articles) {
@@ -196,6 +198,7 @@ class ArticlesController extends AppController
         }
         else {
             header('Location:/articles');
+            die();
         }
 
         $categoryArticles = $articles->getCategory('category', 'articles');

@@ -19,12 +19,6 @@
             <label for="title_news">Название блога</label>
             <input type="text" name="title" id="title_news" class="title_news" value="<?=(isset($_POST['title']) && $_POST['title'] != '') ? $_POST['title'] : '';?>">
 
-            <label for="cat_news">Выберите категорию</label>
-            <select name="category" id="category">
-                <? foreach ($categories as $category): ?>
-                    <option name="cat" value="<?= $category['id'] ?>"><?= $category['title'] ?></option>
-                <? endforeach; ?>
-            </select>
             <div class="block_desc">
                 <label for="desc_news">Описание блога</label>
                 <textarea name="desc" id="desc_news"><?=(isset($_POST['desc']) && $_POST['desc'] != '') ? $_POST['desc'] : '';?></textarea>

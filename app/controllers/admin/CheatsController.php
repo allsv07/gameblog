@@ -17,6 +17,7 @@ class CheatsController extends AppController
         $comments = new Comment();
 
         $arrCheat = $cheats->getAllByAdmin();
+        $arrCheat = editNewDateArray($arrCheat);
 
         /**
          * добавляем в массив поля кол-во просмотров и комментариев

@@ -16,7 +16,8 @@ class BlogsController extends AppController
         $views = new View();
         $comments = new Comment();
 
-        $arrBlogs = $blogs->getAllByAdmin();
+        $arrBlogs = $blogs->getAllBlogs();
+        $arrBlogs = editNewDateArray($arrBlogs);
 
         /**
          * добавляем в массив поля кол-во просмотров и комментариев
@@ -56,15 +57,12 @@ class BlogsController extends AppController
         if (isset($_POST['btn_add'])) {
             $file = $_FILES['add_image'];
             $title = clearStr($_POST['title']);
-            $category = $_POST['category'];
-            //$desc = clearStr($_POST['desc']);
             $desc = $_POST['desc'];
             $m_desc = clearStr($_POST['meta_desc']);
             $m_keywords = clearStr($_POST['meta_keywords']);
 
 
             if ($title == '') $_SESSION['error']['title'] = 'Введите название статьи';
-            if ($category == '0') $_SESSION['error']['category'] = 'Выберите категорию';
             if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст статьи';
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
@@ -73,13 +71,13 @@ class BlogsController extends AppController
             if ($check !== true) $_SESSION['error']['file'] = $check;
 
 
-            if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
+            if ($check === true && $title != '' && $desc != '' && $m_desc != '' && $m_keywords != '') {
                 //загрузка файла на сервер
                 $file_name = uploadFile($file, PATH_IMAGE);
                 // end
 
                 //добавление новости в БД
-                $blogs->add('blogs',['category' => $category, 'title' => $title, 'desc' => $desc, 'image' => $file_name,
+                $blogs->addBlog('blogs',['title' => $title, 'desc' => $desc, 'image' => $file_name,
                     'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => '0']);
                 header('Location:/admin/blogs');
             }
@@ -99,7 +97,7 @@ class BlogsController extends AppController
         $id = $this->route['id'];
         $img = $blogs->getNameImageByTable($id);
 
-        $blogs->delete('articles', $id);
+        $blogs->delete('blogs', $id);
         if (file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$img)){
             unlink($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$img);
         }
@@ -118,8 +116,8 @@ class BlogsController extends AppController
 
         $id = $this->route['id'];
 
-        $editBlog = $blogs->getDetailByEdit($id);
-        $arrCategory = $blogs->getCategory('category', 'blogs');
+        $editBlog = $blogs->getDetailBlogByEdit($id);
+        //$arrCategory = $blogs->getCategory('category', 'blogs');
 
         if (empty($editBlog)) {
             header('Location: /admin/blogs');
@@ -130,14 +128,12 @@ class BlogsController extends AppController
         if (isset($_POST['btn_edit'])) {
             $file = $_FILES['add_image'];
             $title = clearStr($_POST['title']);
-            $category = $_POST['category'];
             $desc = $_POST['desc'];
             $m_desc = clearStr($_POST['meta_desc']);
             $m_keywords = clearStr($_POST['meta_keywords']);
 
 
             if ($title == '') $_SESSION['error']['title'] = 'Введите название новости';
-            if ($category == '0') $_SESSION['error']['category'] = 'Выберите категорию';
             if ($desc == '') $_SESSION['error']['desc'] = 'Введите текст новости';
             if ($m_desc == '') $_SESSION['error']['m_desc'] = 'Заполните Мета-тег Description';
             if ($m_keywords == '') $_SESSION['error']['m_keywords'] = 'Заполните Мета-тег Keywords';
@@ -156,7 +152,7 @@ class BlogsController extends AppController
                 $file_name = $editBlog['image'];
             }
 
-            if ($check === true && $title != '' && $category != '0' && $desc != '' && $m_desc != '' && $m_keywords != '') {
+            if ($check === true && $title != '' && $desc != '' && $m_desc != '' && $m_keywords != '') {
 
                 if ($f === true) {
                     // т.к загружаем новый файл, удаляем старый файл
@@ -169,13 +165,13 @@ class BlogsController extends AppController
                     // end
                 }
                 //редактирование новости в БД
-                $blogs->edit('blogs', $id, ['category' => $category, 'title' => $title, 'desc' => $desc,
+                $blogs->edit('blogs', $id, ['title' => $title, 'desc' => $desc,
                     'image' => $file_name, 'm_desc' => $m_desc, 'm_keywords' => $m_keywords, 'show' => '0']);
                 header('Location:/admin/blogs');
             }
         }
 
         $countComments = $comments->countCommentsByAdmin();
-        $this->setVars(['editBlog' => $editBlog, 'categories' => $arrCategory, 'cComment' => $countComments]);
+        $this->setVars(['editBlog' => $editBlog, 'cComment' => $countComments]);
     }
 }

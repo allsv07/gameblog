@@ -29,6 +29,7 @@ class RecoverController extends AppController
                     $newPass = password_hash($newPass, PASSWORD_DEFAULT);
                     $users->editPassUser($newPass, $user['login']);
                     $_SESSION['success-recover'] = 'На вашу почту отправленно сообщение с новым паролем';
+                    header('Location: /auth');
                 }
                 else {
                     $_SESSION['error-recover'] = 'Такого пользователя не существует';

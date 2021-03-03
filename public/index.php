@@ -1,5 +1,5 @@
 <?php
-error_reporting(E_ALL);
+//error_reporting(E_ALL);
 
 session_start();
 
@@ -39,6 +39,8 @@ Router::add(['^cheats/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Cheats', 'a
 
 Router::add(['^blogs/category/(?P<code>[a-z0-9]+)/?$' => ['controller' => 'Blogs', 'action' => 'category']]);
 Router::add(['^blogs/detail/(?P<id>[0-9]+)/?$' => ['controller' => 'Blogs', 'action' => 'detail']]);
+
+Router::add(['^user/dellcomment/(?P<id>[0-9]+)/?$' => ['controller' => 'User', 'action' => 'dellcomment']]);
 
 
 

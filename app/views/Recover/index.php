@@ -4,6 +4,9 @@
         <span class="error"></span>
         <? if (!isset($_SESSION['user']['login'])): ?>
             <div class="auth-block">
+                <div class="auth-block--info">
+                    <span class="info">На вашу почту будет выслан новый пароль</span>
+                </div>
                 <? if (isset($_SESSION['error-recover']) && $_SESSION['error-recover'] != '') : ?>
                     <div class="auth-block--error">
                         <span class="error"><?=$_SESSION['error-recover']; unset($_SESSION['error-recover'])?></span>

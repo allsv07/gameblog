@@ -227,7 +227,7 @@ abstract class Model
      */
     public function getAllByAdmin()
     {
-        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.title, {$this->table}.description, {$this->table}.date, {$this->table}.image, C.title AS cat_title, U.name FROM {$this->table} JOIN category AS C ON C.id = {$this->table}.cat_id JOIN users AS U ON {$this->table}.author = U.id WHERE C.table_name = '{$this->table}' ORDER BY {$this->table}.id DESC ";
+        $sql = "SELECT {$this->table}.id AS num_id, {$this->table}.title, {$this->table}.description, {$this->table}.date, {$this->table}.image, C.title AS cat_title, U.login, U.name FROM {$this->table} JOIN category AS C ON C.id = {$this->table}.cat_id JOIN users AS U ON {$this->table}.author = U.id WHERE C.table_name = '{$this->table}' ORDER BY {$this->table}.id DESC ";
         return $this->db->query($sql);
     }
 
@@ -247,7 +247,7 @@ abstract class Model
                 `title` = ?,
                 `description` = ?,
                 `author` = ?,
-                `date` = CURRENT_DATE(),
+                `date` = NOW(),
                 `image` = ?,
                 `meta_desc` = ?,
                 `meta_keywords` = ?,

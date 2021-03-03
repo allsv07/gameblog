@@ -1,10 +1,10 @@
 <div class="container">
     <div class="row main-content">
         <div class="col-xs-12 col-sm-12 col-md-3 col-lg-3 sidebar-article sidebar">
-            <span class="sidebar-title">Читы</span>
+            <span class="sidebar-title">Блоги</span>
             <div class="category-news">
                 <ul class="category-news-list">
-                    <li class="category-news_item"><a href="/cheats">Все</a></li>
+                    <li class="category-news_item"><a href="/blogs">Все</a></li>
                     <? foreach ($arrCategory as $category): ?>
                         <li class="category-news_item"><a href="/blogs/category/<?= $category['code'] ?>"><?= $category['title'] ?></a></li>
                     <? endforeach; ?>

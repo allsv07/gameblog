@@ -17,6 +17,7 @@ class ArticlesController extends AppController
         $comments = new Comment();
 
         $arrArticles = $articles->getAllByAdmin();
+        $arrArticles = editNewDateArray($arrArticles);
 
         /**
          * добавляем в массив поля кол-во просмотров и комментариев

@@ -47,6 +47,27 @@ $color: #434343
     width: 80% !important
     display: flex !important
     justify-content: center !important
+    align-items: center
+
+.form-search
+    margin-left: 0px
+    .text-search
+        outline: none
+        border: 1px solid #040405
+        background: #1e2121
+        color: #fff
+        padding-left: 5px
+
+    .btn-search
+        outline: none
+        border: 1px solid $accent-color
+        background: #0E1417
+        color: #fff
+        padding-right: 10px
+        padding-left: 10px
+        &:hover
+            background: $accent-color
+
 
 .nav-item
     padding-left: 10px !important
@@ -805,6 +826,9 @@ $color: #434343
                 font-size: 13px
                 font-style: italic
 
+    .article-img
+        img
+            width: 100%
     .article-description
         border-bottom: 1px solid #DDDDDD
         p
@@ -1082,6 +1106,10 @@ $color: #434343
             background: $accent-color
             color: #fff
             font-weight: 500
+
+.btn-close
+    border: none
+    outline: none
             
             
 .user-is_auth
@@ -1234,6 +1262,14 @@ $color: #434343
         width: 60%
         .auth-block
             width: 60%
+            &--info
+                width: 100%
+                border: 1px solid $accent-color
+                span
+                    display: block
+                    text-align: center
+                    margin: 10px 0px 10px 0px
+                    color: $accent-color
             &--error
                 width: 100%
                 border: 1px solid #c44d4d
@@ -1424,6 +1460,52 @@ $color: #434343
         &:hover
             border-radius: 10px 0px 10px 0px
             background: #0675ad
+
+.info-user
+    margin-top: 10px
+    margin-bottom: 30px
+    padding-top: 10px
+    padding-bottom: 10px
+    background: #1C1C1C
+    .info-user--all
+        display: flex
+        .info-user--comments
+            a
+                color: $accent-color
+    .user--comments
+        margin-top: 10px
+        margin-bottom: 10px
+        .all-comments--user
+            padding: 10px 15px
+            border: 1px solid $accent-color
+            color: #fff
+            margin-top: 10px
+            margin-bottom: 10px
+            .info-comment
+                margin-bottom: 10px
+                .author-comm
+                    font-family: $font-roboto
+                    font-size: 15px
+                    font-weight: 500
+                .date-comm
+                    font-family: $font-roboto
+                    font-size: 15px
+                    font-style: italic
+                a
+                    font-family: $font-roboto
+                    font-size: 15px
+                    font-style: italic
+                    color: $accent-color
+                    font-weight: 500
+                    margin-left: 50px
+                    
+            .detail-comment
+                a
+                    color: $accent-color
+                    font-family: $font-roboto
+                    font-size: 18px
+                p
+                    margin-bottom: 0
 
 
 

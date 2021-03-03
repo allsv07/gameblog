@@ -18,17 +18,17 @@ class BlogsController extends AppController
 
         //пагинация
         $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-        $perPage = 20;
+        $perPage = 40;
         $total = $blogs->count();
 
         $pagination = '';
         if ($total >= $perPage){
             $pagination = new Pagination($page, $perPage, $total);
             $start = $pagination->getStart();
-            $allBlogs = $blogs->getAllLimit($start, $perPage);
+            $allBlogs = $blogs->getAllBlogsLimit($start, $perPage);
         }
         else {
-            $allBlogs = $blogs->getAll();
+            $allBlogs = $blogs->getAllBlogs();
         }
         // end
 
@@ -36,7 +36,7 @@ class BlogsController extends AppController
          * Все новости
          */
 
-        $allBlogs = $this->editNewDateArray($allBlogs);
+        $allBlogs = editNewDateArray($allBlogs);
 
         if (count($allBlogs) > 0) {
             foreach ($allBlogs as &$Blogs) {
@@ -81,10 +81,11 @@ class BlogsController extends AppController
          * выбираем конкретную новость для детального просмотра
          */
         $detailBlog = $blogs->findOneByTable($id);
-        $detailBlog = $this->editNewDate($detailBlog);
+        $detailBlog = editNewDate($detailBlog);
 
         if (empty($detailBlog)) {
-            header('Location:404.html');
+            http_response_code(404);
+            include '404.html';
             die();
         }
 
@@ -109,7 +110,7 @@ class BlogsController extends AppController
 
         //комментарии для конкретной новости
         $arrComments = $comments->getComments($id, 'blogs');
-        $arrComments = $this->editNewDateArray($arrComments);
+        $arrComments = editNewDateArray($arrComments);
 
         //добавление комментариев
         if (isset($_POST['add_comment'])) {
@@ -162,7 +163,8 @@ class BlogsController extends AppController
 
             $arrCategory = $blogs->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
-                header("Location:404.html");
+                http_response_code(404);
+                include '404.html';
                 die();
             }
 
@@ -171,22 +173,46 @@ class BlogsController extends AppController
 
             //пагинация
             $page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
-            $perPage = 20;
-            $total = $blogs->countByCategory($id);
+            $perPage = 40;
+            //$total = $blogs->countByCategory($id);
+
+            //проверяем какая категоря выбрана (за неделю или месяц) и получаем ее количество
+            if($arrCategory['code'] == 'weeks') {
+                $total =  count($blogs->getLastBlogsOnWeek());
+            }
+            if($arrCategory['code'] == 'month') {
+                $total = count($blogs->getLastBlogsOnMonth());
+            }
 
             $pagination = '';
             if ($total >= $perPage) {
                 $pagination = new Pagination($page, $perPage, $total);
                 $start = $pagination->getStart();
-                $arBlogsCat = $blogs->getCategoryLimit($id, $start, $perPage);
+                //$arBlogsCat = $blogs->getCategoryLimit($id, $start, $perPage);
+                //проверяем какая категоря выбрана (за неделю или месяц)
+                if($arrCategory['code'] == 'weeks') {
+                    $arBlogsCat = $blogs->getLastBlogsOnWeekLimit($start, $perPage);
+                }
+                if($arrCategory['code'] == 'month') {
+                    $arBlogsCat = $blogs->getLastBlogsOnMonthLimit($start, $perPage);
+                }
             }
             else {
-                $arBlogsCat = $blogs->getRecordsThisCategory($id);
+                //$arBlogsCat = $blogs->getRecordsThisCategory($id);
+                //проверяем какая категоря выбрана (за неделю или месяц)
+                if($arrCategory['code'] == 'weeks') {
+                    $arBlogsCat = $blogs->getLastBlogsOnWeek();
+                }
+                if($arrCategory['code'] == 'month') {
+                    $arBlogsCat = $blogs->getLastBlogsOnMonth();
+                }
+
             }
             // end
 
 
-            $arBlogsCat = $this->editNewDateArray($arBlogsCat);
+            $arBlogsCat = editNewDateArray($arBlogsCat);
+
 
             if (!empty($arBlogsCat)) {
                 foreach ($arBlogsCat as &$Blogs) {
@@ -194,6 +220,7 @@ class BlogsController extends AppController
                     $Blogs['views'] = $views->getCountViewsByTable('blogs', $Blogs['num_id']);
                 }
             }
+
 
         }
         else {

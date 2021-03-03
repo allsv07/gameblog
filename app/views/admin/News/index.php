@@ -25,7 +25,7 @@
             <tr style="height: 50px">
                 <td><?=$new['title']?></td>
                 <td><img style="width: 70px;" src="<?=PATH_IMAGE?>/<?=$new['image']?>" alt=""></td>
-                <td><?=$new['name']?></td>
+                <td><?=$new['login']?></td>
                 <td><?=$new['date']?></td>
                 <td><?=$new['views']?></td>
                 <td><?=$new['comments']?></td>

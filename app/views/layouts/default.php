@@ -49,6 +49,12 @@
                             <li class="nav-item">
                                 <a class="nav-link item" href="/cheats">Читы</a>
                             </li>
+                            <li>
+                                <form action="/search" method="post" class="form-search">
+                                    <input type="text" name="text-search" id="text-search" class="text-search">
+                                    <input type="submit" class="btn-search" id="btn-search" value="Найти">
+                                </form>
+                            </li>
                         </ul>
                         <div class="auth">
                             <? if (isset($_SESSION['user']['login'])): ?>
@@ -83,11 +89,9 @@
                                 <div class="col-xs-12 col-sm-12 col-md-8 col-lg-8 bottom-menu">
                                     <ul>
                                         <li><a href="/">Главная</a></li>
-                                        <li><a href="/games">Игры</a></li>
                                         <li><a href="/news">Новости</a></li>
                                         <li><a href="/articles">Статьи</a></li>
                                         <li><a href="/blogs">Блоги</a></li>
-                                        <li><a href="#">Галерея</a></li>
                                     </ul>
                                 </div>
                             </div>
@@ -151,7 +155,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Вход на Game Blog</h5>
-                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">X</button>
+                    <button type="button" class="btn-close" data-dismiss="modal" aria-label="Close">x</button>
                 </div>
                 <div class="modal-body">
                     <div class="bloc_auth-user">
@@ -177,7 +181,7 @@
 
     <script src="https://use.fontawesome.com/527ae61881.js"></script>
     <script src="/libs/jQuery.js"></script>
-    <script src="/libs/bootstrap/js/bootstrap.js"></script>
+    <script src="/public/libs/bootstrap/js/bootstrap.js"></script>
     <script src="/script.js"></script>
 </body>
 

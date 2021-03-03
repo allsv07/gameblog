@@ -10,13 +10,25 @@ class Comment extends Model
 {
     protected $table = 'comments';
 
+    /**
+     * @param $id
+     * @param $table
+     * @return array
+     * выводит комментарии
+     */
     public function getComments($id, $table)
     {
-        $sql = "SELECT C.author, C.date AS date, C.text, U.image FROM comments AS C JOIN {$table} AS N ON C.table_name = '{$table}' AND C.table_row_id = N.id JOIN users AS U ON U.id = C.author_id AND N.id = :id WHERE C.active = 1 ORDER BY C.id DESC";
+        $sql = "SELECT C.author, C.date AS date, C.text, U.image FROM comments AS C JOIN {$table} AS N ON C.table_name = '{$table}' AND C.table_row_id = N.id JOIN users AS U ON U.id = C.author_id AND N.id = :id WHERE C.active = 1";
         return $this->db->query($sql, [':id' => $id]);
     }
 
 
+    /**
+     * @param $table
+     * @param $id
+     * @return mixed
+     * считает кол-во комментариев для конкретной записи
+     */
     public function getCommentsCountByTable($table, $id)
     {
         $sql = "SELECT COUNT(*) AS count FROM {$this->table} WHERE `table_name` = :t_name AND `table_row_id` = :id AND `active` = '1'";
@@ -24,16 +36,19 @@ class Comment extends Model
     }
 
 
+    /**
+     * @param $table
+     * @param $id
+     * @param $arr
+     * @return bool
+     * доьавление комментария
+     */
     public function addComment($table, $id, $arr)
     {
-            $sql = "INSERT INTO `comments` SET `author_id` = ?, `author` = ?, `text` = ?, `table_name` = ?, `table_row_id` = ?, `date` = CURDATE()";
+            $sql = "INSERT INTO `comments` SET `author_id` = ?, `author` = ?, `text` = ?, `table_name` = ?, `table_row_id` = ?, `date` = NOW()";
             return $this->db->exec($sql, [$arr['id_author'], $arr['author'], $arr['comment'], $table, $id]);
     }
 
-        protected  function checkComment($comment)
-    {
-        return (strlen($comment) >= 1) ? true : false;
-    }
 
     /**
      * @param string $limit
@@ -64,13 +79,13 @@ class Comment extends Model
     {
         $limit = (strlen($limit) != '') ? "LIMIT ".(int)$limit : '';
 
-        $sql = "SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, N.id AS title_id, N.title, U.image AS user_img, 'news' as tbl FROM comments AS C JOIN news AS N ON C.table_name = 'news' AND C.table_row_id = N.id JOIN users AS U ON C.author_id = U.id 
+        $sql = "SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, N.id AS title_id, N.title, U.id AS u_id, U.image AS user_img, 'news' as tbl FROM comments AS C JOIN news AS N ON C.table_name = 'news' AND C.table_row_id = N.id JOIN users AS U ON C.author_id = U.id 
                 UNION
-                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, A.id AS title_id, A.title, U.image AS user_img, 'articles' as tbl FROM comments AS C JOIN articles AS A ON C.table_name = 'articles' AND C.table_row_id = A.id JOIN users AS U ON C.author_id = U.id 
+                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, A.id AS title_id, A.title, U.id AS u_id, U.image AS user_img, 'articles' as tbl FROM comments AS C JOIN articles AS A ON C.table_name = 'articles' AND C.table_row_id = A.id JOIN users AS U ON C.author_id = U.id 
                 UNION
-                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, B.id AS title_id, B.title, U.image AS user_img, 'blogs' as tbl FROM comments AS C JOIN blogs AS B ON C.table_name = 'blogs' AND C.table_row_id = B.id JOIN users AS U ON C.author_id = U.id 
+                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, B.id AS title_id, B.title, U.id AS u_id, U.image AS user_img, 'blogs' as tbl FROM comments AS C JOIN blogs AS B ON C.table_name = 'blogs' AND C.table_row_id = B.id JOIN users AS U ON C.author_id = U.id 
                 UNION 
-                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, CH.id AS title_id, CH.title, U.image AS user_img, 'cheats' as tbl FROM comments AS C JOIN cheats AS CH ON C.table_name = 'cheats' AND C.table_row_id = CH.id JOIN users AS U ON C.author_id = U.id 
+                SELECT C.id, C.author_id, C.author, C.text as comment, C.date, C.active, CH.id AS title_id, CH.title, U.id AS u_id, U.image AS user_img, 'cheats' as tbl FROM comments AS C JOIN cheats AS CH ON C.table_name = 'cheats' AND C.table_row_id = CH.id JOIN users AS U ON C.author_id = U.id 
                 ORDER BY id DESC " . $limit;
         return $this->db->query($sql);
     }
@@ -121,4 +136,32 @@ class Comment extends Model
         $this->db->exec($sql, [$arr['show_comment'], $id]);
     }
 
+
+    /**
+     * @param $idAuthor
+     * @return array
+     * получает все комментарии оставленные пользователем
+     */
+    public function getCommentsByUser($idAuthor)
+    {
+        $sql = "SELECT C.id, C.author, C.text AS comment, C.date, C.active, T.id AS num_id, T.title, 'news' as tbl FROM comments AS C JOIN news AS T ON C.table_name = 'news' AND C.table_row_id = T.id WHERE C.author_id = ? AND C.active = 1 
+                UNION
+                SELECT C.id, C.author, C.text AS comment, C.date, C.active, T.id AS num_id, T.title, 'articles' as tbl FROM comments AS C JOIN articles AS T ON C.table_name = 'articles' AND C.table_row_id = T.id WHERE C.author_id = ? AND C.active = 1 
+                UNION
+                SELECT C.id, C.author, C.text AS comment, C.date, C.active, T.id AS num_id, T.title, 'blogs' as tbl FROM comments AS C JOIN articles AS T ON C.table_name = 'blogs' AND C.table_row_id = T.id WHERE C.author_id = ? AND C.active = 1 
+                UNION
+                SELECT C.id, C.author, C.text AS comment, C.date, C.active, T.id AS num_id, T.title, 'cheats' as tbl FROM comments AS C JOIN articles AS T ON C.table_name = 'cheats' AND C.table_row_id = T.id WHERE C.author_id = ? AND C.active = 1 
+                ";
+        return $this->db->query($sql, [$idAuthor, $idAuthor, $idAuthor, $idAuthor]);
+    }
+
+    /**
+     * @param $id
+     * удаление комментария
+     */
+    public function dellComments($id)
+    {
+        $sql = "DELETE FROM `comments` WHERE `id` = ?";
+        $this->db->exec($sql, [$id]);
+    }
 }

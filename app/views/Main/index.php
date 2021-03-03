@@ -113,10 +113,10 @@
         <div class="col-md-4 popular">
             <span>Популярное</span>
             <? foreach ($popularNews as $popular): ?>
-            <a href="#">
+            <a href="news/detail/<?= $popular['id'] ?>">
                 <div class="col-12 popular-new">
                     <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$popular['image'])): ?>
-                        <img src="<?=PATH_IMAGE?><?=$popular['image']?>" class="popular-new__img" alt="<?=$popular['image']?>">
+                        <img src="<?=PATH_IMAGE?>/<?=$popular['image']?>" class="popular-new__img" alt="<?=$popular['image']?>">
                     <? else: ?>
                         <img src="<?=NO_IMG?>" class="popular-new__img" alt="<?=$popular['image']?>">
                     <? endif; ?>
@@ -145,14 +145,14 @@
                 <div class="col-xs-12 col-sm-6 col-md-3 col-lg-3 blog">
                     <a href="/blogs/detail/<?=$blog['id']?>">
                         <? if(file_exists($_SERVER['DOCUMENT_ROOT'].PATH_IMAGE.'/'.$blog['image'])): ?>
-                            <img src="<?=PATH_IMAGE?>/<?$blog['image']?>" class="blog__img" alt="">
+                            <img src="<?=PATH_IMAGE?>/<?=$blog['image']?>" class="blog__img" alt="<?$blog['image']?>">
                         <? else: ?>
                             <img src="<?=NO_IMG?>" class="blog__img" alt="<?=$blog['image']?>">
                         <? endif; ?>
                         <div class="eyes"><span><i class="fa fa-eye" aria-hidden="true"></i><?= $blog['views'] ?></span></div>
                     </a>
                     <div class="blog-author">
-                        <div class="author"><span>Автор:</span><a href="#"><?= $blog['author'] ?></a></div>
+                        <div class="author"><span>Автор:</span><a><?= $blog['author'] ?></a></div>
                         <div class="comment"><span><i class="fa fa-comment-o" aria-hidden="true"></i><?= $blog['comments'] ?></span></div>
                     </div>
                     <div class="blog-desc">
@@ -231,14 +231,14 @@
             <? if (!empty($lastComments)): ?>
             <? //pr($lastComments); ?>
             <? foreach ($lastComments as $comment): ?>
-            <a href="#">
+            <a href="/<?=$comment['tbl']?>/detail/<?= $comment['title_id'] ?>">
                 <div class="col-12 last-comment">
                     <div class="last-comment__img">
                         <img src="<?=PATH_AVATAR?>/<?=$comment['user_img']?>" class="last-comment__img--avatar" alt="<?=$comment['author']?>">
                     </div>
                     <div class="last-comment__text">
                         <div class="last-comment__text--author">
-                            <a href="#"><?=$comment['author'] ?></a>
+                            <a><?=$comment['author'] ?></a>
                         </div>
                         <div class="last-comment__text--text">
                             <p><?= $comment['comment'] ?></p>

@@ -86,15 +86,15 @@ class Router
                     $obj->getView();
                 }
                 else {
-//                http_response_code(404);
-//                include '404.html';
-                    echo 'Метод ' .$action. ' не найден';
+                http_response_code(404);
+                include '404.html';
+//                    echo 'Метод ' .$action. ' не найден';
                 }
             }
             else {
-//                http_response_code(404);
-//                include '404.html';
-                echo 'Контроллер ' .$controller. ' не найден';
+                http_response_code(404);
+                include '404.html';
+//                echo 'Контроллер ' .$controller. ' не найден';
             }
         }
         else {

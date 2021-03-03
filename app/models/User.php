@@ -48,12 +48,6 @@ class User extends Model
                 $_SESSION['admin']['id'] = $res['id'];
             }
 
-            if ($res['role'] == 'moderator') {
-                $_SESSION['is_admin'] = 'moderator';
-                $_SESSION['admin']['login'] = $res['login'];
-                $_SESSION['admin']['id'] = $res['id'];
-            }
-
             if ($res['role'] == 'user') {
                 $_SESSION['is_user'] = 'user';
                 $_SESSION['user']['login'] = $res['login'];
@@ -92,7 +86,7 @@ class User extends Model
         $user = $this->getUser("SELECT `login` FROM {$this->table} WHERE `login` = ? AND `role` = ?", [$arr['login'], $role]);
 
         if (empty($user)) {
-            $sql = "INSERT INTO {$this->table} SET login = ?, password = ?, name = '', email = ?, image = 'no-avatar.jpg', date = CURDATE(), role = ?";
+            $sql = "INSERT INTO {$this->table} SET login = ?, password = ?, name = '', email = ?, image = 'no-avatar.jpg', date = NOW(), role = ?";
             $this->db->exec($sql, [$arr['login'], $arr['pass'], $arr['email'], $role]);
             return $this->getInsertID();
         }

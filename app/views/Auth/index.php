@@ -14,6 +14,7 @@
                 <input type="password" class="auth_user--pass" name="pass_user" id="auth_user--pass" placeholder="Пароль">
                 <input type="submit" class="btn_auth--user" value="Войти">
             </form>
+            <a href="/recover" style="display: block; margin-top: 10px; color: #006495;">Забыли пароль?</a>
         </div>
         <div class="block-auth-reg--user">
             <span>Нет аккаунта?</span>

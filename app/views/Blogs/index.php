@@ -37,7 +37,7 @@
                                         <a href="/blogs/detail/<?=$blog['num_id']?>"><?= $blog['title'] ?></a>
                                     </div>
                                     <div class="chit-post__info">
-                                        <div class="tags"><span><?=$blog['cat_title']?></span></div>
+
                                         <div class="day"><span><?= $blog['date'] ?></div>
                                         <div class="comments"><span><i class="fa fa-comment-o" aria-hidden="true"></i><?= $blog['comments'] ?></span></div>
                                     </div>

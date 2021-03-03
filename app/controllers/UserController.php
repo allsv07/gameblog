@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use app\models\Comment;
 use app\models\User;
 
 class UserController extends AppController
@@ -12,12 +13,19 @@ class UserController extends AppController
     public function indexAction()
     {
         $users = new User();
+        $comments = new Comment();
+
 
         $user = $users->getUser("SELECT * FROM `users` WHERE `login` = ?", [$_SESSION['user']['login']]);
-        $user = $this->editNewDate($user);
+        $user = editNewDate($user);
 
+        //получаем все комментарии оставленные пользователем
+        $allCommentsUser = $comments->getCommentsByUser($_SESSION['user']['id']);
+        pr($allCommentsUser);
+        die();
+        $allCommentsUser = editNewDateArray($allCommentsUser);
 
-        $this->setVars(['user' => $user]);
+        $this->setVars(['user' => $user, 'allComments' => $allCommentsUser]);
     }
 
     public function editAction()
@@ -25,7 +33,7 @@ class UserController extends AppController
         $users = new User();
 
         $user = $users->getUser("SELECT * FROM `users` WHERE `login` = ?", [$_SESSION['user']['login']]);
-        $user = $this->editNewDate($user);
+        $user = editNewDate($user);
 
         if (empty($user)) {
             header('Location: /user');
@@ -162,6 +170,17 @@ class UserController extends AppController
         else {
             $_SESSION['error']['pass'] = 'Введите текущий пароль';
         }
+    }
+
+
+    public function dellCommentAction()
+    {
+        $comments = new Comment();
+        $id = $this->route['id'];
+
+        $comments->dellComments($id);
+        header('Location: /user');
+        die();
     }
 
 }

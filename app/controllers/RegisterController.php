@@ -32,6 +32,7 @@ class RegisterController extends AppController
                             $_SESSION['is_user'] = 'user';
                             $_SESSION['user']['login'] = $login;
                             $_SESSION['user']['id'] = $reg;
+                            setcookie('USER', $login, time()+2592000);
                             header('Location: /');
                             die();
                         }

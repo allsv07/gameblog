@@ -40,6 +40,9 @@
                 </div>
             </div>
 
+            <div class="col-md-12 article-img">
+                <img src="<?=PATH_IMAGE?>/<?=$detailCheat['t_img']?>" alt="">
+            </div>
             <div class="article-description">
                 <p><?= $detailCheat['description'] ?></p>
             </div>

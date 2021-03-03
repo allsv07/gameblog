@@ -38,7 +38,7 @@ class NewsController extends AppController
          * Все новости для пагинации
          */
 
-        $allNews = $this->editNewDateArray($allNews);
+        $allNews = editNewDateArray($allNews);
 
         if (count($allNews) > 0) {
             foreach ($allNews as &$News) {
@@ -105,7 +105,7 @@ class NewsController extends AppController
             /**
              * редактируем дату в массиве новости в формат (12 марта 2021)
              */
-            $detailNew = $this->editNewDate($detailNew);
+            $detailNew = editNewDate($detailNew);
 
 
             //добавляем к массиву записи количество комментариев и количество просмотров
@@ -117,7 +117,7 @@ class NewsController extends AppController
 
             //комментарии для конкретной новости
             $arrComments = $comments->getComments($id, 'news');
-            $arrComments = $this->editNewDateArray($arrComments);
+            $arrComments = editNewDateArray($arrComments);
 
             //добавление комментариев
             if (isset($_POST['add_comment'])){
@@ -152,7 +152,8 @@ class NewsController extends AppController
             ]);
         }
         else {
-            header('Location: 404.html');
+            http_response_code(404);
+            include '404.html';
             die();
         }
 
@@ -173,7 +174,8 @@ class NewsController extends AppController
 
             $arrCategory = $news->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
-                header("Location:404.html");
+                http_response_code(404);
+                include '404.html';
                 die();
             }
 
@@ -200,7 +202,7 @@ class NewsController extends AppController
 
 
 
-            $arNewsCat = $this->editNewDateArray($arNewsCat);
+            $arNewsCat = editNewDateArray($arNewsCat);
             if (!empty($arNewsCat)) {
                 foreach ($arNewsCat as &$News) {
                     $News['comments'] = $comments->getCommentsCountByTable('news', $News['num_id']);
@@ -210,7 +212,8 @@ class NewsController extends AppController
 
         }
         else {
-            header('Location:/news');
+            http_response_code(404);
+            include '404.html';
             die();
         }
 

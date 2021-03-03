@@ -32,7 +32,7 @@ class MainController extends AppController
          * Последние новости
          */
         $arrLastNews = $news->last('id', 5);
-        $arrLastNews = $this->editNewDateArray($arrLastNews);
+        $arrLastNews = editNewDateArray($arrLastNews);
 
         if (count($arrLastNews) > 0) {
             foreach ($arrLastNews as &$News) {
@@ -61,13 +61,13 @@ class MainController extends AppController
          * Статьи
          */
         $arrLastArticles = $articles->last('id', 4);
-        $arrLastArticles = $this->editNewDateArray($arrLastArticles);
+        $arrLastArticles = editNewDateArray($arrLastArticles);
 
         /**
          * Читы
          */
         $arrLastChit = $cheats->last('id', 8);
-        $arrLastChit = $this->editNewDateArray($arrLastChit);
+        $arrLastChit = editNewDateArray($arrLastChit);
 
         /**
          * последние комментарии

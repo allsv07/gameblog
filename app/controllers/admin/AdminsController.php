@@ -15,6 +15,7 @@ class AdminsController extends AppController
         //получаем всех пользователей
         $allAdmin = $users->getAllUser('admin');
         $allAdmin = $this->editRoleUser($allAdmin);
+        $allAdmin = editNewDateArray($allAdmin);
 
         $this->setVars(['admins' => $allAdmin]);
     }
@@ -28,6 +29,7 @@ class AdminsController extends AppController
 
         //получаем пользователя
         $user = $users->getUser("SELECT * FROM `users` WHERE `id` = ? AND `role` = 'admin'",[$id]);
+        $user = editNewDate($user);
 
 
         if (isset($_POST['btn_edit'])) {

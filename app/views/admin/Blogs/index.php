@@ -22,7 +22,7 @@
                     <tr style="height: 50px">
                         <td><?=$blog['title']?></td>
                         <td><img style="width: 70px;" src="<?=PATH_IMAGE?>/<?=$blog['image']?>" alt=""></td>
-                        <td><?=$blog['name']?></td>
+                        <td><?=$blog['author']?></td>
                         <td><?=$blog['date']?></td>
                         <td><?=$blog['views']?></td>
                         <td><?=$blog['comments']?></td>

@@ -25,7 +25,6 @@
                 <div class="article-info-author">
                     <div class="image_author">
                         <img src="<?=PATH_AVATAR?>/<?= $detailArticle['u_img'] ?>" alt="<?= $detailArticle['name'] ?>">
-
                     </div>
                     <span class="name-author"><a href="#"><?= $detailArticle['login'] ?></a></span>
                 </div>

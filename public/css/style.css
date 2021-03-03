@@ -17,7 +17,15 @@
 
 .item:hover { cursor: pointer; text-decoration: none; color: #0593da !important; }
 
-.navbar-nav { width: 80% !important; display: flex !important; justify-content: center !important; }
+.navbar-nav { width: 80% !important; display: flex !important; justify-content: center !important; align-items: center; }
+
+.form-search { margin-left: 0px; }
+
+.form-search .text-search { outline: none; border: 1px solid #040405; background: #1e2121; color: #fff; padding-left: 5px; }
+
+.form-search .btn-search { outline: none; border: 1px solid #006495; background: #0E1417; color: #fff; padding-right: 10px; padding-left: 10px; }
+
+.form-search .btn-search:hover { background: #006495; }
 
 .nav-item { padding-left: 10px !important; padding-right: 10px !important; }
 
@@ -356,6 +364,8 @@
 
 .article-content .article-info-views span { padding-left: 5px; color: #666666; font-family: "Roboto", sans-serif; font-size: 13px; font-style: italic; }
 
+.article-content .article-img img { width: 100%; }
+
 .article-content .article-description { border-bottom: 1px solid #DDDDDD; }
 
 .article-content .article-description p { font-family: "Roboto", sans-serif; font-size: 15px; color: #3b3b3b; line-height: 1.6; }
@@ -480,6 +490,8 @@
 
 .bloc_auth-user .btn_auth:hover { background: #006495; color: #fff; font-weight: 500; }
 
+.btn-close { border: none; outline: none; }
+
 .user-is_auth { color: #fff; font-size: 16px; font-family: "Roboto", sans-serif; display: block; text-align: center; margin: 20px 0 50px 0; }
 
 .auth-user_login { color: #fff; font-size: 15px; font-family: "Roboto", sans-serif; }
@@ -542,6 +554,10 @@
 .block-auth--user .auth-block { width: 60%; }
 
 .block-auth--user .auth-block .auth-block { width: 60%; }
+
+.block-auth--user .auth-block .auth-block--info { width: 100%; border: 1px solid #006495; }
+
+.block-auth--user .auth-block .auth-block--info span { display: block; text-align: center; margin: 10px 0px 10px 0px; color: #006495; }
 
 .block-auth--user .auth-block .auth-block--error { width: 100%; border: 1px solid #c44d4d; }
 
@@ -617,6 +633,28 @@
 .block-edit-user .btn-edit { margin-top: 15px; background: #006495; color: #fff; font-family: "Rubik", sans-serif; font-weight: 400; padding: 5px 15px; border: none; border-radius: 3px 0px 3px 0px; transition: 0.5s ease; outline: none; width: 30%; }
 
 .block-edit-user .btn-edit:hover { border-radius: 10px 0px 10px 0px; background: #0675ad; }
+
+.info-user { margin-top: 10px; margin-bottom: 30px; padding-top: 10px; padding-bottom: 10px; background: #1C1C1C; }
+
+.info-user .info-user--all { display: flex; }
+
+.info-user .info-user--all .info-user--comments a { color: #006495; }
+
+.info-user .user--comments { margin-top: 10px; margin-bottom: 10px; }
+
+.info-user .user--comments .all-comments--user { padding: 10px 15px; border: 1px solid #006495; color: #fff; margin-top: 10px; margin-bottom: 10px; }
+
+.info-user .user--comments .all-comments--user .info-comment { margin-bottom: 10px; }
+
+.info-user .user--comments .all-comments--user .info-comment .author-comm { font-family: "Roboto", sans-serif; font-size: 15px; font-weight: 500; }
+
+.info-user .user--comments .all-comments--user .info-comment .date-comm { font-family: "Roboto", sans-serif; font-size: 15px; font-style: italic; }
+
+.info-user .user--comments .all-comments--user .info-comment a { font-family: "Roboto", sans-serif; font-size: 15px; font-style: italic; color: #006495; font-weight: 500; margin-left: 50px; }
+
+.info-user .user--comments .all-comments--user .detail-comment a { color: #006495; font-family: "Roboto", sans-serif; font-size: 18px; }
+
+.info-user .user--comments .all-comments--user .detail-comment p { margin-bottom: 0; }
 
 /*** Pagination ***/
 .block-pagination { display: flex; justify-content: center; margin-top: 50px; }

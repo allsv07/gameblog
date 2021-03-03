@@ -38,7 +38,7 @@ class CheatsController extends AppController
          * Все читы
          */
 
-        $allCheats = $this->editNewDateArray($allCheats);
+        $allCheats = editNewDateArray($allCheats);
 
         if (count($allCheats) > 0) {
             foreach ($allCheats as &$Cheats) {
@@ -84,12 +84,13 @@ class CheatsController extends AppController
          * выбираем конкретную новость для детального просмотра
          */
         $detailCheat = $cheats->findOneByTable($id);
-        $detailCheat = $this->editNewDate($detailCheat);
+        $detailCheat = editNewDate($detailCheat);
 
 
 
         if (empty($detailCheat)) {
-            header('Location:404.html');
+            http_response_code(404);
+            include '404.html';
             die();
         }
 
@@ -114,7 +115,7 @@ class CheatsController extends AppController
 
         //комментарии для конкретной новости
         $arrComments = $comments->getComments($id, 'cheats');
-        $arrComments = $this->editNewDateArray($arrComments);
+        $arrComments = editNewDateArray($arrComments);
 
         //добавление комментариев
         if (isset($_POST['add_comment'])) {
@@ -168,7 +169,8 @@ class CheatsController extends AppController
 
             $arrCategory = $cheats->getCategoryByCode($this->route['code']);
             if (empty($arrCategory)) {
-                header("Location:404.html");
+                http_response_code(404);
+                include '404.html';
                 die();
             }
 
@@ -192,7 +194,7 @@ class CheatsController extends AppController
             // end
 
 
-            $arCheatsCat = $this->editNewDateArray($arCheatsCat);
+            $arCheatsCat = editNewDateArray($arCheatsCat);
 
             if (!empty($arCheatsCat)) {
                 foreach ($arCheatsCat as &$Cheats) {

@@ -21,14 +21,14 @@
             <? if (!empty($comments)): ?>
                 <? foreach ($comments as $comment): ?>
                     <tr style="height: 50px">
-                        <td><?=$comment['author']?></td>
+                        <td><a href="/admin/users/edit/<?=$comment['u_id'];?>"><?=$comment['author']?></a></td>
                         <td><?=$comment['comment']?></td>
                         <td><?=$comment['title']?></td>
                         <td><?=($comment['active'] > 0) ? 'Включен' : 'Отключен';?></td>
                         <td><?=$comment['date']?></td>
                         <td>
                             <a href="/admin/comments/edit/<?=$comment['id']?>" class="edit"><i class="fa fa-pencil" aria-hidden="true"></i></a>
-                            <a href="/admin/comments/delete/<?=$comment['id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
+                            <a href="/admin/comments/dell/<?=$comment['id']?>" onclick="return confirmDelete();" class="del"><i class="fa fa-trash" aria-hidden="true"></i></a>
                         </td>
                     </tr>
                 <? endforeach; ?>
